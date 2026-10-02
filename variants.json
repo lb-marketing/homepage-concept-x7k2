@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "label": "Hero headline",
+    "options": [
+      "Engineering context layer / to drive productivity",
+      "The context layer for / engineering productivity",
+      "Drive productivity / with engineering context",
+      "Productivity runs on / engineering context",
+      "Put engineering / context to work",
+      "Context that drives / productivity"
+    ],
+    "default": 1
+  },
+  "sub": {
+    "label": "Hero subheading",
+    "options": [
+      "The data behind every engineering decision, *from an agent approving a PR to a person reporting AI ROI to the board.*",
+      "The data behind every engineering decision, *from which PRs an agent can merge to how much to invest in AI.*",
+      "The data agents and people need to act, *from approving a PR to reporting AI ROI to the board.*",
+      "The data behind every engineering answer, *from whether an agent's PR can merge to whether AI is paying off.*"
+    ],
+    "default": 2
+  },
+  "walk": {
+    "label": "Product tour heading",
+    "options": [
+      "Instant answers to your most pressing engineering questions",
+      "Ask LinearB the questions that matter most",
+      "Ask your hardest questions about engineering",
+      "Get answers to the questions your leadership is asking"
+    ],
+    "default": 0
+  },
+  "seats-lede": {
+    "label": "Role cards subheading",
+    "options": [
+      "LinearB puts the right context in front of every agent and person, at the moment they decide.",
+      "When a metric moves, agents and people ask LinearB why, then act on the answer.",
+      "Agents and leaders see the same data, zoomed to the decision in front of them."
+    ],
+    "default": 0
+  }
+}
