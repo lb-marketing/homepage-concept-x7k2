@@ -123,7 +123,7 @@ function refresh(){
   const n = items.filter(it => cur(it) !== it.def()).length;
   lockAll.disabled = !n || !canSave;
   reset.disabled = !n;
-  if(!canSave) status('Preview only: run serve.py to lock in', true);
+  if(!canSave) status(/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) ? 'Preview only: run serve.py to lock in' : 'Preview only', true);
   else status(n ? `${n} not locked in` : 'All on default');
 }
 
@@ -215,6 +215,9 @@ function build(){
     data = await r.json();
   } catch { data = {}; canSave = false; }
   // a plain static server can't save, so say "preview only" up front
+  // only the local dev server can save; shared copies just preview
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if(canSave && !local) canSave = false;
   if(canSave) try { canSave = (await fetch('/api/variants', {method:'OPTIONS'})).ok; } catch { canSave = false; }
 
   const texts = [...document.querySelectorAll('[data-variant]')]
