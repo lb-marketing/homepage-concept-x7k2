@@ -671,6 +671,64 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 section[aria-label="The context layer"]>.hero-frame{--f:clamp(12px,2vw,22px);display:grid;gap:var(--f);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:none}
 .feed-panel{padding:18px clamp(16px,2.4vw,28px) 6px;border-radius:24px;background:#fff}
+
+/* hero visual, pipeline option: sources by SDLC stage, the five stages LinearB runs them through
+   as stacked layers (as in the explainer video), and who the context is served to */
+.hero-pipe{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
+.hero-pipe .win{margin:0;box-shadow:none}
+.pl-grid{display:grid;grid-template-columns:minmax(0,240px) minmax(260px,1fr) minmax(0,300px);gap:28px;padding:24px 26px 26px;align-items:center}
+.pl-h{margin:0 0 10px;font:600 14.5px/1.25 var(--display);color:var(--text)}
+.pl-src{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.pl-src li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px 7px 12px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
+.pl-k{font:500 13px var(--sans);color:var(--text)}
+.pl-tools{display:flex;align-items:center;gap:7px}
+.pl-tools em{font:12px var(--sans);font-style:normal;color:#8798a7}
+.pl-ic{display:block;width:15px;height:15px;background:#4d5865;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.pl-more{margin:10px 2px 0;font:500 13px var(--sans);color:var(--indigo)}
+.pl-core{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 0}
+.pl-core .core-tag{position:static;transform:none;margin-bottom:4px}
+.pl-stack{list-style:none;margin:0;padding:0;width:100%;max-width:380px;display:grid;gap:4px}
+/* each stage is a glass slab seen from above: only the slab is tilted, the label stays flat */
+.pl-plate{position:relative;display:flex;align-items:center;gap:10px;height:58px;padding:0 26px;perspective:700px}
+.pl-plate::before{content:"";position:absolute;inset:8px 6px;border-radius:16px;transform:rotateX(58deg);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 55%,#fff),var(--pc));
+  box-shadow:0 7px 0 color-mix(in srgb,var(--pc) 70%,#1b2550),0 16px 22px -6px color-mix(in srgb,var(--pc) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.6)}
+.pl-plate>*{position:relative}
+.pl-plate:nth-child(1){--pc:#7fe0ea}.pl-plate:nth-child(2){--pc:#6cc9e6}.pl-plate:nth-child(3){--pc:#7aa8f2}.pl-plate:nth-child(4){--pc:#8790f6}.pl-plate:nth-child(5){--pc:#7b85fb}
+.pl-n{font:600 12px var(--mono);color:rgba(20,30,60,.55)}
+.pl-s{font:600 15px var(--display);color:#14203a;letter-spacing:.01em}
+.pl-bench{margin-left:auto;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.8);font:600 11px/1.4 var(--sans);color:#14203a;white-space:nowrap}
+/* signal rising through the layers, from collect to serve */
+.pl-rise{position:absolute;left:50%;bottom:14px;top:50px;width:2px;margin-left:-1px;pointer-events:none;background:linear-gradient(to top,transparent,rgba(91,102,251,.18) 30%,rgba(16,185,208,.2) 70%,transparent)}
+.pl-rise::before,.pl-rise::after{content:"";position:absolute;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--indigo);box-shadow:0 0 12px var(--indigo);animation:pl-up 3.2s cubic-bezier(.4,0,.6,1) infinite}
+.pl-rise::after{background:var(--teal);box-shadow:0 0 12px var(--teal);animation-delay:1.6s}
+@keyframes pl-up{0%{bottom:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{bottom:100%;opacity:0}}
+.pl-out{display:grid;gap:16px}
+.pl-serve{padding:14px 16px;border-radius:16px;background:var(--pane)}
+.pl-via{display:flex;flex-wrap:wrap;gap:6px;margin:-2px 0 10px}
+.pl-via span{padding:3px 9px;border-radius:999px;background:#fff;font:500 12px/1.4 var(--sans);color:#4d5865;box-shadow:inset 0 0 0 1px var(--rule)}
+.pl-uses{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pl-uses li{position:relative;padding-left:16px;font:13.5px/1.4 var(--sans);color:var(--text)}
+.pl-uses li::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.pl-metric{display:flex;align-items:baseline;gap:10px;padding:2px 4px}
+.pl-metric span{font:13px var(--sans);color:#4d5865}
+.pl-metric b{margin-left:auto;font:600 18px var(--display);color:var(--text)}
+.pl-metric b.tick{animation:tick 1.2s ease-out}
+.pl-metric em{font:12.5px var(--sans);font-style:normal;color:#8798a7}
+@media (max-width:900px){
+  .pl-grid{grid-template-columns:1fr;gap:22px;padding:20px 16px}
+  .pl-stack{max-width:300px}
+}
+@media (prefers-reduced-motion:reduce){.pl-rise::before,.pl-rise::after{animation:none;opacity:0}}
+/* hero visual, video option: the explainer in the same aqua frame, click to play */
+.hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
+.hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
+.hv-frame video{display:block;width:100%;height:100%;object-fit:cover}
+.hv-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border:0;border-radius:50%;background:var(--indigo);box-shadow:0 10px 30px rgba(91,102,251,.4);cursor:pointer;transition:transform .2s}
+.hv-play::before{content:"";position:absolute;left:34px;top:27px;border-style:solid;border-width:15px 0 15px 24px;border-color:transparent transparent transparent #fff}
+.hv-play:hover{transform:scale(1.06)}
+.hv-frame.playing .hv-play{display:none}
+
 .feed-panel .log-head{margin-bottom:12px}
 .feed-panel .lanes{border-bottom:0}
 
@@ -1328,7 +1386,7 @@ canvas.gl{image-rendering:auto}
   </section>
 
   <section class="wrap" aria-label="The context layer">
-    <div class="hero-frame">
+    <div class="hero-frame" aria-label="Hero visual" data-slot="hero-visual" data-option="Metrics card" data-default>
     <div class="win">
       <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title" data-brand="Live context layer">context-layer — live</span><span class="note">Sample data</span></div>
       <div class="ctx" id="ctx">
@@ -1390,6 +1448,42 @@ canvas.gl{image-rendering:auto}
     </div>
     </div>
   </div>
+    <div class="hero-pipe" data-slot="hero-visual" data-option="Context pipeline" hidden>
+      <div class="win">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Live context layer</span><span class="note">Sample data</span></div>
+        <div class="pl-grid">
+          <div class="pl-in">
+            <p class="pl-h">Collected across your SDLC</p>
+            <ul class="pl-src"><li><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li></ul>
+            <p class="pl-more">+ 50 more integrations</p>
+          </div>
+          <div class="pl-core" aria-label="How LinearB builds the context layer">
+            <span class="core-tag">LinearB context layer</span>
+            <ol class="pl-stack"><li class="pl-plate" style="--i:0"><span class="pl-n">5</span><span class="pl-s">Serve</span></li><li class="pl-plate" style="--i:1"><span class="pl-n">4</span><span class="pl-s">Specialize</span><b class="pl-bench">Benchmarked against 8.1M+ PRs</b></li><li class="pl-plate" style="--i:2"><span class="pl-n">3</span><span class="pl-s">Infer</span></li><li class="pl-plate" style="--i:3"><span class="pl-n">2</span><span class="pl-s">Normalize</span></li><li class="pl-plate" style="--i:4"><span class="pl-n">1</span><span class="pl-s">Collect</span></li></ol>
+            <i class="pl-rise" aria-hidden="true"></i>
+          </div>
+          <div class="pl-out">
+            <div class="pl-serve">
+              <p class="pl-h">Served to agents</p>
+              <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
+              <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
+            </div>
+            <div class="pl-serve">
+              <p class="pl-h">Served to leaders</p>
+              <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
+              <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
+            </div>
+            <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-video" data-slot="hero-visual" data-option="Explainer video" hidden>
+      <div class="hv-frame">
+        <video id="ctx-video" src="media/context-engine.mp4" poster="media/context-engine-poster.jpg" preload="none" playsinline></video>
+        <button type="button" class="hv-play" id="ctx-video-play" aria-label="Play the video: how LinearB builds the context layer"></button>
+      </div>
+    </div>
   </section>
 
   <section class="wrap proof" aria-label="Customer logos" data-slot="logos" data-option="Between hero card and role cards (v1)" hidden>
@@ -2228,17 +2322,25 @@ function initCtx(core, style){
 
 /* ---------- Hero readouts: the numbers keep moving, so the layer reads as always on (sample data) ---------- */
 {
-  const cells = [...document.querySelectorAll('.readout-pane td[data-live]')];
+  const cells = [...document.querySelectorAll('.readout-pane td[data-live], .pl-metric b[data-live]')];
   const show = td => {
     const v = +td.dataset.live*(1 + (Math.random()*2 - 1)*+td.dataset.j);
     td.textContent = td.dataset.fmt.replace('{v}', v.toFixed(+td.dataset.dec));
     td.classList.remove('tick'); void td.offsetWidth; td.classList.add('tick');
   };
-  let live = false;
-  if(!reduce && cells.length){
-    new IntersectionObserver(es => { live = es[0].isIntersecting; }).observe(cells[0].closest('.win'));
-    setInterval(() => { if(live && !document.hidden) show(cells[Math.floor(Math.random()*cells.length)]); }, 1400);
-  }
+  // only the figures actually on screen move (whichever hero card is showing, once it's in view)
+  const onScreen = td => { const r = td.getBoundingClientRect(); return r.height > 0 && r.bottom > 0 && r.top < innerHeight; };
+  if(!reduce && cells.length) setInterval(() => {
+    if(document.hidden) return;
+    const vis = cells.filter(onScreen);
+    if(vis.length) show(vis[Math.floor(Math.random()*vis.length)]);
+  }, 1400);
+}
+
+/* ---------- Hero visual, video option: click to play ---------- */
+{
+  const v = document.getElementById('ctx-video'), b = document.getElementById('ctx-video-play');
+  if(v && b) b.addEventListener('click', () => { v.controls = true; v.parentElement.classList.add('playing'); v.play(); });
 }
 
 /* ---------- Context feed (illustrative) ---------- */
