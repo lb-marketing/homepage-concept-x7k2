@@ -349,6 +349,8 @@ canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-r
 .proof-top{padding-block:clamp(8px,1.4vw,16px) 0}
 .proof-top .grp-h{margin-bottom:0}
 .proof-top .marquee.rev{display:none}
+/* the same strip, moved under the hero visual */
+.proof-below{padding-block:clamp(16px,2vw,28px) 0}
 
 .marquee{display:flex;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .logos{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:88px;padding-right:88px;flex:0 0 auto;animation:marq 60s linear infinite}
@@ -1451,7 +1453,7 @@ canvas.gl{image-rendering:auto}
     </div>
   </section>
 
-  <section class="wrap proof proof-top" aria-label="Customer logos" data-slot="logos" data-option="Under the hero headline" data-default>
+  <section class="wrap proof proof-top" aria-label="Customer logos" data-slot="logos" data-option="Under the hero headline" hidden>
     <p class="grp-h" data-brand="Trusted by the teams transforming software delivery">trusted by the teams transforming software delivery</p>
     <div class="marquee">
       <ul class="logos">
@@ -1690,6 +1692,77 @@ canvas.gl{image-rendering:auto}
     </div>
   </section>
 
+  <section class="wrap proof proof-top proof-below" aria-label="Customer logos" data-slot="logos" data-option="Under the hero visual" data-default>
+    <p class="grp-h" data-brand="Trusted by the teams transforming software delivery">trusted by the teams transforming software delivery</p>
+    <div class="marquee">
+      <ul class="logos">
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/survey-monkey" alt="SurveyMonkey"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/peloton" alt="Peloton"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/equinix" alt="Equinix"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/norwegian-cruise-line" alt="Norwegian Cruise Line"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/vizio" alt="Vizio"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/gainwell" alt="Gainwell"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/big-id" alt="BigID"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/survey-monkey" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/peloton" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/equinix" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/norwegian-cruise-line" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/vizio" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/gainwell" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/big-id" alt=""></li>
+      </ul>
+      <ul class="logos" aria-hidden="true">
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/survey-monkey" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/peloton" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/equinix" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/norwegian-cruise-line" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/vizio" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/gainwell" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/big-id" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/survey-monkey" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/peloton" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/equinix" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/norwegian-cruise-line" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/vizio" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/gainwell" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/big-id" alt=""></li>
+      </ul>
+    </div>
+    <div class="marquee rev">
+      <ul class="logos">
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/expedia" alt="Expedia"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/syngenta" alt="Syngenta"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/ingka" alt="Ingka"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/silicon-labs" alt="Silicon Labs"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/astronomer" alt="Astronomer"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/mitratech" alt="Mitratech"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/solace-logo-grey_1" alt="Solace"></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/expedia" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/syngenta" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/ingka" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/silicon-labs" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/astronomer" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/mitratech" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/solace-logo-grey_1" alt=""></li>
+      </ul>
+      <ul class="logos" aria-hidden="true">
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/expedia" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/syngenta" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/ingka" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/silicon-labs" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/astronomer" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/mitratech" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/solace-logo-grey_1" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/expedia" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/syngenta" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/ingka" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/silicon-labs" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/astronomer" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/mitratech" alt=""></li>
+        <li><img src="https://assets.linearb.io/image/upload/c_fit,w_640,h_192/f_auto/q_auto/v1/solace-logo-grey_1" alt=""></li>
+      </ul>
+    </div>
+  </section>
   <section class="wrap proof" aria-label="Customer logos" data-slot="logos" data-option="Between hero card and role cards (v1)" hidden>
     <p class="grp-h" data-brand="Trusted by the teams transforming software delivery">trusted by the teams transforming software delivery</p>
     <div class="marquee">
