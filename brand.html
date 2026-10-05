@@ -832,7 +832,10 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-pane.on .tn-glass::before{animation-name:tn-sweep-x}
   .tn-pane > p{margin:0}
   .tn-l{order:1;padding-left:4px;font-size:14.5px}
-  .tn-d,.hero-tunnel.tn-3 .tn-d{order:2;flex:0 0 100%;display:block;margin:0;padding:0 0 0 4px;max-width:none;text-align:left;font-size:12.5px}
+  .tn-d,.hero-tunnel.tn-3 .tn-d{order:2;flex:0 0 100%;display:block;margin:0;padding:0 44% 0 4px;box-sizing:border-box;max-width:none;text-align:left;font-size:12.5px}
+  /* the highlighted event's chip keeps to the right, clear of the stage names on the left */
+  .tn-chip{max-width:36%;white-space:normal;align-items:flex-start;border-radius:12px;font-size:11.5px;line-height:1.3;padding:6px 10px 6px 8px}
+  .tn-chip i{margin-top:4px}
 }
 /* phones: agents and leaders side by side, so the left lanes split to agents and the right to leaders */
 @media (max-width:900px){
@@ -2600,7 +2603,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     const entry = wide ? T.l + 4 : T.t + 4, exit = wide ? T.r - 4 : T.b - 4;
     const su = paneAt.map((i, s) => i >= 0 ? (wide ? gl[i].l + gl[i].w/2 : gl[i].t + gl[i].h/2) : (s === 0 ? entry : exit - 1));
     const span = v1 - v0;
-    L = {wide, entry, exit, su,
+    L = {wide, entry, exit, su, tubeR:T.r,
       vMin:v0 + span*0.14, vMax:v1 - span*0.14,
       lane:Array.from({length:LANES}, (_, i) => v0 + span*(0.24 + 0.52*i/(LANES-1))),
       rows:rows.map(rel), outs:outs.map(rel), src:rel(box.querySelector('.tn-in'))};
@@ -2630,7 +2633,8 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   const rgb = c => `rgb(${c.join(',')})`;
   function colourOf(p){ return p.stage >= 3 ? p.tier : p.stage >= 1 ? ONE : SRC[p.aliases[0].k]; }
   function setChip(p, i){
-    chipText.textContent = p.story.labels[i];
+    // keep ids like PAY-1142 and PR #482 in one piece when the chip wraps on phones
+    chipText.textContent = p.story.labels[i].replace(/-/g, '\u2011').replace(/(PR|build) #/g, '$1\u00a0#');
     chip.style.setProperty('--c', rgb(colourOf(p)));
     chip.classList.add('show');
     chip.classList.remove('pop'); void chip.offsetWidth; chip.classList.add('pop');
@@ -2747,7 +2751,8 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     }
     if(feat && feat.stage >= 0){
       const cw = chip.offsetWidth, ch = chip.offsetHeight;
-      const x = feat.x - cw/2, y = feat.y - ch - (L.wide ? 16 : 12);
+      // phones: pinned to the right of the tube, so it runs down beside the stage names, not over them
+      const x = L.wide ? feat.x - cw/2 : L.tubeR - cw - 10, y = feat.y - ch - (L.wide ? 16 : 10);
       chip.style.transform = `translate(${Math.max(8, Math.min(W - cw - 8, x)).toFixed(1)}px,${Math.max(4, y).toFixed(1)}px)`;
     }
   }
