@@ -674,11 +674,7 @@ section[aria-label="The context layer"]>.hero-frame{--f:clamp(12px,2vw,22px);dis
 section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:none}
 .feed-panel{padding:18px clamp(16px,2.4vw,28px) 6px;border-radius:24px;background:#fff}
 
-/* hero visual, pipeline option: sources by SDLC stage, the five stages LinearB runs them through
-   as stacked layers (as in the explainer video), and who the context is served to */
-.hero-pipe{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
-.hero-pipe .win{margin:0;box-shadow:none}
-.pl-grid{display:grid;grid-template-columns:minmax(0,240px) minmax(260px,1fr) minmax(0,300px);gap:28px;padding:24px 26px 26px;align-items:center}
+/* shared by the hero tunnel: source rows, output cards and the live metric */
 .pl-h{margin:0 0 10px;font:600 14.5px/1.25 var(--display);color:var(--text)}
 .pl-src{list-style:none;margin:0;padding:0;display:grid;gap:7px}
 .pl-src li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px 7px 12px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
@@ -687,24 +683,6 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .pl-tools em{font:12px var(--sans);font-style:normal;color:#8798a7}
 .pl-ic{display:block;width:15px;height:15px;background:#4d5865;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
 .pl-more{margin:10px 2px 0;font:500 13px var(--sans);color:var(--indigo)}
-.pl-core{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 0}
-.pl-core .core-tag{position:static;transform:none;margin-bottom:4px}
-.pl-stack{list-style:none;margin:0;padding:0;width:100%;max-width:380px;display:grid;gap:4px}
-/* each stage is a glass slab seen from above: only the slab is tilted, the label stays flat */
-.pl-plate{position:relative;display:flex;align-items:center;gap:10px;height:58px;padding:0 26px;perspective:700px}
-.pl-plate::before{content:"";position:absolute;inset:8px 6px;border-radius:16px;transform:rotateX(58deg);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 55%,#fff),var(--pc));
-  box-shadow:0 7px 0 color-mix(in srgb,var(--pc) 70%,#1b2550),0 16px 22px -6px color-mix(in srgb,var(--pc) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.6)}
-.pl-plate>*{position:relative}
-.pl-plate:nth-child(1){--pc:#7fe0ea}.pl-plate:nth-child(2){--pc:#6cc9e6}.pl-plate:nth-child(3){--pc:#7aa8f2}.pl-plate:nth-child(4){--pc:#8790f6}.pl-plate:nth-child(5){--pc:#7b85fb}
-.pl-n{font:600 12px var(--mono);color:rgba(20,30,60,.55)}
-.pl-s{font:600 15px var(--display);color:#14203a;letter-spacing:.01em}
-.pl-bench{margin-left:auto;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.8);font:600 11px/1.4 var(--sans);color:#14203a;white-space:nowrap}
-/* signal rising through the layers, from collect to serve */
-.pl-rise{position:absolute;left:50%;bottom:14px;top:50px;width:2px;margin-left:-1px;pointer-events:none;background:linear-gradient(to top,transparent,rgba(91,102,251,.18) 30%,rgba(16,185,208,.2) 70%,transparent)}
-.pl-rise::before,.pl-rise::after{content:"";position:absolute;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--indigo);box-shadow:0 0 12px var(--indigo);animation:pl-up 3.2s cubic-bezier(.4,0,.6,1) infinite}
-.pl-rise::after{background:var(--teal);box-shadow:0 0 12px var(--teal);animation-delay:1.6s}
-@keyframes pl-up{0%{bottom:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{bottom:100%;opacity:0}}
 .pl-out{display:grid;gap:16px}
 .pl-serve{padding:14px 16px;border-radius:16px;background:var(--pane)}
 .pl-via{display:flex;flex-wrap:wrap;gap:6px;margin:-2px 0 10px}
@@ -717,11 +695,6 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .pl-metric b{margin-left:auto;font:600 18px var(--display);color:var(--text)}
 .pl-metric b.tick{animation:tick 1.2s ease-out}
 .pl-metric em{font:12.5px var(--sans);font-style:normal;color:#8798a7}
-@media (max-width:900px){
-  .pl-grid{grid-template-columns:1fr;gap:22px;padding:20px 16px}
-  .pl-stack{max-width:300px}
-}
-@media (prefers-reduced-motion:reduce){.pl-rise::before,.pl-rise::after{animation:none;opacity:0}}
 /* the agents LinearB's MCP server documents as supported clients, beside "to agents" */
 .pl-serve .pl-h:has(.pl-logos){display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 10px}
 .pl-logos{display:flex;align-items:center;gap:8px}
@@ -1588,36 +1561,6 @@ canvas.gl{image-rendering:auto}
     </div>
     </div>
   </div>
-    <div class="hero-pipe" data-slot="hero-visual" data-option="Context pipeline" hidden>
-      <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
-        <div class="pl-grid">
-          <div class="pl-in">
-            <p class="pl-h">Collected across your SDLC</p>
-            <ul class="pl-src"><li><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li></ul>
-            <p class="pl-more">+ 50 more integrations</p>
-          </div>
-          <div class="pl-core" aria-label="How LinearB builds the context layer">
-            <span class="core-tag">LinearB context layer</span>
-            <ol class="pl-stack"><li class="pl-plate" style="--i:0"><span class="pl-n">5</span><span class="pl-s">Serve</span></li><li class="pl-plate" style="--i:1"><span class="pl-n">4</span><span class="pl-s">Specialize</span><b class="pl-bench">Benchmarked against 8.1M+ PRs</b></li><li class="pl-plate" style="--i:2"><span class="pl-n">3</span><span class="pl-s">Infer</span></li><li class="pl-plate" style="--i:3"><span class="pl-n">2</span><span class="pl-s">Normalize</span></li><li class="pl-plate" style="--i:4"><span class="pl-n">1</span><span class="pl-s">Collect</span></li></ol>
-            <i class="pl-rise" aria-hidden="true"></i>
-          </div>
-          <div class="pl-out">
-            <div class="pl-serve">
-              <p class="pl-h"><span>Served to agents</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
-              <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
-              <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
-            </div>
-            <div class="pl-serve">
-              <p class="pl-h">Served to leaders</p>
-              <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
-              <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
-            </div>
-            <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel" data-default>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
