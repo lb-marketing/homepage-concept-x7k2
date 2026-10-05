@@ -17,9 +17,10 @@
       "The data behind every engineering decision, *from an agent approving a PR to a person reporting AI ROI to the board.*",
       "The data behind every engineering decision, *from which PRs an agent can merge to how much to invest in AI.*",
       "The data agents and people need to act, *from approving a PR to reporting AI ROI to the board.*",
-      "The data behind every engineering answer, *from whether an agent's PR can merge to whether AI is paying off.*"
+      "The data behind every engineering answer, *from whether an agent's PR can merge to whether AI is paying off.*",
+      "LinearB is the engineering context layer, serving agents and leaders *from approving a PR to reporting AI ROI to the board.*"
     ],
-    "default": 2
+    "default": 4
   },
   "walk": {
     "label": "Product tour heading",
