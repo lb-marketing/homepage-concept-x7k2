@@ -734,7 +734,7 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
    Infer        each event becomes a linked PR, ticket and build
    Specialize   each one picks up a benchmark tier (elite, good, fair, needs focus)
    Serve        top lanes go to agents, bottom lanes to leaders
-   The 3-stage version treats the sources column as Collect and the outputs as Serve. */
+   The sources column is Collect and the outputs are Serve, so the tunnel holds the middle three. */
 .hero-tunnel{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hero-tunnel .win{margin:0;box-shadow:none}
 .tn{position:relative;isolation:isolate}
@@ -1618,40 +1618,7 @@ canvas.gl{image-rendering:auto}
         </div>
       </div>
     </div>
-    <div class="hero-tunnel" data-slot="hero-visual" data-option="Context tunnel, 5 stages" hidden>
-      <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
-        <div class="tn">
-          <canvas class="tn-fx" aria-hidden="true"></canvas>
-          <div class="tn-grid">
-            <div class="tn-in">
-              <p class="pl-h">Collected across your SDLC</p>
-              <ul class="pl-src tn-src"><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-k="3"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="4"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li></ul>
-              <p class="pl-more">+ 50 more integrations</p>
-            </div>
-            <div class="tn-core" aria-label="How LinearB builds the context layer">
-              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="0"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">1</span>Collect</p><p class="tn-d">Every commit, ticket and build</p></li><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">One identity per engineer</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Infer</p><p class="tn-d">Each PR linked to its ticket and build</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Benchmarked against 8.1M+ PRs</p></li><li class="tn-pane" data-s="4"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">5</span>Serve</p><p class="tn-d">To agents and people, on demand</p></li></ol></div>
-              <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
-            </div>
-            <div class="pl-out tn-out">
-              
-              <div class="pl-serve" data-out="0">
-                <p class="pl-h"><span>Served to agents</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
-                <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
-                <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
-              </div>
-              <div class="pl-serve" data-out="1">
-                <p class="pl-h">Served to leaders</p>
-                <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
-                <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
-              </div>
-              <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel, 3 stages" data-default>
+    <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel" data-default>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
         <div class="tn">
