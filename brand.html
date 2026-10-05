@@ -1342,7 +1342,9 @@ canvas.gl{image-rendering:auto}
 /* hero: a two-line headline block, with the subheading and buttons centred beside it.
    fitHero (script below) sizes the headline so each written line fits the column on one line,
    up to 64px; where even 36px can't hold them (phones), the lines run together and balance. */
-.hero{align-items:center}
+.hero{align-items:start}
+/* nudge the subheading so its first line lines up with the top of the headline's capitals */
+.hero .sub{margin-top:5px}
 .hero h1{font-size:var(--h1-fit,clamp(36px,4.6vw,64px));line-height:1.02}
 .hero h1.measuring .ln{display:inline-block;white-space:nowrap}
 .hero h1.flow{text-wrap:balance}
