@@ -800,36 +800,41 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .tn-chip i{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--c,#5b66fb)}
 .tn-chip.pop span{animation:tn-pop .35s ease-out}
 @keyframes tn-pop{0%{opacity:.15}100%{opacity:1}}
-/* phones: the stages stack top down as slabs seen from above, and the events fall through them */
+/* phones: the desktop layout turned a quarter turn. Sources sit above, the stages stack top
+   down as the same glass slabs (now tilted towards the incoming data at the top), each name sits
+   beside its slab where it sat below it on desktop, and the outputs follow underneath */
 @media (max-width:900px){
   .tn-grid{grid-template-columns:1fr;gap:26px;padding:20px 16px}
   .tn-src{grid-template-columns:1fr 1fr}
-  .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:4px;padding:22px 14px 22px}
-  .tn-pane{--gh:58px;flex-direction:row;align-items:center;gap:14px}
-  .tn-glass,.hero-tunnel.tn-3 .tn-glass{flex:0 0 auto;width:56%;border-radius:14px;transform:perspective(420px) rotateX(50deg);
-    box-shadow:0 7px 0 -1px color-mix(in srgb,var(--pc) 42%,#fff),inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
-      0 16px 22px -12px color-mix(in srgb,var(--pc) 60%,transparent),0 0 calc(var(--g)*24px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent)}
-  .tn-glass::after{inset:6px 10px}
+  .tn-src .pl-tools{gap:5px}
+  .tn-src .pl-ic{width:14px;height:14px}
+  .tn-src li:last-child .pl-ic:nth-child(n+5){display:none}
+  .tn-src .pl-k{white-space:nowrap}
+  .tn-tube::before{background:radial-gradient(60% 70% at 64% 50%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(180deg,#e2f8fb,#e8ebff)}
+  .tn-tube::after{left:3%;right:auto;top:3%;bottom:3%;width:44%;height:auto;transform:perspective(360px) rotateY(62deg);transform-origin:left;
+    -webkit-mask:linear-gradient(to right,#000,transparent 90%);mask:linear-gradient(to right,#000,transparent 90%)}
+  .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:18px;padding:28px 18px 28px 12px}
+  .tn-pane{--gh:92px;display:grid;grid-template-columns:minmax(0,1fr) 60%;grid-template-rows:1fr auto auto 1fr;column-gap:14px}
+  .tn-glass,.hero-tunnel.tn-3 .tn-glass{grid-column:2;grid-row:1/5;align-self:center;width:100%;border-radius:18px;transform:perspective(520px) rotateX(-44deg);
+    background:linear-gradient(202deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.4) 30%,rgba(255,255,255,.1) 56%,rgba(255,255,255,.55) 100%),
+      linear-gradient(90deg,color-mix(in srgb,var(--pc) 12%,transparent),color-mix(in srgb,var(--pc) 30%,transparent));
+    box-shadow:0 -8px 0 -1px color-mix(in srgb,var(--pc) 42%,#fff),inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
+      0 24px 30px -16px color-mix(in srgb,var(--pc) 60%,transparent),0 0 calc(var(--g)*28px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent)}
+  .tn-glass::after{inset:9px 10px}
   .tn-pane[data-s="1"] .tn-glass::after{inset:6px 0;background:linear-gradient(90deg,transparent calc(24% - 1px),rgba(47,169,226,.5) calc(24% - 1px),rgba(47,169,226,.5) calc(24% + 1px),transparent calc(24% + 1px),transparent calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% + 1px),transparent calc(41.33% + 1px),transparent calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% + 1px),transparent calc(58.67% + 1px),transparent calc(76% - 1px),rgba(47,169,226,.5) calc(76% - 1px),rgba(47,169,226,.5) calc(76% + 1px),transparent calc(76% + 1px))}
   .tn-pane[data-s="2"] .tn-glass::after{background-size:auto 46px;background-repeat:repeat-x}
   .tn-pane[data-s="3"] .tn-glass::after{background:
     repeating-linear-gradient(90deg,rgba(101,119,247,.45) 0 1px,transparent 1px 12px) top/100% 6px no-repeat,
     linear-gradient(90deg,rgba(14,159,110,.2) 0 25%,rgba(91,102,251,.18) 25% 50%,rgba(201,135,0,.16) 50% 75%,rgba(255,99,69,.18) 75%)}
   .tn-pane[data-s="4"] .tn-glass::after{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2226%22%20height%3D%2224%22%20viewBox%3D%220%200%2026%2024%22%3E%3Cpath%20d%3D%22M7%208%20L13%2014%20L19%208%22%20stroke%3D%22%235b66fb%22%20stroke-opacity%3D%22.35%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") center/26px 22px repeat}
+  /* the light sweeps across the slab rather than down it */
+  .tn-glass::before{background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.95) 50%,transparent 100%) -100% 0/50% 100% no-repeat}
+  .tn-pane.on .tn-glass::before{animation-name:tn-sweep-x}
   .tn-pane > p{margin:0}
-  .tn-l{font-size:14px;margin:0}
-  /* slab on the left, its name and line centred beside it */
-  .tn-pane{display:grid;grid-template-columns:56% minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;column-gap:14px;min-height:76px}
-  .tn-glass{grid-row:1/5;align-self:center}
-  .tn-l{grid-row:2}
-  .tn-d{grid-row:3}
-  .tn-src .pl-tools{gap:5px}
-  .tn-src .pl-ic{width:14px;height:14px}
-  .tn-src li:last-child .pl-ic:nth-child(n+5){display:none}
-  .tn-src .pl-k{white-space:nowrap}
-  .tn-d,.hero-tunnel.tn-3 .tn-d{display:block;align-self:start;margin-top:2px;padding:0;max-width:none;text-align:left;font-size:12px}
-  .tn-tube::after{display:none}
+  .tn-l{grid-column:1;grid-row:2;justify-content:flex-end;font-size:14.5px}
+  .tn-d,.hero-tunnel.tn-3 .tn-d{grid-column:1;grid-row:3;display:block;margin-top:3px;padding:0;max-width:none;text-align:right;font-size:12px}
 }
+@keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
@@ -2727,8 +2732,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     }
     if(feat && feat.stage >= 0){
       const cw = chip.offsetWidth, ch = chip.offsetHeight;
-      // phones: the chip rides just above the event, over the slab column, so the stage names stay clear
-      const x = L.wide ? feat.x - cw/2 : feat.x - 30, y = L.wide ? feat.y - ch - 16 : feat.y - ch - 12;
+      const x = feat.x - cw/2, y = feat.y - ch - (L.wide ? 16 : 12);
       chip.style.transform = `translate(${Math.max(8, Math.min(W - cw - 8, x)).toFixed(1)}px,${Math.max(4, y).toFixed(1)}px)`;
     }
   }
