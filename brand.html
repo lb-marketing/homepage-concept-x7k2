@@ -720,6 +720,117 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .pl-stack{max-width:300px}
 }
 @media (prefers-reduced-motion:reduce){.pl-rise::before,.pl-rise::after{animation:none;opacity:0}}
+/* hero visual, tunnel options: the five stages as glass panes read left to right. Each pane
+   does something visible to the events crossing it, as in the explainer video:
+   Collect      raw events arrive scattered, one dot per alias, coloured by tool
+   Normalize    a person's aliases merge into one identity and the events line up in lanes
+   Infer        each event becomes a linked PR, ticket and build
+   Specialize   each one picks up a benchmark tier (elite, good, fair, needs focus)
+   Serve        top lanes go to agents, bottom lanes to leaders
+   The 3-stage version treats the sources column as Collect and the outputs as Serve. */
+.hero-tunnel{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
+.hero-tunnel .win{margin:0;box-shadow:none}
+.tn{position:relative;isolation:isolate}
+.tn-fx{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.tn-grid{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr) minmax(0,268px);gap:30px;padding:24px 26px 26px;align-items:center}
+.tn-in,.tn-out{position:relative;z-index:2}
+.tn-step{display:flex;align-items:baseline;gap:7px;font-size:16px}
+.tn-step .tn-n{font-size:12px}
+.tn-sub{margin:-6px 0 12px;font:12.5px/1.4 var(--sans);color:#4d5865}
+.tn-out .tn-step{margin:0 0 -4px}
+.tn-src li{position:relative;transition:box-shadow .8s}
+.tn-src li::after{content:"";position:absolute;right:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--rule);transition:background-color .8s}
+.tn-src li.hit{box-shadow:inset 0 0 0 1px var(--kc);transition-duration:.12s}
+.tn-src li.hit::after{background:var(--kc);transition-duration:.12s}
+.tn-src li[data-k="0"]{--kc:#5b66fb}.tn-src li[data-k="1"]{--kc:#10b9d0}.tn-src li[data-k="2"]{--kc:#ff6345}.tn-src li[data-k="3"]{--kc:#a07cf6}.tn-src li[data-k="4"]{--kc:#e0a21b}
+.tn-out .pl-serve{transition:box-shadow .9s}
+.tn-out .pl-serve.hit{box-shadow:inset 0 0 0 1.5px var(--teal),0 0 0 4px rgba(16,185,208,.12);transition-duration:.15s}
+.tn-out .pl-serve[data-out="1"].hit{box-shadow:inset 0 0 0 1.5px var(--indigo),0 0 0 4px rgba(91,102,251,.12)}
+.tn-core{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.tn-core .core-tag{position:relative;left:auto;bottom:auto;transform:none;z-index:2}
+.tn-tube{position:relative;width:100%}
+.tn-tube::before{content:"";position:absolute;inset:0;z-index:0;border-radius:26px;
+  background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(90deg,#e2f8fb,#e8ebff);
+  box-shadow:inset 0 0 0 1px rgba(91,102,251,.1),inset 0 -24px 40px -28px rgba(91,102,251,.25)}
+/* a dotted floor in perspective, so the panes stand in a space */
+.tn-tube::after{content:"";position:absolute;left:3%;right:3%;bottom:62px;height:110px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 1px 1px,rgba(91,102,251,.3) 1px,transparent 1.5px) 0 0/15px 15px;
+  transform:perspective(360px) rotateX(66deg);transform-origin:bottom;
+  -webkit-mask:linear-gradient(to top,#000,transparent 90%);mask:linear-gradient(to top,#000,transparent 90%)}
+.tn-panes{position:relative;z-index:2;list-style:none;margin:0;padding:30px 6px 20px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.tn-pane{--g:0;--gh:212px;display:flex;flex-direction:column;align-items:center;min-width:0}
+.tn-pane[data-s="0"]{--pc:#22c3d6}.tn-pane[data-s="1"]{--pc:#2fa9e2}.tn-pane[data-s="2"]{--pc:#4b8cf0}.tn-pane[data-s="3"]{--pc:#6577f7}.tn-pane[data-s="4"]{--pc:#5b66fb}
+/* each pane is a slab of glass turned towards the incoming data, with its own vanishing point */
+.tn-glass{position:relative;display:block;width:min(100px,80%);height:var(--gh);border-radius:20px;transform:perspective(520px) rotateY(46deg);
+  background:linear-gradient(112deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.4) 30%,rgba(255,255,255,.1) 56%,rgba(255,255,255,.55) 100%),
+    linear-gradient(180deg,color-mix(in srgb,var(--pc) 12%,transparent),color-mix(in srgb,var(--pc) 30%,transparent));
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:-8px 0 0 -1px color-mix(in srgb,var(--pc) 42%,#fff),
+    inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
+    -22px 26px 34px -16px color-mix(in srgb,var(--pc) 60%,transparent),
+    0 0 calc(var(--g)*30px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent);
+  -webkit-backdrop-filter:blur(1.5px) saturate(1.3);backdrop-filter:blur(1.5px) saturate(1.3)}
+.hero-tunnel.tn-3 .tn-glass{width:min(124px,64%)}
+/* what each pane does, drawn on its surface */
+.tn-glass::after{content:"";position:absolute;inset:10px 9px;border-radius:12px;opacity:.9}
+.tn-pane[data-s="0"] .tn-glass::after{background:
+  radial-gradient(circle at 18% 14%,#5b66fb 1.6px,transparent 2.2px),radial-gradient(circle at 64% 22%,#ff6345 1.4px,transparent 2px),
+  radial-gradient(circle at 38% 33%,#10b9d0 1.8px,transparent 2.4px),radial-gradient(circle at 80% 41%,#a07cf6 1.4px,transparent 2px),
+  radial-gradient(circle at 26% 52%,#e0a21b 1.4px,transparent 2px),radial-gradient(circle at 58% 60%,#5b66fb 1.8px,transparent 2.4px),
+  radial-gradient(circle at 16% 74%,#10b9d0 1.4px,transparent 2px),radial-gradient(circle at 72% 79%,#ff6345 1.6px,transparent 2.2px),
+  radial-gradient(circle at 44% 90%,#a07cf6 1.4px,transparent 2px);opacity:.55}
+.tn-pane[data-s="1"] .tn-glass::after{inset:0 9px;background:linear-gradient(180deg,transparent calc(24% - 1px),rgba(47,169,226,.5) calc(24% - 1px),rgba(47,169,226,.5) calc(24% + 1px),transparent calc(24% + 1px),transparent calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% + 1px),transparent calc(41.33% + 1px),transparent calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% + 1px),transparent calc(58.67% + 1px),transparent calc(76% - 1px),rgba(47,169,226,.5) calc(76% - 1px),rgba(47,169,226,.5) calc(76% + 1px),transparent calc(76% + 1px))}
+.tn-pane[data-s="2"] .tn-glass::after{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2260%22%20height%3D%2264%22%20viewBox%3D%220%200%2060%2064%22%3E%3Cg%20stroke%3D%22%234b8cf0%22%20stroke-opacity%3D%22.45%22%20stroke-width%3D%221.2%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M10%2012%20L30%2022%20L50%2012%20M30%2022%20L30%2042%20M10%2052%20L30%2042%20L50%2052%22/%3E%3C/g%3E%3Cg%20fill%3D%22%234b8cf0%22%20fill-opacity%3D%22.55%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2212%22%20r%3D%223%22/%3E%3Crect%20x%3D%2227%22%20y%3D%2219%22%20width%3D%226%22%20height%3D%226%22%20rx%3D%221%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2212%22%20r%3D%223%22/%3E%3Cpath%20d%3D%22M30%2038.5%20L33.5%2042%20L30%2045.5%20L26.5%2042%20Z%22/%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2252%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2252%22%20r%3D%223%22/%3E%3C/g%3E%3C/svg%3E") center/52px auto repeat-y}
+.tn-pane[data-s="3"] .tn-glass::after{background:
+  repeating-linear-gradient(180deg,rgba(101,119,247,.45) 0 1px,transparent 1px 12px) left/7px 100% no-repeat,
+  linear-gradient(180deg,rgba(14,159,110,.2) 0 25%,rgba(91,102,251,.18) 25% 50%,rgba(201,135,0,.16) 50% 75%,rgba(255,99,69,.18) 75%)}
+.tn-pane[data-s="4"] .tn-glass::after{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2226%22%20viewBox%3D%220%200%2024%2026%22%3E%3Cpath%20d%3D%22M8%207%20L14%2013%20L8%2019%22%20stroke%3D%22%235b66fb%22%20stroke-opacity%3D%22.35%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") center/22px 24px repeat}
+/* a band of light sweeps down a pane as the highlighted event passes through it */
+.tn-glass::before{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit;opacity:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.95) 50%,transparent 100%) 0 calc(var(--gh)*-1)/100% var(--gh) no-repeat}
+.tn-pane.on .tn-glass::before{animation:tn-sweep .9s ease-out}
+@keyframes tn-sweep{0%{opacity:1;background-position:0 calc(var(--gh)*-1)}100%{opacity:0;background-position:0 var(--gh)}}
+.tn-l{display:flex;align-items:baseline;gap:6px;margin:16px 0 0;font:600 14.5px/1.2 var(--display);color:var(--text);transition:color .6s}
+.tn-n{font:600 11.5px var(--mono);color:var(--pc,var(--indigo))}
+.tn-pane.on .tn-l{color:var(--pc);transition-duration:.1s}
+.tn-d{margin:4px 0 0;max-width:132px;padding:0 4px;font:12px/1.35 var(--sans);color:#4d5865;text-align:center}
+.tn-chip{position:absolute;left:0;top:0;z-index:4;display:flex;align-items:center;gap:7px;padding:6px 11px 6px 9px;border-radius:999px;background:#fff;
+  box-shadow:0 6px 18px rgba(34,35,38,.13),inset 0 0 0 1px var(--rule);font:500 12px/1 var(--sans);color:var(--text);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .35s;will-change:transform}
+.tn-chip.show{opacity:1}
+.tn-chip i{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--c,#5b66fb)}
+.tn-chip.pop span{animation:tn-pop .35s ease-out}
+@keyframes tn-pop{0%{opacity:.15}100%{opacity:1}}
+/* phones: the stages stack top down as slabs seen from above, and the events fall through them */
+@media (max-width:900px){
+  .tn-grid{grid-template-columns:1fr;gap:26px;padding:20px 16px}
+  .tn-src{grid-template-columns:1fr 1fr}
+  .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:4px;padding:22px 14px 22px}
+  .tn-pane{--gh:58px;flex-direction:row;align-items:center;gap:14px}
+  .tn-glass,.hero-tunnel.tn-3 .tn-glass{flex:0 0 auto;width:56%;border-radius:14px;transform:perspective(420px) rotateX(50deg);
+    box-shadow:0 7px 0 -1px color-mix(in srgb,var(--pc) 42%,#fff),inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
+      0 16px 22px -12px color-mix(in srgb,var(--pc) 60%,transparent),0 0 calc(var(--g)*24px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent)}
+  .tn-glass::after{inset:6px 10px}
+  .tn-pane[data-s="1"] .tn-glass::after{inset:6px 0;background:linear-gradient(90deg,transparent calc(24% - 1px),rgba(47,169,226,.5) calc(24% - 1px),rgba(47,169,226,.5) calc(24% + 1px),transparent calc(24% + 1px),transparent calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% + 1px),transparent calc(41.33% + 1px),transparent calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% + 1px),transparent calc(58.67% + 1px),transparent calc(76% - 1px),rgba(47,169,226,.5) calc(76% - 1px),rgba(47,169,226,.5) calc(76% + 1px),transparent calc(76% + 1px))}
+  .tn-pane[data-s="2"] .tn-glass::after{background-size:auto 46px;background-repeat:repeat-x}
+  .tn-pane[data-s="3"] .tn-glass::after{background:
+    repeating-linear-gradient(90deg,rgba(101,119,247,.45) 0 1px,transparent 1px 12px) top/100% 6px no-repeat,
+    linear-gradient(90deg,rgba(14,159,110,.2) 0 25%,rgba(91,102,251,.18) 25% 50%,rgba(201,135,0,.16) 50% 75%,rgba(255,99,69,.18) 75%)}
+  .tn-pane[data-s="4"] .tn-glass::after{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2226%22%20height%3D%2224%22%20viewBox%3D%220%200%2026%2024%22%3E%3Cpath%20d%3D%22M7%208%20L13%2014%20L19%208%22%20stroke%3D%22%235b66fb%22%20stroke-opacity%3D%22.35%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") center/26px 22px repeat}
+  .tn-pane > p{margin:0}
+  .tn-l{font-size:14px;margin:0}
+  /* slab on the left, its name and line centred beside it */
+  .tn-pane{display:grid;grid-template-columns:56% minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;column-gap:14px;min-height:76px}
+  .tn-glass{grid-row:1/5;align-self:center}
+  .tn-l{grid-row:2}
+  .tn-d{grid-row:3}
+  .tn-src .pl-tools{gap:5px}
+  .tn-src .pl-ic{width:14px;height:14px}
+  .tn-src li:last-child .pl-ic:nth-child(n+5){display:none}
+  .tn-src .pl-k{white-space:nowrap}
+  .tn-d,.hero-tunnel.tn-3 .tn-d{display:block;align-self:start;margin-top:2px;padding:0;max-width:none;text-align:left;font-size:12px}
+  .tn-tube::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
@@ -1305,7 +1416,7 @@ canvas.gl{image-rendering:auto}
   <section class="wrap hero">
     <h1 data-variant="hero"><span class="ln">The context layer for</span><span class="ln">engineering productivity</span></h1>
     <div>
-      <p class="sub" id="sub" data-variant="sub">The data agents and people need to act, <em>from approving a PR to reporting AI ROI to the board.</em></p>
+      <p class="sub" id="sub" data-variant="sub">The data behind every engineering decision, <em>from an agent approving a PR to a person reporting AI ROI to the board.</em></p>
       <div class="ctas">
         <a class="btn solid" href="#top">Book a demo</a>
         <a class="btn ghost" href="#top" data-brand="Start free trial"><span class="k">$</span> start free trial</a>
@@ -1474,6 +1585,72 @@ canvas.gl{image-rendering:auto}
               <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
             </div>
             <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-tunnel" data-slot="hero-visual" data-option="Context tunnel, 5 stages" hidden>
+      <div class="win">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Live context layer</span><span class="note">Sample data</span></div>
+        <div class="tn">
+          <canvas class="tn-fx" aria-hidden="true"></canvas>
+          <div class="tn-grid">
+            <div class="tn-in">
+              <p class="pl-h">Collected across your SDLC</p>
+              <ul class="pl-src tn-src"><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-k="3"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="4"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li></ul>
+              <p class="pl-more">+ 50 more integrations</p>
+            </div>
+            <div class="tn-core" aria-label="How LinearB builds the context layer">
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="0"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">1</span>Collect</p><p class="tn-d">Every commit, ticket and build</p></li><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">One identity per engineer</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Infer</p><p class="tn-d">Each PR linked to its ticket and build</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Benchmarked against 8.1M+ PRs</p></li><li class="tn-pane" data-s="4"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">5</span>Serve</p><p class="tn-d">To agents and people, on demand</p></li></ol></div>
+              <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
+            </div>
+            <div class="pl-out tn-out">
+              
+              <div class="pl-serve" data-out="0">
+                <p class="pl-h">Served to agents</p>
+                <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
+                <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
+              </div>
+              <div class="pl-serve" data-out="1">
+                <p class="pl-h">Served to leaders</p>
+                <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
+                <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
+              </div>
+              <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-tunnel tn-3" data-slot="hero-visual" data-option="Context tunnel, 3 stages" hidden>
+      <div class="win">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Live context layer</span><span class="note">Sample data</span></div>
+        <div class="tn">
+          <canvas class="tn-fx" aria-hidden="true"></canvas>
+          <div class="tn-grid">
+            <div class="tn-in">
+              <p class="pl-h tn-step"><span class="tn-n">1</span>Collect</p><p class="tn-sub">Every commit, ticket and build across your SDLC</p>
+              <ul class="pl-src tn-src"><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-k="3"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="4"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li></ul>
+              <p class="pl-more">+ 50 more integrations</p>
+            </div>
+            <div class="tn-core" aria-label="How LinearB builds the context layer">
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">One identity per engineer</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Infer</p><p class="tn-d">Each PR linked to its ticket and build</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Benchmarked against 8.1M+ PRs</p></li></ol></div>
+              <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
+            </div>
+            <div class="pl-out tn-out">
+              <p class="pl-h tn-step"><span class="tn-n">5</span>Serve</p>
+              <div class="pl-serve" data-out="0">
+                <p class="pl-h">To agents</p>
+                <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
+                <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
+              </div>
+              <div class="pl-serve" data-out="1">
+                <p class="pl-h">To leaders</p>
+                <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
+                <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
+              </div>
+              <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
+            </div>
           </div>
         </div>
       </div>
@@ -2336,6 +2513,243 @@ function initCtx(core, style){
     if(vis.length) show(vis[Math.floor(Math.random()*vis.length)]);
   }, 1400);
 }
+
+/* ---------- Hero visual, tunnel options: events flow through the stages ----------
+   Left to right on desktop, top down on phones. Positions are worked out along the flow
+   (u) and across it (v), then mapped to x/y for the current orientation.
+   Collect: each event arrives as one to three alias dots, coloured by tool.
+   Normalize: the aliases merge into one identity and the events line up in lanes.
+   Infer: each event becomes a linked PR (circle), ticket (square) and build (diamond).
+   Specialize: a ring shows its benchmark tier. Serve: top lanes to agents, bottom to leaders.
+   Every few seconds one highlighted event carries a chip saying what it has become. */
+document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
+  const fx = box.querySelector('.tn-fx'), g = fx.getContext('2d');
+  const tube = box.querySelector('.tn-tube'), gridEl = box.querySelector('.tn-grid');
+  const panes = [...box.querySelectorAll('.tn-pane')], glass = panes.map(p => p.querySelector('.tn-glass'));
+  const paneAt = [0,1,2,3,4].map(s => panes.findIndex(p => +p.dataset.s === s));
+  const rows = [...box.querySelectorAll('.tn-src li')];
+  const outs = [...box.querySelectorAll('.tn-out .pl-serve')];
+  const chip = box.querySelector('.tn-chip'), chipText = chip.querySelector('span');
+  const SRC = [[91,102,251],[16,185,208],[255,99,69],[160,124,246],[224,162,27]];
+  const ONE = [75,108,240];
+  const TIERS = [[[14,159,110],.3],[[91,102,251],.4],[[201,135,0],.15],[[255,99,69],.15]];
+  const tier = () => { let r = Math.random(); for(const [c, w] of TIERS){ if((r -= w) < 0) return c; } return TIERS[1][0]; };
+  // sample stories (dummy data): what one event has become after each stage
+  const STORIES = [
+    {row:0, lane:0, aliases:[0,1], tier:[255,99,69], labels:['commit 3f9a1c2 by jsmith','John Smith · PR #482','PR #482 → PAY-1142 → build #901','Rework rate 12.3% · needs focus','To Claude via MCP']},
+    {row:1, lane:3, aliases:[1,0,2], tier:[201,135,0], labels:['PLAT-311 moved to review','Maya Chen · PLAT-311','PLAT-311 → PR #9185 · 2 reviewers','Pickup time 7.1h · fair','To the EM in Slack']}
+  ];
+  const LANES = 4;
+  let W = 0, H = 0, dpr = 1, L = null;
+
+  // cubic curve leaving a along the flow and arriving at e along the flow
+  function curve(a, e, horiz){
+    const m1 = horiz ? {x:(a.x+e.x)/2, y:a.y} : {x:a.x, y:(a.y+e.y)/2};
+    const m2 = horiz ? {x:(a.x+e.x)/2, y:e.y} : {x:e.x, y:(a.y+e.y)/2};
+    const pts = [], N = 40; let len = 0;
+    for(let i=0;i<=N;i++){
+      const t = i/N, u = 1-t;
+      const x = u*u*u*a.x + 3*u*u*t*m1.x + 3*u*t*t*m2.x + t*t*t*e.x;
+      const y = u*u*u*a.y + 3*u*u*t*m1.y + 3*u*t*t*m2.y + t*t*t*e.y;
+      if(i) len += Math.hypot(x - pts[i-1].x, y - pts[i-1].y);
+      pts.push({x, y, d:len});
+    }
+    return {pts, len};
+  }
+  function at(path, d){
+    const p = path.pts; d = Math.max(0, Math.min(path.len, d));
+    let lo = 0, hi = p.length - 1;
+    while(hi - lo > 1){ const mid = (lo + hi) >> 1; if(p[mid].d < d) lo = mid; else hi = mid; }
+    const s = p[hi].d - p[lo].d || 1, f = (d - p[lo].d)/s;
+    return {x:p[lo].x + (p[hi].x - p[lo].x)*f, y:p[lo].y + (p[hi].y - p[lo].y)*f};
+  }
+
+  function layout(){
+    const b = box.getBoundingClientRect();
+    W = b.width; H = b.height; dpr = Math.min(window.devicePixelRatio || 1, 2);
+    fx.width = Math.round(W*dpr); fx.height = Math.round(H*dpr);
+    if(!W || !H){ L = null; return; }
+    const rel = el => { const r = el.getBoundingClientRect(); return {l:r.left-b.left, r:r.right-b.left, t:r.top-b.top, b:r.bottom-b.top, w:r.width, h:r.height}; };
+    const T = rel(tube), gl = glass.map(rel);
+    const wide = getComputedStyle(gridEl).gridTemplateColumns.split(' ').length > 1;
+    // across the flow: the span the panes cover; along it: each pane's centre
+    // the panes turn about their centre line, which keeps its untransformed length, so the
+    // lanes are placed from that and meet the lines drawn on the Normalize pane
+    const v0 = Math.min(...gl.map((r, i) => wide ? r.t + r.h/2 - glass[i].offsetHeight/2 : r.l + r.w/2 - glass[i].offsetWidth/2));
+    const v1 = Math.max(...gl.map((r, i) => wide ? r.t + r.h/2 + glass[i].offsetHeight/2 : r.l + r.w/2 + glass[i].offsetWidth/2));
+    const entry = wide ? T.l + 4 : T.t + 4, exit = wide ? T.r - 4 : T.b - 4;
+    const su = paneAt.map((i, s) => i >= 0 ? (wide ? gl[i].l + gl[i].w/2 : gl[i].t + gl[i].h/2) : (s === 0 ? entry : exit - 1));
+    const span = v1 - v0;
+    L = {wide, entry, exit, su,
+      vMin:v0 + span*0.14, vMax:v1 - span*0.14,
+      lane:Array.from({length:LANES}, (_, i) => v0 + span*(0.24 + 0.52*i/(LANES-1))),
+      rows:rows.map(rel), outs:outs.map(rel), src:rel(box.querySelector('.tn-in'))};
+  }
+  const P = (u, v) => L.wide ? {x:u, y:v} : {x:v, y:u};
+
+  const parts = [], glow = panes.map(() => 0);
+  let time = 0, spawnAcc = 0, nextStory = 1.2, storyN = 0, feat = null;
+
+  function spawn(story){
+    const rowI = story ? story.row : Math.floor(Math.random()*rows.length);
+    const k = +rows[rowI].dataset.k, r = L.rows[rowI];
+    const lane = story ? story.lane : Math.floor(Math.random()*LANES);
+    const v0 = story ? L.lane[lane] : L.vMin + Math.random()*(L.vMax - L.vMin);
+    const n = story ? story.aliases.length : 1 + Math.floor(Math.random()*Math.random()*3.2);
+    const aliases = Array.from({length:n}, (_, j) => ({k:story ? SRC.indexOf(SRC[story.aliases[j]]) : (j ? Math.floor(Math.random()*SRC.length) : k), du:(Math.random()-.5)*14, dv:n > 1 ? (j - (n-1)/2)*9 + (Math.random()-.5)*3 : 0}));
+    if(story) aliases.forEach((a, j) => a.k = story.aliases[j]);
+    const a = L.wide ? {x:r.r + 4, y:r.t + r.h/2} : {x:r.l + r.w/2, y:L.src.b + 4};
+    const p = {ph:'in', k, lane, v0, u:0, v:v0, x:a.x, y:a.y, seed:Math.random()*6.3, aliases,
+      tier:story ? story.tier : tier(), stage:-1, trail:[], story:story || null, path:curve(a, P(L.entry, v0), L.wide), d:0};
+    if(story) feat = p;
+    parts.push(p);
+    flash(rows[rowI], 'hit', 260);
+  }
+  const IN_SPEED = 230, TUBE_SPEED = 88, OUT_SPEED = 200;
+  const smooth = t => t <= 0 ? 0 : t >= 1 ? 1 : t*t*(3 - 2*t);
+  const rgb = c => `rgb(${c.join(',')})`;
+  function colourOf(p){ return p.stage >= 3 ? p.tier : p.stage >= 1 ? ONE : SRC[p.aliases[0].k]; }
+  function setChip(p, i){
+    chipText.textContent = p.story.labels[i];
+    chip.style.setProperty('--c', rgb(colourOf(p)));
+    chip.classList.add('show');
+    chip.classList.remove('pop'); void chip.offsetWidth; chip.classList.add('pop');
+  }
+
+  function step(dt){
+    if(!L) return;
+    time += dt;
+    spawnAcc += dt*5.5;
+    while(spawnAcc >= 1){ spawnAcc--; spawn(); }
+    if(!feat && time > nextStory) spawn(STORIES[storyN++ % STORIES.length]);
+    for(let i = parts.length - 1; i >= 0; i--){
+      const p = parts[i];
+      if(p.ph === 'in'){
+        p.d += dt*IN_SPEED*(p.story ? 0.8 : 1);
+        const q = at(p.path, p.d); p.x = q.x; p.y = q.y;
+        if(p.d >= p.path.len){ p.ph = 'tube'; p.u = L.entry; }
+      }
+      if(p.ph === 'tube'){
+        p.u += dt*TUBE_SPEED*(p.story ? 0.8 : 1);
+        // scattered until Normalize, then eased into its lane
+        p.merge = smooth((p.u - (L.su[1] - 30))/44);
+        const wob = Math.sin(time*2.6 + p.seed)*3*(1 - p.merge);
+        p.v = p.v0 + (L.lane[p.lane] - p.v0)*p.merge + wob;
+        while(p.stage < 4 && p.u >= L.su[p.stage + 1]){
+          p.stage++;
+          const pi = paneAt[p.stage];
+          if(pi >= 0){ glow[pi] = Math.min(1, glow[pi] + (p.story ? 1 : 0.025)); if(p.story) flash(panes[pi], 'on', 900); }
+          if(p.story) setChip(p, p.stage);
+          p.since = p.u;
+        }
+        const q = P(p.u, p.v); p.x = q.x; p.y = q.y;
+        if(p.u >= L.exit){
+          p.target = p.lane < LANES/2 ? 0 : 1;
+          const o = L.wide ? L.outs[p.target] : L.outs[0];
+          const e = L.wide ? {x:o.l - 4, y:o.t + o.h*(0.3 + 0.4*Math.random())} : {x:o.l + o.w*(0.15 + 0.7*(p.target ? 0.5 + 0.5*Math.random() : 0.5*Math.random())), y:o.t - 4};
+          p.ph = 'out'; p.d = 0; p.path = curve({x:p.x, y:p.y}, e, L.wide);
+        }
+      } else if(p.ph === 'out'){
+        p.d += dt*OUT_SPEED*(p.story ? 0.7 : 1);
+        const q = at(p.path, p.d); p.x = q.x; p.y = q.y;
+        if(p.d >= p.path.len){
+          flash(outs[p.target], 'hit', 300);
+          parts.splice(i, 1);
+          if(p === feat){ feat = null; nextStory = time + 2.2; setTimeout(() => { if(!feat) chip.classList.remove('show'); }, 1400); }
+          continue;
+        }
+      }
+      p.trail.push(p.x, p.y); if(p.trail.length > 14) p.trail.splice(0, 2);
+    }
+    for(let i = 0; i < glow.length; i++){
+      glow[i] *= Math.exp(-dt*2.4);
+      const v = glow[i].toFixed(2);
+      if(panes[i]._g !== v){ panes[i]._g = v; panes[i].style.setProperty('--g', v); }
+    }
+  }
+
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  function dot(x, y, r, c, a){
+    g.fillStyle = rgba(c, 0.14*a); g.beginPath(); g.arc(x, y, r*2.6, 0, 7); g.fill();
+    g.fillStyle = rgba(c, a); g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  }
+  function draw(){
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, W, H);
+    if(!L) return;
+    // lanes from Normalize on: faint guides that show the data is now in order
+    g.lineWidth = 1; g.setLineDash([2, 5]);
+    for(const v of L.lane){
+      const a = P(L.su[1], v), e = P(L.exit, v);
+      const grad = g.createLinearGradient(a.x, a.y, e.x, e.y);
+      grad.addColorStop(0, 'rgba(75,108,240,0)'); grad.addColorStop(0.15, 'rgba(75,108,240,.22)'); grad.addColorStop(1, 'rgba(75,108,240,.08)');
+      g.strokeStyle = grad; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(e.x, e.y); g.stroke();
+    }
+    g.setLineDash([]);
+    const ax = L.wide ? {x:1, y:0} : {x:0, y:1}, cx = L.wide ? {x:0, y:1} : {x:1, y:0};
+    for(const p of parts){
+      const c = colourOf(p), t = p.trail, big = p.story ? 1.5 : 0;
+      for(let j = 2; j < t.length; j += 2){
+        g.strokeStyle = rgba(c, 0.45*j/t.length);
+        g.lineWidth = p.story ? 2.4 : 1.5;
+        g.beginPath(); g.moveTo(t[j-2], t[j-1]); g.lineTo(t[j], t[j+1]); g.stroke();
+      }
+      const m = p.ph === 'in' ? 0 : p.ph === 'out' ? 1 : p.merge;
+      if(m < 1 && p.aliases.length > 1){
+        // aliases of one person, drifting together until Normalize merges them
+        for(const al of p.aliases){
+          const s = 1 - m, x = p.x + (ax.x*al.du + cx.x*al.dv)*s, y = p.y + (ax.y*al.du + cx.y*al.dv)*s;
+          dot(x, y, 1.9 + big*0.6, SRC[al.k], 0.85);
+        }
+        continue;
+      }
+      const r = 2.6 + big;
+      // from Infer on: the event is a linked PR, ticket and build
+      const link = p.ph === 'out' ? 1 : p.stage >= 2 ? smooth((p.u - p.since)/26 + (p.stage > 2 ? 1 : 0)) : 0;
+      if(link > 0){
+        const sp = (7 + big*2)*link;
+        const tx = p.x - ax.x*sp, ty = p.y - ax.y*sp, bx = p.x + ax.x*sp, by = p.y + ax.y*sp;
+        g.strokeStyle = rgba(ONE, 0.5*link); g.lineWidth = 1;
+        g.beginPath(); g.moveTo(tx, ty); g.lineTo(bx, by); g.stroke();
+        g.fillStyle = rgba(ONE, 0.85*link);
+        const q = 2 + big*0.5;
+        g.fillRect(tx - q, ty - q, q*2, q*2);
+        g.beginPath(); g.moveTo(bx, by - q*1.3); g.lineTo(bx + q*1.3, by); g.lineTo(bx, by + q*1.3); g.lineTo(bx - q*1.3, by); g.fill();
+      }
+      dot(p.x, p.y, r, p.stage >= 1 || p.ph === 'out' ? ONE : c, p.stage < 0 && p.ph === 'in' ? 0.75 : 1);
+      // from Specialize on: a ring in its benchmark tier colour
+      if(p.stage >= 3 || p.ph === 'out'){
+        const k = p.ph === 'out' ? 1 : smooth((p.u - p.since)/20 + (p.stage > 3 ? 1 : 0));
+        g.strokeStyle = rgba(p.tier, 0.9*k); g.lineWidth = 1.6;
+        g.beginPath(); g.arc(p.x, p.y, r + 2.6 + 2*(1 - k), 0, 7); g.stroke();
+      }
+      if(p.story){ g.strokeStyle = '#fff'; g.lineWidth = 1.5; g.beginPath(); g.arc(p.x, p.y, r, 0, 7); g.stroke(); }
+    }
+    if(feat && feat.stage >= 0){
+      const cw = chip.offsetWidth, ch = chip.offsetHeight;
+      // phones: the chip rides just above the event, over the slab column, so the stage names stay clear
+      const x = L.wide ? feat.x - cw/2 : feat.x - 30, y = L.wide ? feat.y - ch - 16 : feat.y - ch - 12;
+      chip.style.transform = `translate(${Math.max(8, Math.min(W - cw - 8, x)).toFixed(1)}px,${Math.max(4, y).toFixed(1)}px)`;
+    }
+  }
+
+  let visible = false, last = performance.now();
+  function frame(now){
+    const dt = Math.min((now - last)/1000, 0.05); last = now;
+    if(visible && L){ step(dt); draw(); }
+    requestAnimationFrame(frame);
+  }
+  const reset = () => { layout(); parts.length = 0; feat = null; chip.classList.remove('show'); };
+  if(reduce){
+    // one still frame of the flow in progress
+    const still = () => { reset(); if(!L) return; time = 0; for(let i = 0; i < 300; i++) step(1/30); chip.classList.remove('show'); draw(); };
+    new ResizeObserver(still).observe(box);
+  } else {
+    new ResizeObserver(() => { reset(); draw(); }).observe(box);
+    if(document.fonts) document.fonts.ready.then(reset);
+    whenVisible(box, v => visible = v); requestAnimationFrame(frame);
+  }
+});
 
 /* ---------- Hero visual, video option: click to play ---------- */
 {
