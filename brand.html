@@ -802,7 +802,7 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 @keyframes tn-pop{0%{opacity:.15}100%{opacity:1}}
 /* phones: the desktop layout turned a quarter turn. Sources sit above, the stages stack top
    down as the same glass slabs (now tilted towards the incoming data at the top), each name sits
-   beside its slab where it sat below it on desktop, and the outputs follow underneath */
+   on its slab's top left corner, and the outputs follow underneath */
 @media (max-width:900px){
   .tn-grid{grid-template-columns:1fr;gap:26px;padding:20px 16px}
   .tn-src{grid-template-columns:1fr 1fr}
@@ -810,12 +810,12 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-src .pl-ic{width:14px;height:14px}
   .tn-src li:last-child .pl-ic:nth-child(n+5){display:none}
   .tn-src .pl-k{white-space:nowrap}
-  .tn-tube::before{background:radial-gradient(60% 70% at 64% 50%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(180deg,#e2f8fb,#e8ebff)}
-  .tn-tube::after{left:3%;right:auto;top:3%;bottom:3%;width:44%;height:auto;transform:perspective(360px) rotateY(62deg);transform-origin:left;
-    -webkit-mask:linear-gradient(to right,#000,transparent 90%);mask:linear-gradient(to right,#000,transparent 90%)}
-  .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:18px;padding:28px 18px 28px 12px}
-  .tn-pane{--gh:92px;display:grid;grid-template-columns:minmax(0,1fr) 60%;grid-template-rows:1fr auto auto 1fr;column-gap:14px}
-  .tn-glass,.hero-tunnel.tn-3 .tn-glass{grid-column:2;grid-row:1/5;align-self:center;width:100%;border-radius:18px;transform:perspective(520px) rotateX(-44deg);
+  .tn-tube::before{background:radial-gradient(60% 70% at 50% 50%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(180deg,#e2f8fb,#e8ebff)}
+  .tn-tube::after{display:none}
+  .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:28px;padding:24px 8% 30px}
+  /* each slab centred, its name and line sitting on its top left corner */
+  .tn-pane{--gh:92px;display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:2px}
+  .tn-glass,.hero-tunnel.tn-3 .tn-glass{order:3;flex:0 0 100%;margin-top:8px;width:100%;border-radius:18px;transform:perspective(520px) rotateX(-44deg);
     background:linear-gradient(202deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.4) 30%,rgba(255,255,255,.1) 56%,rgba(255,255,255,.55) 100%),
       linear-gradient(90deg,color-mix(in srgb,var(--pc) 12%,transparent),color-mix(in srgb,var(--pc) 30%,transparent));
     box-shadow:0 -8px 0 -1px color-mix(in srgb,var(--pc) 42%,#fff),inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
@@ -831,8 +831,22 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-glass::before{background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.95) 50%,transparent 100%) -100% 0/50% 100% no-repeat}
   .tn-pane.on .tn-glass::before{animation-name:tn-sweep-x}
   .tn-pane > p{margin:0}
-  .tn-l{grid-column:1;grid-row:2;justify-content:flex-end;font-size:14.5px}
-  .tn-d,.hero-tunnel.tn-3 .tn-d{grid-column:1;grid-row:3;display:block;margin-top:3px;padding:0;max-width:none;text-align:right;font-size:12px}
+  .tn-l{order:1;padding-left:4px;font-size:14.5px}
+  .tn-d,.hero-tunnel.tn-3 .tn-d{order:2;flex:0 0 100%;display:block;margin:0;padding:0 0 0 4px;max-width:none;text-align:left;font-size:12.5px}
+}
+/* phones: agents and leaders side by side, so the left lanes split to agents and the right to leaders */
+@media (max-width:900px){
+  .tn-out{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .tn-out .tn-step,.tn-out .pl-metric{grid-column:1/-1}
+  .tn-out .tn-step{margin:0 0 2px}
+  .tn-out .pl-metric{margin-top:6px}
+  .tn-out .pl-serve{padding:12px 12px 13px;border-radius:14px}
+  .tn-out .pl-serve .pl-h{font-size:14px;margin-bottom:8px}
+  .tn-out .pl-via{gap:4px;margin:0 0 9px}
+  .tn-out .pl-via span{padding:2px 7px;font-size:11px}
+  .tn-out .pl-uses{gap:5px}
+  .tn-out .pl-uses li{padding-left:12px;font-size:12.5px;line-height:1.35}
+  .tn-out .pl-uses li::before{left:0;width:5px;height:5px}
 }
 @keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
@@ -2522,6 +2536,7 @@ function initCtx(core, style){
 /* ---------- Hero visual, tunnel options: events flow through the stages ----------
    Left to right on desktop, top down on phones. Positions are worked out along the flow
    (u) and across it (v), then mapped to x/y for the current orientation.
+   On phones the left lanes go to agents and the right lanes to leaders, side by side.
    Collect: each event arrives as one to three alias dots, coloured by tool.
    Normalize: the aliases merge into one identity and the events line up in lanes.
    Infer: each event becomes a linked PR (circle), ticket (square) and build (diamond).
@@ -2650,8 +2665,8 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
         const q = P(p.u, p.v); p.x = q.x; p.y = q.y;
         if(p.u >= L.exit){
           p.target = p.lane < LANES/2 ? 0 : 1;
-          const o = L.wide ? L.outs[p.target] : L.outs[0];
-          const e = L.wide ? {x:o.l - 4, y:o.t + o.h*(0.3 + 0.4*Math.random())} : {x:o.l + o.w*(0.15 + 0.7*(p.target ? 0.5 + 0.5*Math.random() : 0.5*Math.random())), y:o.t - 4};
+          const o = L.outs[p.target];
+          const e = L.wide ? {x:o.l - 4, y:o.t + o.h*(0.3 + 0.4*Math.random())} : {x:o.l + o.w*(0.25 + 0.5*Math.random()), y:o.t - 4};
           p.ph = 'out'; p.d = 0; p.path = curve({x:p.x, y:p.y}, e, L.wide);
         }
       } else if(p.ph === 'out'){
