@@ -849,10 +849,23 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .ema-dot{width:8px;height:8px;border-radius:50%;background:var(--c)}
 .ema-via{font:500 11.5px var(--sans);color:#8798a7;white-space:nowrap}
 .ema-sub{margin:0 0 7px;font:12.5px/1.35 var(--sans);color:#4d5865}
-.ema-q,.ema-agent{padding:8px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
-.ema-ask{margin:0;height:2.7em;overflow:hidden;font:500 12.5px/1.35 var(--sans);color:var(--text)}
-.ema-ans{margin:3px 0 0;height:1.3em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:600 12px/1.3 var(--sans);color:#0e9fb3;opacity:0;transition:opacity .4s}
-.ema-ans.on{opacity:1}
+.ema-agent{padding:8px 10px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
+/* explore is a short exchange with the assistant: the question on the right, LinearB's answer on
+   the left after a typing indicator. One line each, fixed height, so the card never resizes */
+.ema-chat{display:grid;gap:6px}
+.ema-chat p{margin:0;max-width:100%;height:30px;padding:0 11px;display:flex;align-items:center;gap:6px;font:12.5px/1 var(--sans);white-space:nowrap;overflow:hidden;transition:opacity .35s}
+.ema-chat p>span{overflow:hidden;text-overflow:ellipsis}
+.ema-me{justify-self:end;border-radius:12px 12px 4px 12px;background:#e8ebff;color:#2a2f6b}
+.ema-ai{justify-self:start;border-radius:12px 12px 12px 4px;background:#fff;color:var(--text);box-shadow:inset 0 0 0 1px var(--rule)}
+.ema-chat p.off{opacity:0}
+/* the reply carries LinearB's mark so it reads as the assistant answering */
+.ema-lb{flex:0 0 auto;width:15px;height:15px;background:url(media/linearb-mark.png) center/contain no-repeat}
+.ema-ai{padding-left:9px}
+.ema-dots{display:none;gap:3px}
+.ema-ai.typing .ema-dots{display:flex}
+.ema-dots b{width:4px;height:4px;border-radius:50%;background:#8798a7;animation:ema-dot 1s infinite}
+.ema-dots b:nth-child(2){animation-delay:.15s}.ema-dots b:nth-child(3){animation-delay:.3s}
+@keyframes ema-dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-2px)}}
 .ema-type::after{content:"";display:inline-block;width:1.5px;height:1em;margin-left:2px;vertical-align:-2px;background:currentColor;animation:blink 1.05s steps(1) infinite}
 .tn-ema .pl-metric{padding:2px}
 .tn-ema .pl-metric b{font-size:16px}
@@ -881,11 +894,12 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
      the middle of the serve column, and events leave the tube fanning evenly up and down */
   .tn-pane{--gh:236px}
   .hero-tunnel.tn-3 .tn-glass{width:min(150px,74%)}
+  .tn-l{margin-top:26px}
   .tn-panes{padding-top:60px}
   .tn-out .pl-serve{flex:1 1 auto}
   .tn-out>.pl-metric{margin-top:auto;padding-top:10px}
   .tn-ema .ema-card{display:flex;flex-direction:column}
-  .tn-ema .ema-card>.ema-q,.tn-ema .ema-card>.ema-agent{margin-top:auto}
+  .tn-ema .ema-card>.ema-chat,.tn-ema .ema-card>.ema-agent{margin-top:auto}
   .tn-ema .ema-card>.pl-metric:first-of-type{margin-top:auto}
 }
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
@@ -1618,7 +1632,7 @@ canvas.gl{image-rendering:auto}
     </div>
     </div>
   </div>
-    <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel" data-default>
+    <div class="hero-tunnel tn-3" data-slot="hero-visual" data-option="Context tunnel" hidden>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
         <div class="tn">
@@ -1630,7 +1644,7 @@ canvas.gl{image-rendering:auto}
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="tn-core" aria-label="How LinearB builds the context layer">
-              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, made comparable</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">One identity per engineer, each PR traced to release</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
               <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
             </div>
             <div class="pl-out tn-out">
@@ -1651,7 +1665,7 @@ canvas.gl{image-rendering:auto}
         </div>
       </div>
     </div>
-    <div class="hero-tunnel tn-3 tn-ema" data-slot="hero-visual" data-option="Explore, measure, act" hidden>
+    <div class="hero-tunnel tn-3 tn-ema" aria-label="Hero visual" data-slot="hero-visual" data-option="Explore, measure, act" data-default>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
         <div class="tn">
@@ -1663,7 +1677,7 @@ canvas.gl{image-rendering:auto}
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="tn-core" aria-label="How LinearB builds the context layer">
-              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, made comparable</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">One identity per engineer, each PR traced to release</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
               <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
             </div>
             <div class="pl-out tn-out">
@@ -1671,15 +1685,17 @@ canvas.gl{image-rendering:auto}
               <div class="pl-serve ema-card" data-out="0" data-role="explore" data-lanes="0">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#10b9d0"></i>Explore</span><span class="ema-via">Assistant · MCP</span></p>
                 <p class="ema-sub">Ask LinearB how work moves</p>
-                <div class="ema-q" data-q="[[&quot;Which repos have the highest AI rework rate?&quot;, &quot;payments-api · 12.3% rework&quot;], [&quot;Where is review time going on Platform?&quot;, &quot;Pickup time · up to 7.1h&quot;], [&quot;Which epics shipped late this quarter?&quot;, &quot;PAY-1142 · 9 days over&quot;]]"><p class="ema-ask"><span></span></p><p class="ema-ans"></p></div>
+                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
               </div>
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
+                <p class="ema-sub">Metrics and benchmarks for leaders</p>
                 <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
                 <div class="pl-metric"><span>Agentic merge rate</span><b data-live="64" data-fmt="{v}%" data-dec="0" data-j=".02">64%</b><em>▲ 5 pts</em></div>
               </div>
               <div class="pl-serve ema-card ema-act" data-out="2" data-role="agents" data-lanes="3">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#a07cf6"></i>Act</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
+                <p class="ema-sub">For agents and workflows</p>
                 <div class="ema-agent" data-acts="[[&quot;claude&quot;, &quot;Claude&quot;, &quot;via MCP&quot;, &quot;Checking payments-api's team norms before editing&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Holding PR #482 for a human review&quot;], [&quot;cursor&quot;, &quot;Cursor&quot;, &quot;via MCP&quot;, &quot;Adding a test where rework runs high&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Routing PR #9185 to the right reviewer&quot;]]"><i class="ema-av"></i><p class="ema-who"><b></b><span></span></p><p class="ema-do"><span></span></p></div>
               </div>
             </div>
@@ -2916,9 +2932,9 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
 
 /* ---------- Hero visual, explore measure act option: the explore query and the agent at work ---------- */
 document.querySelectorAll('.tn-ema').forEach(card => {
-  const q = card.querySelector('.ema-q'), ag = card.querySelector('.ema-agent');
+  const q = card.querySelector('.ema-chat'), ag = card.querySelector('.ema-agent');
   const Q = JSON.parse(q.dataset.q), A = JSON.parse(ag.dataset.acts);
-  const ask = q.querySelector('.ema-ask span'), ans = q.querySelector('.ema-ans');
+  const me = q.querySelector('.ema-me'), ask = me.querySelector('span'), ai = q.querySelector('.ema-ai'), ans = ai.querySelector('span');
   const av = ag.querySelector('.ema-av'), who = ag.querySelector('.ema-who b'), via = ag.querySelector('.ema-who span'), act = ag.querySelector('.ema-do span');
   const ICON = {claude:'https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg', cursor:'https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg'};
   const setAgent = a => { av.dataset.k = a[0]; av.style.setProperty('--i', ICON[a[0]] ? `url(${ICON[a[0]]})` : ''); if(a[0] === 'flow') av.style.removeProperty('--i'); who.textContent = a[1]; via.textContent = a[2]; };
@@ -2930,8 +2946,17 @@ document.querySelectorAll('.tn-ema').forEach(card => {
     for(const ch of text){ await waitShown(); el.textContent += ch; await sleep(26 + Math.random()*30); }
     el.classList.remove('ema-type');
   }
-  if(reduce){ ask.textContent = Q[0][0]; ans.textContent = Q[0][1]; ans.classList.add('on'); setAgent(A[1]); act.textContent = A[1][3]; return; }
-  (async () => { for(let i = 0;; i++){ const [k, a] = Q[i % Q.length]; ans.classList.remove('on'); await type(ask, k); await sleep(500); ans.textContent = a; ans.classList.add('on'); await sleep(4200); } })();
+  if(reduce){ ask.textContent = Q[0][0]; ans.textContent = Q[0][1]; setAgent(A[1]); act.textContent = A[1][3]; return; }
+  (async () => {
+    for(let i = 0;; i++){
+      const [k, a] = Q[i % Q.length];
+      ai.classList.add('off'); me.classList.remove('off'); ans.textContent = '';
+      await type(ask, k); await sleep(350);
+      ai.classList.remove('off'); ai.classList.add('typing'); await sleep(1100); await waitShown();
+      ai.classList.remove('typing'); ans.textContent = a; await sleep(3800);
+      me.classList.add('off'); ai.classList.add('off'); await sleep(400);
+    }
+  })();
   (async () => { await sleep(1600); for(let i = 0;; i++){ const a = A[i % A.length]; setAgent(a); await type(act, a[3]); await sleep(3600); } })();
 });
 
