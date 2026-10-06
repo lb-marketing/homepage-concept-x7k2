@@ -9,7 +9,7 @@
       "Put engineering / context to work",
       "Context that drives / productivity"
     ],
-    "default": 1
+    "default": 4
   },
   "sub": {
     "label": "Hero subheading",
@@ -18,9 +18,11 @@
       "The data behind every engineering decision, *from which PRs an agent can merge to how much to invest in AI.*",
       "The data agents and people need to act, *from approving a PR to reporting AI ROI to the board.*",
       "The data behind every engineering answer, *from whether an agent's PR can merge to whether AI is paying off.*",
-      "LinearB is the engineering context layer, serving agents and leaders *from approving a PR to reporting AI ROI to the board.*"
+      "LinearB is the engineering context layer, serving agents and leaders *from approving a PR to reporting AI ROI to the board.*",
+      "LinearB connects every tool in your SDLC so you can *explore how work moves, measure AI's impact, and act through your agents.*",
+      "Explore every PR from ticket to release, measure delivery against 8.1M+ PRs, and *put your agents to work on what you find.*"
     ],
-    "default": 4
+    "default": 5
   },
   "walk": {
     "label": "Product tour heading",
@@ -38,6 +40,15 @@
       "LinearB puts the right context in front of every agent and person, at the moment they decide.",
       "When a metric moves, agents and people ask LinearB why, then act on the answer.",
       "Agents and leaders see the same data, zoomed to the decision in front of them."
+    ],
+    "default": 0
+  },
+  "close": {
+    "label": "Closing heading",
+    "options": [
+      "Give your agents and leaders the context to act",
+      "Explore, measure, and act on your engineering context",
+      "Ready to modernize how you measure your delivery pipeline?"
     ],
     "default": 0
   }
