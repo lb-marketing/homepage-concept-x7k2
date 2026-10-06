@@ -835,23 +835,11 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 }
 @keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
-/* optional marker: AI tools sits mid-list with a rail that reaches every other source row,
-   lighting each row in turn outward from it (AI work shows up in every tool, and LinearB
-   attributes it wherever it lands). Desktop only; phones just tint the AI tools row */
+/* optional marker (Variants panel): AI tools sits mid-list with curved lines out to every other
+   source row, drawn on the tunnel canvas; dots travel them and each row then sends an event
+   carrying an AI alias. Desktop only; phones just tint the AI tools row */
 .hero-tunnel>.mode{display:none}
 .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li[data-ai]{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
-@media (min-width:901px){
-  .tn-src{position:relative}
-  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src::before{content:"";position:absolute;left:-14px;top:18px;bottom:18px;width:2px;border-radius:2px;
-    background:linear-gradient(180deg,rgba(160,124,246,.15),rgba(160,124,246,.55) 40%,rgba(160,124,246,.55) 60%,rgba(160,124,246,.15))}
-  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li::before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:2px;margin-top:-1px;
-    background:rgba(160,124,246,.35);transform-origin:left;animation:tn-ai 3.6s ease-in-out infinite;animation-delay:calc(var(--d,0)*.22s)}
-  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li[data-ai]::before{left:-19px;width:12px;height:12px;margin-top:-6px;border-radius:50%;
-    background:#a07cf6;box-shadow:0 0 0 4px rgba(160,124,246,.18);animation-name:tn-ai-node}
-}
-@keyframes tn-ai{0%,100%{background:rgba(160,124,246,.3);box-shadow:none}12%{background:#a07cf6;box-shadow:0 0 8px rgba(160,124,246,.8)}30%{background:rgba(160,124,246,.3);box-shadow:none}}
-@keyframes tn-ai-node{0%,100%{box-shadow:0 0 0 4px rgba(160,124,246,.18)}8%{box-shadow:0 0 0 7px rgba(160,124,246,.28)}30%{box-shadow:0 0 0 4px rgba(160,124,246,.18)}}
-@media (prefers-reduced-motion:reduce){.tn-src li::before{animation:none !important}}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
@@ -1592,7 +1580,7 @@ canvas.gl{image-rendering:auto}
           <div class="tn-grid">
             <div class="tn-in">
               <p class="pl-h tn-step"><span class="tn-n">1</span>Collect</p><p class="tn-sub">Every commit, ticket and build across your SDLC</p>
-              <ul class="pl-src tn-src"><li data-k="1" style="--d:2"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0" style="--d:1"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="3" data-ai><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="4" style="--d:1"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2" style="--d:2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="2" style="--d:3"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li></ul>
+              <ul class="pl-src tn-src"><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="3" data-ai><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="4"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li></ul>
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="tn-core" aria-label="How LinearB builds the context layer">
@@ -2565,6 +2553,10 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   const rows = [...box.querySelectorAll('.tn-src li')];
   const outs = [...box.querySelectorAll('.tn-out .pl-serve')];
   const chip = box.querySelector('.tn-chip'), chipText = chip.querySelector('span');
+  // optional AI tools marker (a Variants panel toggle): AI tools feeds every other source row
+  const aiMark = box.closest('.hero-tunnel').querySelector('.mode-ai-on');
+  const aiRow = rows.findIndex(r => r.hasAttribute('data-ai'));
+  const aiOn = () => !!aiMark && !aiMark.hidden && aiRow >= 0;
   const SRC = [[91,102,251],[16,185,208],[255,99,69],[160,124,246],[224,162,27]];
   const ONE = [75,108,240];
   const TIERS = [[[14,159,110],.3],[[91,102,251],.4],[[201,135,0],.15],[[255,99,69],.15]];
@@ -2586,6 +2578,18 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
       const t = i/N, u = 1-t;
       const x = u*u*u*a.x + 3*u*u*t*m1.x + 3*u*t*t*m2.x + t*t*t*e.x;
       const y = u*u*u*a.y + 3*u*u*t*m1.y + 3*u*t*t*m2.y + t*t*t*e.y;
+      if(i) len += Math.hypot(x - pts[i-1].x, y - pts[i-1].y);
+      pts.push({x, y, d:len});
+    }
+    return {pts, len};
+  }
+  // cubic through explicit control points, sampled for even dot speed
+  function bez(a, c1, c2, e){
+    const pts = [], N = 40; let len = 0;
+    for(let i=0;i<=N;i++){
+      const t = i/N, u = 1-t;
+      const x = u*u*u*a.x + 3*u*u*t*c1.x + 3*u*t*t*c2.x + t*t*t*e.x;
+      const y = u*u*u*a.y + 3*u*u*t*c1.y + 3*u*t*t*c2.y + t*t*t*e.y;
       if(i) len += Math.hypot(x - pts[i-1].x, y - pts[i-1].y);
       pts.push({x, y, d:len});
     }
@@ -2619,20 +2623,30 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
       vMin:v0 + span*0.14, vMax:v1 - span*0.14,
       lane:Array.from({length:LANES}, (_, i) => v0 + span*(0.24 + 0.52*i/(LANES-1))),
       rows:rows.map(rel), outs:outs.map(rel), src:rel(box.querySelector('.tn-in'))};
+    // AI tools marker: a smooth loop out to the left of the list, from AI tools into each other row
+    const ar = L.rows[aiRow];
+    L.ai = !wide || !ar ? [] : L.rows.map((r, i) => {
+      if(i === aiRow) return null;
+      const a = {x:ar.l - 3, y:ar.t + ar.h/2}, e = {x:r.l - 3, y:r.t + r.h/2}, bx = a.x - (8 + Math.abs(e.y - a.y)*0.09);
+      return {row:i, path:bez(a, {x:bx, y:a.y}, {x:bx, y:e.y}, e)};
+    }).filter(Boolean);
   }
   const P = (u, v) => L.wide ? {x:u, y:v} : {x:v, y:u};
 
-  const parts = [], glow = panes.map(() => 0);
+  const parts = [], glow = panes.map(() => 0), aiDots = [];
+  let aiAcc = 0;
   let time = 0, spawnAcc = 0, nextStory = 1.2, storyN = 0, feat = null;
 
-  function spawn(story){
-    const rowI = story ? story.row : Math.floor(Math.random()*rows.length);
+  function spawn(story, rowAt, viaAI){
+    const rowI = story ? story.row : rowAt ?? Math.floor(Math.random()*rows.length);
     const k = +rows[rowI].dataset.k, r = L.rows[rowI];
     const lane = story ? story.lane : Math.floor(Math.random()*LANES);
     const v0 = story ? L.lane[lane] : L.vMin + Math.random()*(L.vMax - L.vMin);
     const n = story ? story.aliases.length : 1 + Math.floor(Math.random()*Math.random()*3.2);
     const aliases = Array.from({length:n}, (_, j) => ({k:story ? SRC.indexOf(SRC[story.aliases[j]]) : (j ? Math.floor(Math.random()*SRC.length) : k), du:(Math.random()-.5)*14, dv:n > 1 ? (j - (n-1)/2)*9 + (Math.random()-.5)*3 : 0}));
     if(story) aliases.forEach((a, j) => a.k = story.aliases[j]);
+    // work an AI tool touched carries an AI alias, which merges into the same identity at Enrich
+    if(viaAI){ aliases.push({k:3, du:(Math.random()-.5)*14, dv:0}); aliases.forEach((al, j) => al.dv = (j - (aliases.length-1)/2)*9); }
     const a = L.wide ? {x:r.r + 4, y:r.t + r.h/2} : {x:r.l + r.w/2, y:L.src.b + 4};
     const p = {ph:'in', k, lane, v0, u:0, v:v0, x:a.x, y:a.y, seed:Math.random()*6.3, aliases,
       tier:story ? story.tier : tier(), stage:-1, trail:[], story:story || null, path:curve(a, P(L.entry, v0), L.wide), d:0};
@@ -2658,6 +2672,16 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     spawnAcc += dt*5.5;
     while(spawnAcc >= 1){ spawnAcc--; spawn(); }
     if(!feat && time > nextStory) spawn(STORIES[storyN++ % STORIES.length]);
+    if(aiOn() && L.ai.length){
+      aiAcc += dt*1.8;
+      while(aiAcc >= 1){ aiAcc--; aiDots.push({c:L.ai[Math.floor(Math.random()*L.ai.length)], d:0, x:0, y:0, trail:[]}); flash(rows[aiRow], 'hit', 260); }
+    }
+    for(let i = aiDots.length - 1; i >= 0; i--){
+      const o = aiDots[i]; o.d += dt*120;
+      const q = at(o.c.path, o.d); o.x = q.x; o.y = q.y;
+      o.trail.push(q.x, q.y); if(o.trail.length > 14) o.trail.splice(0, 2);
+      if(o.d >= o.c.path.len){ aiDots.splice(i, 1); spawn(null, o.c.row, true); }
+    }
     for(let i = parts.length - 1; i >= 0; i--){
       const p = parts[i];
       if(p.ph === 'in'){
@@ -2714,6 +2738,17 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.clearRect(0, 0, W, H);
     if(!L) return;
+    if(aiOn() && L.ai.length){
+      g.lineWidth = 1.2; g.strokeStyle = 'rgba(160,124,246,.3)';
+      for(const c of L.ai){ g.beginPath(); c.path.pts.forEach((q, j) => j ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.stroke(); }
+      for(const o of aiDots){
+        for(let j = 2; j < o.trail.length; j += 2){
+          g.strokeStyle = rgba(SRC[3], 0.5*j/o.trail.length); g.lineWidth = 1.6;
+          g.beginPath(); g.moveTo(o.trail[j-2], o.trail[j-1]); g.lineTo(o.trail[j], o.trail[j+1]); g.stroke();
+        }
+        dot(o.x, o.y, 2.3, SRC[3], 1);
+      }
+    }
     // lanes from Normalize on: faint guides that show the data is now in order
     g.lineWidth = 1; g.setLineDash([2, 5]);
     for(const v of L.lane){
@@ -2776,7 +2811,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     if(visible && L){ step(dt); draw(); }
     requestAnimationFrame(frame);
   }
-  const reset = () => { layout(); parts.length = 0; feat = null; chip.classList.remove('show'); };
+  const reset = () => { layout(); parts.length = 0; aiDots.length = 0; feat = null; chip.classList.remove('show'); };
   if(reduce){
     // one still frame of the flow in progress
     const still = () => { reset(); if(!L) return; time = 0; for(let i = 0; i < 300; i++) step(1/30); chip.classList.remove('show'); draw(); };
