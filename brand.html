@@ -866,18 +866,19 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .ema-who b{margin-right:5px;font-weight:600;color:var(--text)}
 .ema-do{margin:1px 0 0;height:2.7em;overflow:hidden;font:12.5px/1.35 var(--sans);color:var(--text)}
 @media (max-width:900px){.tn-ema .tn-out{grid-template-columns:1fr}}
-/* explore measure act, desktop: the three columns share one top and one bottom. The tube runs
-   the full height with its panes centred, the serve cards share it, and the source rows grow a
-   little to fill it rather than opening gaps. The typed lines in the cards have fixed heights,
-   so nothing moves while they type */
+/* desktop, both tunnels: the three columns share one top and one bottom. The tube runs the full
+   height with its panes centred, the serve cards share it, and the source rows grow a little to
+   fill it rather than opening gaps. The typed lines in the explore and act cards have fixed
+   heights, so nothing moves while they type */
 @media (min-width:901px){
-  .tn-ema .tn-grid{align-items:stretch}
-  .tn-ema .tn-in,.tn-ema .tn-out{align-self:stretch;display:flex;flex-direction:column}
-  .tn-ema .tn-src{flex:1;grid-auto-rows:1fr;gap:8px}
-  .tn-ema .tn-src li{padding-block:0}
-  .tn-ema .tn-core{align-self:stretch}
-  .tn-ema .tn-tube{flex:1;display:flex;flex-direction:column;justify-content:center}
-  .tn-ema .tn-out .pl-serve{flex:1 1 auto}
+  .tn-grid{align-items:stretch}
+  .tn-in,.tn-out{align-self:stretch;display:flex;flex-direction:column}
+  .tn-src{flex:1;grid-auto-rows:1fr;gap:8px}
+  .tn-src li{padding-block:0}
+  .tn-core{align-self:stretch}
+  .tn-tube{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .tn-out .pl-serve{flex:1 1 auto}
+  .tn-out>.pl-metric{margin-top:auto;padding-top:10px}
   .tn-ema .ema-card{display:flex;flex-direction:column}
   .tn-ema .ema-card>.ema-q,.tn-ema .ema-card>.ema-agent{margin-top:auto}
   .tn-ema .ema-card>.pl-metric:first-of-type{margin-top:auto}
