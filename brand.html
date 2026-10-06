@@ -900,8 +900,20 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-out>.pl-metric{margin-top:auto;padding-top:10px}
   .tn-ema .ema-card{display:flex;flex-direction:column}
   .tn-ema .ema-card>.ema-chat,.tn-ema .ema-card>.ema-agent{margin-top:auto}
-  .tn-ema .ema-card>.pl-metric:first-of-type{margin-top:auto}
 }
+/* cost readout: flips between cost per effective PR and the cost of a few sample projects, with
+   the figures moving a little each time (sample data; the project figure is what leadership asked
+   to see, not a single metric in the product) */
+.cost-flip{padding:2px}
+.cf-h,.cf-row{transition:opacity .3s,transform .3s}
+.cost-flip.swap .cf-h,.cost-flip.swap .cf-row{opacity:0;transform:translateY(4px)}
+.cf-h{margin:0 0 1px;font:500 11.5px var(--sans);letter-spacing:.02em;color:#8798a7}
+.cf-row{display:flex;align-items:baseline;gap:10px}
+.cf-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:13px var(--sans);color:#4d5865}
+.cf-row b{margin-left:auto;font:600 18px var(--display);color:var(--text)}
+.tn-ema .cf-row b{font-size:16px}
+.cf-row em,.tn-ema .pl-metric em{min-width:4.4em;text-align:right;font:12.5px var(--sans);font-style:normal;color:#8798a7}
+@media (min-width:901px){.tn-out>.cost-flip{margin-top:auto;padding-top:10px}.tn-ema .ema-card>.cost-flip{margin-top:auto}}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
@@ -1659,7 +1671,7 @@ canvas.gl{image-rendering:auto}
                 <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
                 <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
               </div>
-              <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
+              <div class="cost-flip" data-items="[[&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Checkout redesign&quot;, 184, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Payments migration&quot;, 96, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Mobile app v3&quot;, 142, &quot;k&quot;]]"><p class="cf-h">Cost per effective PR</p><div class="cf-row"><span>All teams</span><b>$602</b><em>▼ 4%</em></div></div>
             </div>
           </div>
         </div>
@@ -1690,8 +1702,7 @@ canvas.gl{image-rendering:auto}
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
                 <p class="ema-sub">Metrics and benchmarks for leaders</p>
-                <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
-                <div class="pl-metric"><span>Agentic merge rate</span><b data-live="64" data-fmt="{v}%" data-dec="0" data-j=".02">64%</b><em>▲ 5 pts</em></div>
+                <div class="cost-flip" data-items="[[&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Checkout redesign&quot;, 184, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Payments migration&quot;, 96, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Mobile app v3&quot;, 142, &quot;k&quot;]]"><p class="cf-h">Cost per effective PR</p><div class="cf-row"><span>All teams</span><b>$602</b><em>▼ 4%</em></div></div>
               </div>
               <div class="pl-serve ema-card ema-act" data-out="2" data-role="agents" data-lanes="3">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#a07cf6"></i>Act</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
@@ -2659,10 +2670,44 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   const TIERS = [[[14,159,110],.3],[[91,102,251],.4],[[201,135,0],.15],[[255,99,69],.15]];
   const tier = () => { let r = Math.random(); for(const [c, w] of TIERS){ if((r -= w) < 0) return c; } return TIERS[1][0]; };
   // sample stories (dummy data): what one event has become after each stage
+  // highlighted events. Each carries a pill whose label changes at every stage. In the explore
+  // measure act version they take turns landing in Explore, Measure and Act, and each one says
+  // which item that card shows when it lands (its question, cost figure or agent action), so the
+  // pill and the card tell the same story. Rows: 0 planning, 1 code, 2 AI tools, 3 quality,
+  // 4 incidents, 5 CI/CD. Tiers: needs focus coral, fair amber, good indigo, elite green
+  const ema = !!box.closest('.tn-ema'), chipOn = true, storyGap = ema ? 0.8 : 2.2;
+  const FOCUS = [255,99,69], FAIR = [201,135,0], GOOD = [91,102,251];
   const STORIES = [
-    {row:1, role:'agents', aliases:[0,1], tier:[255,99,69], labels:['commit 3f9a1c2 by jsmith','Commit · payments-api · jsmith','John Smith · PAY-1142 → PR #482','Rework rate 12.3% · needs focus','To Claude via MCP']},
-    {row:0, role:'leaders', aliases:[1,0,2], tier:[201,135,0], labels:['PLAT-311 moved to review','Issue · Platform · in review','Maya Chen · PLAT-311 → PR #9185','Pickup time 7.1h · fair','To the EM in Slack']}
+    {row:0, role:'leaders', aliases:[1,0,2], tier:FAIR, labels:['PLAT-311 moved to review','Issue · Platform · in review','Maya Chen · PLAT-311 → PR #9185','Pickup time 7.1h · fair','To the EM in Slack']},
+    {row:1, role:'agents', aliases:[0,1], tier:FOCUS, labels:['commit 3f9a1c2 by jsmith','Commit · payments-api · jsmith','John Smith · PAY-1142 → PR #482','Rework rate 12.3% · needs focus','To Claude via MCP']}
   ];
+  const POOL = {
+    explore: [
+      {row:0, aliases:[1,0,2], tier:FAIR, show:1, labels:['PLAT-311 moved to review','Issue · Platform · in review','Maya Chen · PLAT-311 → PR #9185','Pickup time 7.1h · fair','To the Assistant']},
+      {row:0, aliases:[1,0], tier:FOCUS, show:2, labels:['PAY-1142 moved to done','Issue · Payments · done','PAY-1142 → PR #482 → release','Shipped 9 days late','To the Assistant']},
+      {row:1, aliases:[0,1], tier:FOCUS, show:0, labels:['commit 3f9a1c2 by jsmith','Commit · payments-api · jsmith','John Smith · PAY-1142 → PR #482','Rework rate 12.3% · needs focus','To the Assistant']}
+    ],
+    leaders: [
+      {row:0, aliases:[1,0], tier:GOOD, show:1, labels:['CHK-88 moved to done','Issue · Checkout · done','Ana Ruiz · CHK-88 → PR #7731','Checkout redesign · $184k','To the leadership dashboard']},
+      {row:1, aliases:[0,1], tier:GOOD, show:2, labels:['PR #5120 merged','PR · web-app · merged','Sam Lee · WEB-402 → PR #5120','Effective PR · no rework','To the AI ROI dashboard']},
+      {row:0, aliases:[1,0,2], tier:GOOD, show:3, labels:['PAY-1201 moved to done','Issue · Payments · done','Leo Park · PAY-1201 → PR #7790','Payments migration · $96k','To the leadership dashboard']},
+      {row:1, aliases:[0,1], tier:GOOD, show:4, labels:['PR #5188 merged','PR · web-app · merged','Sam Lee · WEB-415 → PR #5188','Effective PR · no rework','To the AI ROI dashboard']},
+      {row:0, aliases:[1,0], tier:GOOD, show:5, labels:['MOB-312 moved to done','Issue · Mobile · done','Priya Shah · MOB-312 → PR #8012','Mobile app v3 · $142k','To the leadership dashboard']},
+      {row:1, aliases:[0,1], tier:GOOD, show:0, labels:['PR #5203 merged','PR · web-app · merged','Sam Lee · WEB-421 → PR #5203','Effective PR · no rework','To the AI ROI dashboard']}
+    ],
+    agents: [
+      {row:1, aliases:[0,1], tier:FOCUS, show:1, labels:['PR #482 opened','PR · payments-api · 14 files','John Smith · PAY-1142 → PR #482','Rework rate 12.3% · needs focus','To gitStream']},
+      {row:2, aliases:[3,0], tier:FOCUS, show:2, labels:['Cursor editing payments-api','Session · payments-api · Cursor','Ana Ruiz · PAY-1150 → branch','Rework rate 12.3% · needs focus','To Cursor via MCP']},
+      {row:1, aliases:[0,1,2], tier:FAIR, show:3, labels:['PR #9185 opened','PR · platform-api · open','Maya Chen · PLAT-311 → PR #9185','Pickup time 7.1h · fair','To gitStream']},
+      {row:2, aliases:[3,0], tier:GOOD, show:0, labels:['Claude editing payments-api','Session · payments-api · Claude','John Smith · PAY-1142 → branch','Team norms · payments-api','To Claude via MCP']}
+    ]
+  };
+  const ORDER = ['explore', 'leaders', 'agents'], taken = {explore:0, leaders:0, agents:0};
+  const nextStory_ = () => {
+    if(!ema) return STORIES[storyN++ % STORIES.length];
+    const role = ORDER[storyN++ % ORDER.length], list = POOL[role];
+    return {...list[taken[role]++ % list.length], role};
+  };
   const LANES = 4;
   // which card each lane serves, and the lane a story takes to reach the card for its role
   const laneTo = Array.from({length:LANES}, (_, l) => { const i = outs.findIndex(o => (o.dataset.lanes || '').split(' ').includes(String(l))); return i >= 0 ? i : (l < LANES/2 ? 0 : 1); });
@@ -2750,7 +2795,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     const a = L.wide ? {x:r.r + 4, y:r.t + r.h/2} : {x:r.l + r.w/2, y:L.src.b + 4};
     const p = {ph:'in', k, lane, v0, u:0, v:v0, x:a.x, y:a.y, seed:Math.random()*6.3, aliases,
       tier:story ? story.tier : tier(), stage:-1, trail:[], story:story || null, path:curve(a, P(L.entry, v0), L.wide), d:0};
-    if(story) feat = p;
+    if(story && chipOn) feat = p;
     parts.push(p);
     flash(rows[rowI], 'hit', 260);
   }
@@ -2771,7 +2816,10 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     time += dt;
     spawnAcc += dt*5.5;
     while(spawnAcc >= 1){ spawnAcc--; spawn(); }
-    if(!feat && time > nextStory) spawn(STORIES[storyN++ % STORIES.length]);
+    if(chipOn ? !feat && time > nextStory : time > nextStory){
+      spawn(nextStory_());
+      if(!chipOn) nextStory = time + 3.6;
+    }
     if(aiOn() && L.ai.length){
       aiAcc += dt*1.3;
       while(aiAcc >= 1){ aiAcc--; aiDots.push({c:L.ai[Math.floor(Math.random()*L.ai.length)], d:0, x:0, y:0, trail:[]}); flash(rows[aiRow], 'hit', 260); }
@@ -2800,7 +2848,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
           p.stage++;
           const pi = paneAt[p.stage];
           if(pi >= 0){ glow[pi] = Math.min(1, glow[pi] + (p.story ? 1 : 0.025)); if(p.story) flash(panes[pi], 'on', 900); }
-          if(p.story) setChip(p, p.stage);
+          if(p.story && chipOn) setChip(p, p.stage);
           p.since = p.u;
         }
         const q = P(p.u, p.v); p.x = q.x; p.y = q.y;
@@ -2820,8 +2868,9 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
         const q = at(p.path, p.d); p.x = q.x; p.y = q.y;
         if(p.d >= p.path.len){
           flash(outs[p.target], 'hit', 300);
+          if(p.story) outs[p.target].dispatchEvent(new CustomEvent('tn:land', {detail:p.story.show}));
           parts.splice(i, 1);
-          if(p === feat){ feat = null; nextStory = time + 2.2; setTimeout(() => { if(!feat) chip.classList.remove('show'); }, 1400); }
+          if(p === feat){ feat = null; nextStory = time + storyGap; setTimeout(() => { if(!feat) chip.classList.remove('show'); }, 1400); }
           continue;
         }
       }
@@ -2946,18 +2995,42 @@ document.querySelectorAll('.tn-ema').forEach(card => {
     for(const ch of text){ await waitShown(); el.textContent += ch; await sleep(26 + Math.random()*30); }
     el.classList.remove('ema-type');
   }
-  if(reduce){ ask.textContent = Q[0][0]; ans.textContent = Q[0][1]; setAgent(A[1]); act.textContent = A[1][3]; return; }
-  (async () => {
-    for(let i = 0;; i++){
-      const [k, a] = Q[i % Q.length];
-      ai.classList.add('off'); me.classList.remove('off'); ans.textContent = '';
-      await type(ask, k); await sleep(350);
-      ai.classList.remove('off'); ai.classList.add('typing'); await sleep(1100); await waitShown();
-      ai.classList.remove('typing'); ans.textContent = a; await sleep(3800);
-      me.classList.add('off'); ai.classList.add('off'); await sleep(400);
-    }
-  })();
-  (async () => { await sleep(1600); for(let i = 0;; i++){ const a = A[i % A.length]; setAgent(a); await type(act, a[3]); await sleep(3600); } })();
+  // start filled in, then each card plays its next step only when a highlighted event lands in it
+  ask.textContent = Q[0][0]; ans.textContent = Q[0][1]; setAgent(A[0]); act.textContent = A[0][3];
+  if(reduce) return;
+  const once = (el, fn) => { let busy = false, n = 0; el.addEventListener('tn:land', async e => { if(busy) return; busy = true; n++; await fn(e.detail ?? n); busy = false; }); };
+  once(card.querySelector('.ema-card[data-role="explore"]'), async i => {
+    const [k, a] = Q[i % Q.length];
+    if(ask.textContent === k && ans.textContent === a) return;
+    me.classList.add('off'); ai.classList.add('off'); await sleep(350);
+    ans.textContent = ''; me.classList.remove('off');
+    await type(ask, k); await sleep(300);
+    ai.classList.remove('off'); ai.classList.add('typing'); await sleep(900); await waitShown();
+    ai.classList.remove('typing'); ans.textContent = a;
+  });
+  once(card.querySelector('.ema-card[data-role="agents"]'), async i => {
+    const a = A[i % A.length]; setAgent(a); await type(act, a[3]);
+  });
+});
+
+/* ---------- Hero tunnels: the cost readout flips between cost per effective PR and project costs ---------- */
+document.querySelectorAll('.cost-flip').forEach(el => {
+  const items = JSON.parse(el.dataset.items), h = el.querySelector('.cf-h'), row = el.querySelector('.cf-row');
+  const [lab, val, delta] = [row.querySelector('span'), row.querySelector('b'), row.querySelector('em')];
+  // exact: show the figure as written (when a pill has just shown it), otherwise let it drift a little
+  const show = (it, exact) => {
+    const v = exact ? it[2] : it[2]*(1 + (Math.random()*2 - 1)*0.03), down = Math.random() < 0.7;
+    h.textContent = it[0]; lab.textContent = it[1];
+    val.textContent = '$' + (it[3] ? Math.round(v) : Math.round(v)) + it[3];
+    delta.textContent = (down ? '▼ ' : '▲ ') + (1 + Math.floor(Math.random()*6)) + '%';
+  };
+  if(reduce) return;
+  let i = 0, visible = false; whenVisible(el, v => visible = v);
+  const next = e => { const d = e && e.detail; i = d != null ? d % items.length : (i + 1) % items.length; el.classList.add('swap'); setTimeout(() => { show(items[i], d != null); el.classList.remove('swap'); }, 300); };
+  // in the explore measure act card it flips when an event lands there; elsewhere on a timer
+  const card = el.closest('.tn-ema .ema-card');
+  if(card) card.addEventListener('tn:land', next);
+  else setInterval(() => { if(visible && !document.hidden) next(); }, 3200);
 });
 
 /* ---------- Hero visual, video option: click to play ---------- */
