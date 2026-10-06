@@ -835,11 +835,10 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 }
 @keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
-/* optional marker (Variants panel): AI tools sits mid-list with curved lines out to every other
-   source row, drawn on the tunnel canvas; dots travel them and each row then sends an event
-   carrying an AI alias. Desktop only; phones just tint the AI tools row */
-.hero-tunnel>.mode{display:none}
-.hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li[data-ai]{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
+/* AI tools sits mid-list with curved lines out to every other source row, drawn on the tunnel
+   canvas; dots travel them and each row then sends an event carrying an AI alias. Desktop
+   only; phones just tint the AI tools row */
+.tn-src li[data-ai]{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
@@ -1571,8 +1570,6 @@ canvas.gl{image-rendering:auto}
     </div>
   </div>
     <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel" data-default>
-      <i class="mode mode-ai-off" aria-label="AI tools marker" data-slot="ai-marker" data-option="No marker" data-default></i>
-      <i class="mode mode-ai-on" data-slot="ai-marker" data-option="AI tools reach every row" hidden></i>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
         <div class="tn">
@@ -2553,10 +2550,9 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   const rows = [...box.querySelectorAll('.tn-src li')];
   const outs = [...box.querySelectorAll('.tn-out .pl-serve')];
   const chip = box.querySelector('.tn-chip'), chipText = chip.querySelector('span');
-  // optional AI tools marker (a Variants panel toggle): AI tools feeds every other source row
-  const aiMark = box.closest('.hero-tunnel').querySelector('.mode-ai-on');
+  // AI tools feeds every other source row: curved lines from it, drawn on desktop
   const aiRow = rows.findIndex(r => r.hasAttribute('data-ai'));
-  const aiOn = () => !!aiMark && !aiMark.hidden && aiRow >= 0;
+  const aiOn = () => aiRow >= 0;
   const SRC = [[91,102,251],[16,185,208],[255,99,69],[160,124,246],[224,162,27]];
   const ONE = [75,108,240];
   const TIERS = [[[14,159,110],.3],[[91,102,251],.4],[[201,135,0],.15],[[255,99,69],.15]];
