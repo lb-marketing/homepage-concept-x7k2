@@ -835,6 +835,23 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 }
 @keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
+/* optional marker: AI tools sits mid-list with a rail that reaches every other source row,
+   lighting each row in turn outward from it (AI work shows up in every tool, and LinearB
+   attributes it wherever it lands). Desktop only; phones just tint the AI tools row */
+.hero-tunnel>.mode{display:none}
+.hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li[data-ai]{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
+@media (min-width:901px){
+  .tn-src{position:relative}
+  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src::before{content:"";position:absolute;left:-14px;top:18px;bottom:18px;width:2px;border-radius:2px;
+    background:linear-gradient(180deg,rgba(160,124,246,.15),rgba(160,124,246,.55) 40%,rgba(160,124,246,.55) 60%,rgba(160,124,246,.15))}
+  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li::before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:2px;margin-top:-1px;
+    background:rgba(160,124,246,.35);transform-origin:left;animation:tn-ai 3.6s ease-in-out infinite;animation-delay:calc(var(--d,0)*.22s)}
+  .hero-tunnel:has(>.mode-ai-on:not([hidden])) .tn-src li[data-ai]::before{left:-19px;width:12px;height:12px;margin-top:-6px;border-radius:50%;
+    background:#a07cf6;box-shadow:0 0 0 4px rgba(160,124,246,.18);animation-name:tn-ai-node}
+}
+@keyframes tn-ai{0%,100%{background:rgba(160,124,246,.3);box-shadow:none}12%{background:#a07cf6;box-shadow:0 0 8px rgba(160,124,246,.8)}30%{background:rgba(160,124,246,.3);box-shadow:none}}
+@keyframes tn-ai-node{0%,100%{box-shadow:0 0 0 4px rgba(160,124,246,.18)}8%{box-shadow:0 0 0 7px rgba(160,124,246,.28)}30%{box-shadow:0 0 0 4px rgba(160,124,246,.18)}}
+@media (prefers-reduced-motion:reduce){.tn-src li::before{animation:none !important}}
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
 .hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
@@ -1566,6 +1583,8 @@ canvas.gl{image-rendering:auto}
     </div>
   </div>
     <div class="hero-tunnel tn-3" aria-label="Hero visual" data-slot="hero-visual" data-option="Context tunnel" data-default>
+      <i class="mode mode-ai-off" aria-label="AI tools marker" data-slot="ai-marker" data-option="No marker" data-default></i>
+      <i class="mode mode-ai-on" data-slot="ai-marker" data-option="AI tools reach every row" hidden></i>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
         <div class="tn">
@@ -1573,7 +1592,7 @@ canvas.gl{image-rendering:auto}
           <div class="tn-grid">
             <div class="tn-in">
               <p class="pl-h tn-step"><span class="tn-n">1</span>Collect</p><p class="tn-sub">Every commit, ticket and build across your SDLC</p>
-              <ul class="pl-src tn-src"><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="4"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="3"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li></ul>
+              <ul class="pl-src tn-src"><li data-k="1" style="--d:2"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0" style="--d:1"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="3" data-ai><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="4" style="--d:1"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2" style="--d:2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li><li data-k="2" style="--d:3"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li></ul>
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="tn-core" aria-label="How LinearB builds the context layer">
