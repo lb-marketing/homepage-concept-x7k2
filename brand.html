@@ -2673,7 +2673,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     while(spawnAcc >= 1){ spawnAcc--; spawn(); }
     if(!feat && time > nextStory) spawn(STORIES[storyN++ % STORIES.length]);
     if(aiOn() && L.ai.length){
-      aiAcc += dt*1.8;
+      aiAcc += dt*1.3;
       while(aiAcc >= 1){ aiAcc--; aiDots.push({c:L.ai[Math.floor(Math.random()*L.ai.length)], d:0, x:0, y:0, trail:[]}); flash(rows[aiRow], 'hit', 260); }
     }
     for(let i = aiDots.length - 1; i >= 0; i--){
@@ -2739,14 +2739,14 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     g.clearRect(0, 0, W, H);
     if(!L) return;
     if(aiOn() && L.ai.length){
-      g.lineWidth = 1.2; g.strokeStyle = 'rgba(160,124,246,.3)';
+      g.lineWidth = 1; g.strokeStyle = 'rgba(160,124,246,.14)';
       for(const c of L.ai){ g.beginPath(); c.path.pts.forEach((q, j) => j ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.stroke(); }
       for(const o of aiDots){
         for(let j = 2; j < o.trail.length; j += 2){
-          g.strokeStyle = rgba(SRC[3], 0.5*j/o.trail.length); g.lineWidth = 1.6;
+          g.strokeStyle = rgba(SRC[3], 0.35*j/o.trail.length); g.lineWidth = 1.3;
           g.beginPath(); g.moveTo(o.trail[j-2], o.trail[j-1]); g.lineTo(o.trail[j], o.trail[j+1]); g.stroke();
         }
-        dot(o.x, o.y, 2.3, SRC[3], 1);
+        dot(o.x, o.y, 1.9, SRC[3], 0.8);
       }
     }
     // lanes from Normalize on: faint guides that show the data is now in order
