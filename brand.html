@@ -866,24 +866,21 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .ema-who b{margin-right:5px;font-weight:600;color:var(--text)}
 .ema-do{margin:1px 0 0;height:2.7em;overflow:hidden;font:12.5px/1.35 var(--sans);color:var(--text)}
 @media (max-width:900px){.tn-ema .tn-out{grid-template-columns:1fr}}
-/* desktop: the three columns share one top and one bottom. Sources spread to fill the height,
-   the tube runs the full height with its panes centred, and the serve cards share what's left.
-   The typed lines in the cards have fixed heights, so nothing moves while they type */
+/* explore measure act, desktop: the three columns share one top and one bottom. The tube runs
+   the full height with its panes centred, the serve cards share it, and the source rows grow a
+   little to fill it rather than opening gaps. The typed lines in the cards have fixed heights,
+   so nothing moves while they type */
 @media (min-width:901px){
-  .tn-grid{align-items:stretch}
-  .tn-in,.tn-out{align-self:stretch;display:flex;flex-direction:column}
-  .tn-src{flex:1;align-content:space-between}
-  .tn-core{align-self:stretch}
-  .tn-tube{flex:1;display:flex;flex-direction:column;justify-content:center}
-  .tn-out .pl-serve{flex:1 1 auto}
-  .tn-out .pl-metric{margin-top:auto;padding-top:10px}
-  .tn-ema .tn-out .pl-metric{margin-top:0;padding-top:2px}
+  .tn-ema .tn-grid{align-items:stretch}
+  .tn-ema .tn-in,.tn-ema .tn-out{align-self:stretch;display:flex;flex-direction:column}
+  .tn-ema .tn-src{flex:1;grid-auto-rows:1fr;gap:8px}
+  .tn-ema .tn-src li{padding-block:0}
+  .tn-ema .tn-core{align-self:stretch}
+  .tn-ema .tn-tube{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .tn-ema .tn-out .pl-serve{flex:1 1 auto}
   .tn-ema .ema-card{display:flex;flex-direction:column}
   .tn-ema .ema-card>.ema-q,.tn-ema .ema-card>.ema-agent{margin-top:auto}
   .tn-ema .ema-card>.pl-metric:first-of-type{margin-top:auto}
-  /* a little more room per source row, so the list fills its column without wide gaps */
-  .tn-src li{padding-block:9px}
-  .tn-ema .tn-src li{padding-block:10px}
 }
 /* hero visual, video option: the explainer in the same aqua frame, click to play */
 .hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
@@ -1672,13 +1669,11 @@ canvas.gl{image-rendering:auto}
               </div>
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
-                <p class="ema-sub">Metrics and benchmarks for leaders</p>
                 <div class="pl-metric"><span>Cost per effective PR</span><b data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</b><em>▼ 4%</em></div>
                 <div class="pl-metric"><span>Agentic merge rate</span><b data-live="64" data-fmt="{v}%" data-dec="0" data-j=".02">64%</b><em>▲ 5 pts</em></div>
               </div>
               <div class="pl-serve ema-card ema-act" data-out="2" data-role="agents" data-lanes="3">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#a07cf6"></i>Act</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
-                <p class="ema-sub">For agents and workflows</p>
                 <div class="ema-agent" data-acts="[[&quot;claude&quot;, &quot;Claude&quot;, &quot;via MCP&quot;, &quot;Checking payments-api's team norms before editing&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Holding PR #482 for a human review&quot;], [&quot;cursor&quot;, &quot;Cursor&quot;, &quot;via MCP&quot;, &quot;Adding a test where rework runs high&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Routing PR #9185 to the right reviewer&quot;]]"><i class="ema-av"></i><p class="ema-who"><b></b><span></span></p><p class="ema-do"><span></span></p></div>
               </div>
             </div>
