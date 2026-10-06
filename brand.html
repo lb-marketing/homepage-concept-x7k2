@@ -877,6 +877,10 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-src li{padding-block:0}
   .tn-core{align-self:stretch}
   .tn-tube{flex:1;display:flex;flex-direction:column;justify-content:center}
+  /* taller panes, nudged down so the middle of the glass (where the lanes run) lines up with
+     the middle of the serve column, and events leave the tube fanning evenly up and down */
+  .tn-pane{--gh:236px}
+  .tn-panes{padding-top:60px}
   .tn-out .pl-serve{flex:1 1 auto}
   .tn-out>.pl-metric{margin-top:auto;padding-top:10px}
   .tn-ema .ema-card{display:flex;flex-direction:column}
@@ -2788,7 +2792,10 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
           // stacked cards (explore, measure, act on phones): land on the top of the column
           const stacked = !L.wide && L.outs.length > 1 && L.outs[1].t >= L.outs[0].b - 1;
           const o = stacked ? L.outs[0] : L.outs[p.target];
-          const e = L.wide ? {x:o.l - 4, y:o.t + o.h*(0.3 + 0.4*Math.random())} : {x:o.l + o.w*(0.25 + 0.5*Math.random()), y:o.t - 4};
+          // desktop: aim lower in the top card and higher in the bottom one, so the exits fan
+          // evenly around the middle of the column instead of mostly dropping
+          const n = L.outs.length, half = (n - 1)/2 || 1, f = 0.5 + 0.22*(half - p.target)/half + (Math.random() - 0.5)*0.24;
+          const e = L.wide ? {x:o.l - 4, y:o.t + o.h*f} : {x:o.l + o.w*(0.25 + 0.5*Math.random()), y:o.t - 4};
           p.ph = 'out'; p.d = 0; p.path = curve({x:p.x, y:p.y}, e, L.wide);
         }
       } else if(p.ph === 'out'){
