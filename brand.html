@@ -665,6 +665,11 @@ h1 .cursor{display:none}
 .win-foot{font:12.5px var(--sans);letter-spacing:0;text-transform:none;padding:12px 20px;color:var(--dim)}
 .win-foot b{color:var(--text)}
 .win-bar .note{font:400 12.5px var(--sans);color:var(--dim);white-space:nowrap}
+/* the hero diagram is LinearB's own window: wordmark, a hairline, then the title */
+.win-bar .title:has(.win-lb){display:flex;align-items:center;gap:14px}
+.win-lb{flex:0 0 auto;width:84px;height:20px;padding-right:14px;border-right:1px solid var(--rule);background:url(https://assets.linearb.io/image/upload/c_fit,w_480/f_auto/q_auto/v1/linearb-logo-2026) left center/contain no-repeat content-box}
+/* on a phone the title wraps beside the wordmark rather than being cut off */
+.win-t{min-width:0;white-space:normal;line-height:1.25}
 
 /* the context layer sits on an aqua panel, like the linearb.io hero */
 section[aria-label="The context layer"]{padding-block:8px 24px}
@@ -835,14 +840,68 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 }
 @keyframes tn-sweep-x{0%{opacity:1;background-position:-100% 0}100%{opacity:0;background-position:300% 0}}
 @media (prefers-reduced-motion:reduce){.tn-pane.on .tn-glass::before{animation:none}}
+/* room for the journey: the panes pack together in the middle of the tube, so the scattered
+   run in to Normalize and the lanes out of Specialize get space inside it, and the gaps either
+   side of the tube widen a little for the fan out into Serve */
+@media (min-width:901px){
+  .tn-ema .tn-grid{column-gap:clamp(30px,calc(5vw - 22px),50px)}
+  /* room on the left for the loops between AI tools and the other sources */
+  .tn-ema .tn-grid{padding-left:36px}
+  .tn-ema .tn-panes{padding-inline:clamp(6px,calc(6vw - 50px),40px)}
+}
+.tn-water,.tn-edge{display:none}
+/* slabs, not phones: tight corners, the pattern runs to the edge (no inset "screen"), and a
+   thick see-through edge in the pane's own colour in place of the thin solid side */
+.tn-slab .tn-glass{border-radius:6px;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
+    -42px 26px 34px -16px color-mix(in srgb,var(--pc) 55%,transparent),
+    0 0 calc(var(--g)*30px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent)}
+.tn-slab .tn-pane[data-s] .tn-glass::after{inset:0;border-radius:inherit;
+  -webkit-mask:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
+/* square slices seen side-on, like a cube cut into sections, so no pane has a phone's shape.
+   Never wider than one and a half times its column: turned side-on that keeps each slice inside its own
+   lane, so they never overlap or spill out of the tube before the layout flips to the phone one */
+@media (min-width:901px){
+  .hero-tunnel.tn-3.tn-slab .tn-glass{flex:0 0 auto;width:min(var(--gh),150%);transform:perspective(1100px) rotateY(64deg)}
+  /* thick glass: a real side face turned back from the front one. The pane itself keeps its
+     3D space for that, so the blur moves to a water layer inside it: the dots, drawn behind
+     the panes, show through softened and tinted, as if they were inside the slab */
+  .tn-slab .tn-glass{transform-style:preserve-3d;-webkit-backdrop-filter:none;backdrop-filter:none;
+    background:linear-gradient(112deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.18) 30%,rgba(255,255,255,.04) 56%,rgba(255,255,255,.32) 100%),
+      linear-gradient(180deg,color-mix(in srgb,var(--pc) 10%,transparent),color-mix(in srgb,var(--pc) 24%,transparent))}
+  .tn-slab .tn-water{display:block;position:absolute;inset:0;border-radius:inherit;
+    -webkit-backdrop-filter:blur(3.5px) saturate(1.6);backdrop-filter:blur(3.5px) saturate(1.6)}
+  .tn-slab .tn-edge{display:block;position:absolute;top:0;bottom:0;left:0;width:18px;border-radius:3px;
+    transform-origin:left center;transform:rotateY(90deg);
+    background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 34%,rgba(255,255,255,.55)),color-mix(in srgb,var(--pc) 48%,rgba(255,255,255,.3)));
+    border:1px solid rgba(255,255,255,.9);
+    -webkit-backdrop-filter:blur(3.5px) saturate(1.6);backdrop-filter:blur(3.5px) saturate(1.6)}
+}
 /* AI tools sits mid-list with curved lines out to every other source row, drawn on the tunnel
    canvas; dots travel them and each row then sends an event carrying an AI alias. Desktop
    only; phones just tint the AI tools row */
 .tn-src li[data-ai]{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
+/* explore measure act, desktop: AI tools is the hub. It sits a little proud of the list, with a
+   firmer purple edge and glow, and its tools in ink (Claude and Gemini in their own colours) */
+@media (min-width:901px){
+  .tn-ema .tn-src li[data-ai]{z-index:1;margin-inline:-6px;
+    box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.95),0 0 0 4px rgba(160,124,246,.12),0 8px 20px -8px rgba(160,124,246,.6);
+    background:linear-gradient(90deg,rgba(160,124,246,.18),#fff 85%)}
+  .tn-ema .tn-src li[data-ai] .pl-k{font-weight:600}
+  .tn-ema .tn-src li[data-ai] .pl-ic{background:#24262b}
+  .tn-ema .tn-src li[data-ai] .pl-ic[title="Claude"]{background:#d97757}
+  .tn-ema .tn-src li[data-ai] .pl-ic[title="Gemini"]{background:#8e75b2}
+}
 /* hero visual, explore measure act option: the same tunnel, with Serve split into what people
    explore (Assistant, MCP), what leaders measure, and what agents and workflows act on */
 .tn-out .pl-serve[data-out="2"].hit{box-shadow:inset 0 0 0 1.5px #a07cf6,0 0 0 4px rgba(160,124,246,.14)}
 .tn-ema .tn-out{gap:8px}
+/* the cards take turns: the active one holds its outline, the others step back until theirs */
+.tn-ema .ema-card{transition:opacity .6s ease,box-shadow .4s ease}
+.tn-ema .tn-out:has(.ema-card.on) .ema-card:not(.on){opacity:.6}
+.tn-ema .tn-out .pl-serve.on{box-shadow:inset 0 0 0 1.5px var(--teal),0 0 0 4px rgba(16,185,208,.12)}
+.tn-ema .tn-out .pl-serve[data-out="1"].on{box-shadow:inset 0 0 0 1.5px var(--indigo),0 0 0 4px rgba(91,102,251,.12)}
+.tn-ema .tn-out .pl-serve[data-out="2"].on{box-shadow:inset 0 0 0 1.5px #a07cf6,0 0 0 4px rgba(160,124,246,.14)}
 .ema-card{padding:11px 13px 12px}
 .ema-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 2px;font-size:15.5px}
 .ema-h>span:first-child{display:flex;align-items:center;gap:8px}
@@ -854,13 +913,19 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
    the left after a typing indicator. One line each, fixed height, so the card never resizes */
 .ema-chat{display:grid;gap:6px}
 .ema-chat p{margin:0;max-width:100%;height:30px;padding:0 11px;display:flex;align-items:center;gap:6px;font:12.5px/1 var(--sans);white-space:nowrap;overflow:hidden;transition:opacity .35s}
-.ema-chat p>span{overflow:hidden;text-overflow:ellipsis}
+/* room for descenders: the span clips to its own box, so a tight line height cut off g, p and y */
+.ema-chat p>span{overflow:hidden;text-overflow:ellipsis;line-height:1.35}
 .ema-me{justify-self:end;border-radius:12px 12px 4px 12px;background:#e8ebff;color:#2a2f6b}
 .ema-ai{justify-self:start;border-radius:12px 12px 12px 4px;background:#fff;color:var(--text);box-shadow:inset 0 0 0 1px var(--rule)}
 .ema-chat p.off{opacity:0}
 /* the reply carries LinearB's mark so it reads as the assistant answering */
 .ema-lb{flex:0 0 auto;width:15px;height:15px;background:url(media/linearb-mark.png) center/contain no-repeat}
 .ema-ai{padding-left:9px}
+/* the person asking: a small avatar at the end of their bubble, mirroring the LinearB mark on the answer */
+.ema-me{padding-right:7px}
+/* the shoulders run past the bottom of the circle, which crops them like a profile photo */
+.ema-you{flex:0 0 auto;width:18px;height:18px;border-radius:50%;overflow:hidden;background:#5b66fb}
+.ema-you svg{display:block;width:100%;height:100%;overflow:visible;fill:#fff;opacity:.95}
 .ema-dots{display:none;gap:3px}
 .ema-ai.typing .ema-dots{display:flex}
 .ema-dots b{width:4px;height:4px;border-radius:50%;background:#8798a7;animation:ema-dot 1s infinite}
@@ -1646,7 +1711,7 @@ canvas.gl{image-rendering:auto}
   </div>
     <div class="hero-tunnel tn-3" data-slot="hero-visual" data-option="Context tunnel" hidden>
       <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
         <div class="tn">
           <canvas class="tn-fx" aria-hidden="true"></canvas>
           <div class="tn-grid">
@@ -1677,9 +1742,9 @@ canvas.gl{image-rendering:auto}
         </div>
       </div>
     </div>
-    <div class="hero-tunnel tn-3 tn-ema" aria-label="Hero visual" data-slot="hero-visual" data-option="Explore, measure, act" data-default>
+    <div class="hero-tunnel tn-3 tn-ema tn-slab" aria-label="Hero visual" data-slot="hero-visual" data-option="Explore, measure, act" data-default>
       <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Context for your software factory</span><span class="note">Sample data</span></div>
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
         <div class="tn">
           <canvas class="tn-fx" aria-hidden="true"></canvas>
           <div class="tn-grid">
@@ -1689,7 +1754,7 @@ canvas.gl{image-rendering:auto}
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="tn-core" aria-label="How LinearB builds the context layer">
-              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
               <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
             </div>
             <div class="pl-out tn-out">
@@ -1697,7 +1762,7 @@ canvas.gl{image-rendering:auto}
               <div class="pl-serve ema-card" data-out="0" data-role="explore" data-lanes="0">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#10b9d0"></i>Explore</span><span class="ema-via">Assistant · MCP</span></p>
                 <p class="ema-sub">Ask LinearB how work moves</p>
-                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
+                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
               </div>
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
@@ -2675,7 +2740,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   // which item that card shows when it lands (its question, cost figure or agent action), so the
   // pill and the card tell the same story. Rows: 0 planning, 1 code, 2 AI tools, 3 quality,
   // 4 CI/CD, 5 incidents. Tiers: needs focus coral, fair amber, good indigo, elite green
-  const ema = !!box.closest('.tn-ema'), chipOn = true, storyGap = ema ? 0.8 : 2.2;
+  const ema = !!box.closest('.tn-ema'), chipOn = true, storyGap = 2.2;
   const FOCUS = [255,99,69], FAIR = [201,135,0], GOOD = [91,102,251];
   const STORIES = [
     {row:0, role:'leaders', aliases:[1,0,2], tier:FAIR, labels:['PLAT-311 moved to review','Issue · Platform · in review','Maya Chen · PLAT-311 → PR #9185','Pickup time 7.1h · fair','To the EM in Slack']},
@@ -2778,8 +2843,8 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   }
   const P = (u, v) => L.wide ? {x:u, y:v} : {x:v, y:u};
 
-  const parts = [], glow = panes.map(() => 0), aiDots = [];
-  let aiAcc = 0;
+  const parts = [], glow = panes.map(() => 0), aiDots = [], aiIn = [];
+  let aiAcc = 0, aiInAcc = 0;
   let time = 0, spawnAcc = 0, nextStory = 1.2, storyN = 0, feat = null;
 
   function spawn(story, rowAt, viaAI){
@@ -2795,11 +2860,20 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     const a = L.wide ? {x:r.r + 4, y:r.t + r.h/2} : {x:r.l + r.w/2, y:L.src.b + 4};
     const p = {ph:'in', k, lane, v0, u:0, v:v0, x:a.x, y:a.y, seed:Math.random()*6.3, aliases,
       tier:story ? story.tier : tier(), stage:-1, trail:[], story:story || null, path:curve(a, P(L.entry, v0), L.wide), d:0};
-    if(story && chipOn) feat = p;
+    // the pill rides one highlighted event at a time, picking up the next to leave once it lands
+    if(story && chipOn && !feat) feat = p;
     parts.push(p);
-    flash(rows[rowI], 'hit', 260);
+    // explore measure act: only the highlighted event lights its row, so the list stays calm
+    if(story || !ema) flash(rows[rowI], 'hit', 260);
   }
-  const IN_SPEED = 230, TUBE_SPEED = 88, OUT_SPEED = 200;
+  // calmer: about a third as many events as before, moving about a fifth slower
+  const IN_SPEED = 185, TUBE_SPEED = 70, OUT_SPEED = 160;
+  // highlighted events: in explore measure act they move with everything else; elsewhere they
+  // ease a little slower than the rest so the pill can be read
+  const STORY_IN = ema ? 1 : 0.8, STORY_TUBE = ema ? 1 : 0.8, STORY_OUT = ema ? 1 : 0.7;
+  // explore measure act: a highlighted event leaves every CARD_TIME seconds, each bound for the
+  // next card, so a card takes its turn that often while two or so are on their way at once
+  const CARD_TIME = 5.5;
   const smooth = t => t <= 0 ? 0 : t >= 1 ? 1 : t*t*(3 - 2*t);
   const rgb = c => `rgb(${c.join(',')})`;
   function colourOf(p){ return p.stage >= 3 ? p.tier : p.stage >= 1 ? ONE : SRC[p.aliases[0].k]; }
@@ -2814,31 +2888,45 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
   function step(dt){
     if(!L) return;
     time += dt;
-    spawnAcc += dt*5.5;
+    spawnAcc += dt*1.8;
     while(spawnAcc >= 1){ spawnAcc--; spawn(); }
-    if(chipOn ? !feat && time > nextStory : time > nextStory){
+    if(ema){
+      if(time > nextStory){ spawn(nextStory_()); nextStory = time + CARD_TIME; }
+    } else if(chipOn ? !feat && time > nextStory : time > nextStory){
       spawn(nextStory_());
       if(!chipOn) nextStory = time + 3.6;
     }
     if(aiOn() && L.ai.length){
-      aiAcc += dt*1.3;
-      while(aiAcc >= 1){ aiAcc--; aiDots.push({c:L.ai[Math.floor(Math.random()*L.ai.length)], d:0, x:0, y:0, trail:[]}); flash(rows[aiRow], 'hit', 260); }
+      aiAcc += dt*0.45;
+      while(aiAcc >= 1){ aiAcc--; aiDots.push({c:L.ai[Math.floor(Math.random()*L.ai.length)], d:0, x:0, y:0, trail:[]}); if(!ema) flash(rows[aiRow], 'hit', 260); }
     }
     for(let i = aiDots.length - 1; i >= 0; i--){
-      const o = aiDots[i]; o.d += dt*120;
+      const o = aiDots[i]; o.d += dt*96;
       const q = at(o.c.path, o.d); o.x = q.x; o.y = q.y;
       o.trail.push(q.x, q.y); if(o.trail.length > 14) o.trail.splice(0, 2);
       if(o.d >= o.c.path.len){ aiDots.splice(i, 1); spawn(null, o.c.row, true); }
     }
+    // explore measure act: context also flows the other way, from a source row back into AI
+    // tools along the same loop, in that row's colour, now and then
+    if(ema && aiOn() && L.ai.length){
+      aiInAcc += dt*0.33;
+      while(aiInAcc >= 1){ aiInAcc--; const c = L.ai[Math.floor(Math.random()*L.ai.length)]; aiIn.push({c, k:+rows[c.row].dataset.k, d:c.path.len, x:0, y:0, trail:[]}); }
+    }
+    for(let i = aiIn.length - 1; i >= 0; i--){
+      const o = aiIn[i]; o.d -= dt*96;
+      if(o.d <= 0){ aiIn.splice(i, 1); continue; }
+      const q = at(o.c.path, o.d); o.x = q.x; o.y = q.y;
+      o.trail.push(q.x, q.y); if(o.trail.length > 14) o.trail.splice(0, 2);
+    }
     for(let i = parts.length - 1; i >= 0; i--){
       const p = parts[i];
       if(p.ph === 'in'){
-        p.d += dt*IN_SPEED*(p.story ? 0.8 : 1);
+        p.d += dt*IN_SPEED*(p.story ? STORY_IN : 1);
         const q = at(p.path, p.d); p.x = q.x; p.y = q.y;
         if(p.d >= p.path.len){ p.ph = 'tube'; p.u = L.entry; }
       }
       if(p.ph === 'tube'){
-        p.u += dt*TUBE_SPEED*(p.story ? 0.8 : 1);
+        p.u += dt*TUBE_SPEED*(p.story ? STORY_TUBE : 1);
         // scattered until Normalize, then eased into its lane
         p.merge = smooth((p.u - (L.su[1] - 30))/44);
         p.ident = smooth((p.u - (L.su[2] - 30))/44);
@@ -2848,7 +2936,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
           p.stage++;
           const pi = paneAt[p.stage];
           if(pi >= 0){ glow[pi] = Math.min(1, glow[pi] + (p.story ? 1 : 0.025)); if(p.story) flash(panes[pi], 'on', 900); }
-          if(p.story && chipOn) setChip(p, p.stage);
+          if(p === feat) setChip(p, p.stage);
           p.since = p.u;
         }
         const q = P(p.u, p.v); p.x = q.x; p.y = q.y;
@@ -2864,13 +2952,16 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
           p.ph = 'out'; p.d = 0; p.path = curve({x:p.x, y:p.y}, e, L.wide);
         }
       } else if(p.ph === 'out'){
-        p.d += dt*OUT_SPEED*(p.story ? 0.7 : 1);
+        p.d += dt*OUT_SPEED*(p.story ? STORY_OUT : 1);
         const q = at(p.path, p.d); p.x = q.x; p.y = q.y;
         if(p.d >= p.path.len){
-          flash(outs[p.target], 'hit', 300);
+          // explore measure act: the cards take turns. The one a highlighted event lands in holds
+          // a steady outline until the next lands in the next card; other events don't flash
+          if(!ema) flash(outs[p.target], 'hit', 300);
+          else if(p.story) outs.forEach(o => o.classList.toggle('on', o === outs[p.target]));
           if(p.story) outs[p.target].dispatchEvent(new CustomEvent('tn:land', {detail:p.story.show}));
           parts.splice(i, 1);
-          if(p === feat){ feat = null; nextStory = time + storyGap; setTimeout(() => { if(!feat) chip.classList.remove('show'); }, 1400); }
+          if(p === feat){ feat = null; if(!ema) nextStory = time + storyGap; setTimeout(() => { if(!feat) chip.classList.remove('show'); }, 1400); }
           continue;
         }
       }
@@ -2893,7 +2984,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     g.clearRect(0, 0, W, H);
     if(!L) return;
     if(aiOn() && L.ai.length){
-      g.lineWidth = 1; g.strokeStyle = 'rgba(160,124,246,.14)';
+      g.lineWidth = ema ? 1.6 : 1; g.strokeStyle = ema ? 'rgba(160,124,246,.38)' : 'rgba(160,124,246,.14)';
       for(const c of L.ai){ g.beginPath(); c.path.pts.forEach((q, j) => j ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.stroke(); }
       for(const o of aiDots){
         for(let j = 2; j < o.trail.length; j += 2){
@@ -2901,6 +2992,13 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
           g.beginPath(); g.moveTo(o.trail[j-2], o.trail[j-1]); g.lineTo(o.trail[j], o.trail[j+1]); g.stroke();
         }
         dot(o.x, o.y, 1.9, SRC[3], 0.8);
+      }
+      for(const o of aiIn){
+        for(let j = 2; j < o.trail.length; j += 2){
+          g.strokeStyle = rgba(SRC[o.k], 0.35*j/o.trail.length); g.lineWidth = 1.3;
+          g.beginPath(); g.moveTo(o.trail[j-2], o.trail[j-1]); g.lineTo(o.trail[j], o.trail[j+1]); g.stroke();
+        }
+        dot(o.x, o.y, 1.9, SRC[o.k], 0.8);
       }
     }
     // lanes from Normalize on: faint guides that show the data is now in order
@@ -2965,7 +3063,7 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     if(visible && L){ step(dt); draw(); }
     requestAnimationFrame(frame);
   }
-  const reset = () => { layout(); parts.length = 0; aiDots.length = 0; feat = null; chip.classList.remove('show'); };
+  const reset = () => { layout(); parts.length = 0; aiDots.length = 0; aiIn.length = 0; feat = null; chip.classList.remove('show'); };
   if(reduce){
     // one still frame of the flow in progress
     const still = () => { reset(); if(!L) return; time = 0; for(let i = 0; i < 300; i++) step(1/30); chip.classList.remove('show'); draw(); };
