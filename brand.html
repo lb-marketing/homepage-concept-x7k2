@@ -966,6 +966,119 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
   .tn-ema .ema-card{display:flex;flex-direction:column}
   .tn-ema .ema-card>.ema-chat,.tn-ema .ema-card>.ema-agent{margin-top:auto}
 }
+/* hero visual, scroll funnel option: the same five stages read top down, as the page scrolls.
+   Desktop pins the frame and spotlights one stage at a time: the whole funnel shows and runs
+   throughout, the stage in focus at full strength and the rest a step back, while a panel on the
+   left shows that stage large and follows one sample event through it. The last step lights
+   everything. Phones keep the stacked layout, each stage fading in as it comes up the screen */
+@property --fa{syntax:'<length>';inherits:false;initial-value:-400px}
+@property --fb{syntax:'<length>';inherits:false;initial-value:4000px}
+.sf-panel{display:none}
+.tn-scroll .tn-chip.below{opacity:0}
+.tn-scroll [data-stage]{transition:opacity .6s ease}
+/* reveal (phones, or a screen too short to pin): stages appear in turn */
+.tn-scroll.sf-on:not(.sf-pin) [data-stage]:not(.in){opacity:0}
+.tn-scroll.sf-on .tn-tube::before{transition:opacity .6s ease}
+.tn-scroll.sf-on:not(.sf-pin) .tn-tube:not(.in)::before{opacity:0}
+/* spotlight (pinned): the stages out of focus step back */
+.tn-scroll.sf-pin.sf-dim [data-stage]:not(.focus){opacity:.4}
+/* the flow: full strength between --fa and --fb, and none below --fb, so the dots only run as far
+   as the stage showing or in focus. While spotlighting, the flow through the stages already
+   passed carries on above --fa, a step back like those stages */
+.tn-scroll.sf-on .tn-fx{--ot:rgba(0,0,0,0);transition:--fa .7s ease,--fb .7s ease;
+  -webkit-mask:linear-gradient(180deg,var(--ot) calc(var(--fa) - 48px),#000 var(--fa),#000 calc(var(--fb) - 48px),transparent var(--fb));
+  mask:linear-gradient(180deg,var(--ot) calc(var(--fa) - 48px),#000 var(--fa),#000 calc(var(--fb) - 48px),transparent var(--fb))}
+.tn-scroll.sf-pin .tn-fx{--ot:rgba(0,0,0,.45)}
+/* the funnel: each pane narrower than the one before */
+.tn-scroll .tn-pane[data-s="1"]{--sw:84%}.tn-scroll .tn-pane[data-s="2"]{--sw:68%}.tn-scroll .tn-pane[data-s="3"]{--sw:54%}
+@media (max-width:900px){
+  .tn-scroll .tn-glass{flex-basis:var(--sw);width:var(--sw);margin-inline:auto}
+}
+@media (min-width:901px){
+  /* the aqua frame moves from the tall scroll track to the part that pins */
+  .hero-tunnel.tn-scroll{padding:0;border-radius:0;background:none;box-shadow:none}
+  .tn-scroll .sf-stick{padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
+  .hero-tunnel.tn-scroll.sf-pin{height:360vh}
+  .tn-scroll.sf-pin .sf-stick{position:sticky;top:12px}
+  .tn-scroll .sf-body{display:grid;grid-template-columns:minmax(0,clamp(320px,36%,460px)) minmax(0,1fr)}
+  /* the panel, on the left and leading: the stage in focus, large, swapping in place as the page
+     scrolls, with a five-part bar above it and one sample event below gaining a line per stage.
+     Sized by the diagram beside it, never the other way round, so the pinned frame keeps its height */
+  .tn-scroll .sf-panel{display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:clamp(22px,3.4vh,34px) clamp(22px,2.6vw,36px);border-right:1px solid var(--rule);contain:size;overflow:hidden}
+  .sf-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0;padding:0;list-style:none}
+  .sf-bar li{height:4px;border-radius:2px;background:var(--rule);transition:background-color .5s ease}
+  .sf-bar li.done{background:color-mix(in srgb,var(--indigo) 45%,#fff)}
+  .sf-bar li.now{background:var(--indigo)}
+  /* every step sits in the same spot; the one in focus fades up, the rest fade out */
+  .sf-steps{display:grid}
+  .sf-step{grid-area:1/1;align-self:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+  .sf-step.now{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  .sf-step .sf-n{margin:0 0 6px;font:600 13px var(--mono);color:var(--indigo)}
+  .sf-step h3{margin:0;font:600 clamp(30px,3.2vw,44px)/1.08 var(--display);letter-spacing:-.015em;color:var(--text);text-wrap:balance}
+  .sf-step .sf-line{margin:14px 0 0;font:500 clamp(17px,1.5vw,20px)/1.4 var(--sans);color:var(--text);text-wrap:pretty}
+  .sf-step .sf-key{margin:12px 0 0;font:clamp(14px,1.15vw,15.5px)/1.5 var(--sans);color:#4d5865;text-wrap:pretty}
+  /* last step: the whole funnel, each stage with its line */
+  .sf-step[data-k="5"] h3{font-size:clamp(24px,2.4vw,32px)}
+  .sf-all-list{display:grid;gap:clamp(8px,1.4vh,12px);margin:16px 0 0;padding:0;list-style:none}
+  .sf-all-list li{display:grid;grid-template-columns:18px minmax(0,1fr);column-gap:6px}
+  .sf-all-list .sf-n{grid-row:1/3;padding-top:3px;font:600 12px var(--mono);color:var(--indigo)}
+  .sf-all-list b{font:600 16px/1.25 var(--display);color:var(--text)}
+  .sf-all-list li>span:last-child{font:13px/1.4 var(--sans);color:#4d5865}
+  .sf-event{padding:13px 15px 14px;border-radius:14px;background:var(--pane)}
+  .sf-event-h{margin:0 0 9px;font:600 11.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;color:#8798a7}
+  .sf-event ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .sf-event li{display:none;align-items:center;gap:8px;font:13.5px/1.35 var(--sans);color:#8798a7}
+  .sf-event li.in{display:flex}
+  .sf-event li i{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--c)}
+  .sf-event li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sf-event li em{margin-left:auto;padding-left:8px;font-style:normal;font-size:12px;color:#8798a7}
+  /* the newest line in full, the earlier ones a step back */
+  .sf-event li.in:not(:has(+ li.in)){font-weight:500;color:var(--text)}
+  /* the diagram, top down */
+  .tn-scroll .tn-grid{grid-template-columns:1fr;gap:clamp(14px,2.4vh,24px);padding:clamp(16px,2.4vh,24px) clamp(20px,2.6vw,36px);align-items:stretch}
+  /* Collect: "+ 40 more" up beside the heading, AI tools centred above the other five as the hub
+     they all connect to, with room between for the spokes the tunnel canvas draws */
+  .tn-scroll .tn-in{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;align-items:baseline}
+  .tn-scroll .tn-in>.tn-step{grid-column:1;grid-row:1}
+  .tn-scroll .tn-in>.pl-more{grid-column:2;grid-row:1;margin:0;font-size:12.5px}
+  .tn-scroll .tn-in>.tn-src{grid-column:1/-1;grid-row:2}
+  .tn-scroll .tn-sub,.tn-scroll .tn-d{display:none}
+  .tn-scroll .tn-src{grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:auto;column-gap:8px;row-gap:clamp(26px,4vh,38px);flex:none}
+  .tn-scroll .tn-src li{grid-row:2;gap:6px;padding:7px 9px 7px 10px}
+  .tn-scroll .tn-src li[data-ai]{grid-row:1;grid-column:2/span 3;justify-self:center;min-width:min(100%,250px);margin-inline:0;padding-block:9px}
+  .tn-scroll .tn-src .pl-k{font-size:12.5px;white-space:nowrap}
+  .tn-scroll .tn-src .pl-tools{gap:5px}
+  .tn-scroll .tn-src li:not([data-ai]) .pl-ic{width:13px;height:13px}
+  .tn-scroll .tn-src li::after{display:none}
+  .tn-scroll .tn-core{align-self:auto}
+  .tn-scroll .tn-tube{display:block}
+  .tn-scroll .tn-tube::before{background:radial-gradient(60% 70% at 50% 45%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(180deg,#e2f8fb,#e8ebff)}
+  .tn-scroll .tn-tube::after{display:none}
+  /* room above Normalize for the scattered run in, and below Specialize for the fan out to Serve */
+  .tn-scroll .tn-panes{grid-auto-flow:row;grid-auto-rows:auto;gap:clamp(12px,2.2vh,22px);padding:clamp(30px,5vh,50px) 0 clamp(26px,4vh,40px)}
+  /* each pane: its name on the left, the glass centred, an empty column on the right to match */
+  .tn-scroll .tn-pane{--gh:clamp(44px,6.6vh,70px);display:grid;grid-template-columns:110px minmax(0,1fr) 110px;align-items:center}
+  .tn-scroll .tn-l{grid-column:1;grid-row:1;margin:0;padding-left:18px}
+  .tn-scroll .tn-glass{grid-column:2;grid-row:1;justify-self:center;width:var(--sw);height:var(--gh);border-radius:8px;transform:perspective(700px) rotateX(-40deg);
+    background:linear-gradient(202deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.2) 30%,rgba(255,255,255,.05) 56%,rgba(255,255,255,.35) 100%),
+      linear-gradient(90deg,color-mix(in srgb,var(--pc) 10%,transparent),color-mix(in srgb,var(--pc) 24%,transparent));
+    border:1px solid rgba(255,255,255,.95);
+    box-shadow:0 -14px 0 -1px color-mix(in srgb,var(--pc) 34%,rgba(255,255,255,.7)),inset 0 0 0 1px color-mix(in srgb,var(--pc) 32%,transparent),
+      0 24px 30px -16px color-mix(in srgb,var(--pc) 55%,transparent),0 0 calc(var(--g)*28px) calc(var(--g)*3px) color-mix(in srgb,var(--pc) calc(var(--g)*80%),transparent);
+    -webkit-backdrop-filter:blur(3.5px) saturate(1.6);backdrop-filter:blur(3.5px) saturate(1.6)}
+  .tn-scroll .tn-pane[data-s] .tn-glass::after{inset:0;border-radius:inherit;
+    -webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .tn-scroll .tn-pane[data-s="1"] .tn-glass::after{background:linear-gradient(90deg,transparent calc(24% - 1px),rgba(47,169,226,.5) calc(24% - 1px),rgba(47,169,226,.5) calc(24% + 1px),transparent calc(24% + 1px),transparent calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% - 1px),rgba(47,169,226,.5) calc(41.33% + 1px),transparent calc(41.33% + 1px),transparent calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% - 1px),rgba(47,169,226,.5) calc(58.67% + 1px),transparent calc(58.67% + 1px),transparent calc(76% - 1px),rgba(47,169,226,.5) calc(76% - 1px),rgba(47,169,226,.5) calc(76% + 1px),transparent calc(76% + 1px))}
+  .tn-scroll .tn-pane[data-s="2"] .tn-glass::after{background-size:auto 46px;background-repeat:repeat-x}
+  .tn-scroll .tn-pane[data-s="3"] .tn-glass::after{background:
+    repeating-linear-gradient(90deg,rgba(101,119,247,.45) 0 1px,transparent 1px 12px) top/100% 6px no-repeat,
+    linear-gradient(90deg,rgba(14,159,110,.2) 0 25%,rgba(91,102,251,.18) 25% 50%,rgba(201,135,0,.16) 50% 75%,rgba(255,99,69,.18) 75%)}
+  .tn-scroll .tn-glass::before{background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.95) 50%,transparent 100%) -100% 0/50% 100% no-repeat}
+  .tn-scroll .tn-pane.on .tn-glass::before{animation-name:tn-sweep-x}
+  /* serve: the three cards side by side, explore on the left lanes, act on the right */
+  .tn-scroll .tn-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+  .tn-scroll .tn-out .tn-step{grid-column:1/-1;margin:0 0 -2px}
+}
 /* cost readout: flips between cost per effective PR and the cost of a few sample projects, with
    the figures moving a little each time (sample data; the project figure is what leadership asked
    to see, not a single metric in the product) */
@@ -1777,6 +1890,68 @@ canvas.gl{image-rendering:auto}
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="hero-tunnel tn-ema tn-scroll" aria-label="Hero visual" data-slot="hero-visual" data-option="Scroll funnel" hidden>
+      <div class="sf-stick">
+      <div class="win">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
+        <div class="sf-body">
+        <div class="sf-panel">
+          <ol class="sf-bar" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+          <div class="sf-steps" aria-live="polite">
+            <section class="sf-step" data-k="0"><p class="sf-n">1</p><h3>Collect</h3><p class="sf-line">Every commit, ticket and build across your SDLC</p><p class="sf-key">LinearB starts by connecting to the tools your teams already use, from planning, code and CI/CD to incidents and AI tools such as Copilot, Cursor and Claude Code. Each event arrives in its own tool's format.</p></section>
+            <section class="sf-step" data-k="1"><p class="sf-n">2</p><h3>Normalize</h3><p class="sf-line">Every tool's data, in one shared language</p><p class="sf-key">That data is then mapped onto one shared model, so a GitLab merge request counts as a GitHub pull request and an Azure Boards work item as a Jira issue, letting you compare teams on different tools.</p></section>
+            <section class="sf-step" data-k="2"><p class="sf-n">3</p><h3>Enrich</h3><p class="sf-line">People and PRs, linked across tools</p><p class="sf-key">Once everything shares a language, each person's accounts merge into one contributor and every PR links to its ticket and release. AI-assisted PRs are flagged so you can compare them with the rest.</p></section>
+            <section class="sf-step" data-k="3"><p class="sf-n">4</p><h3>Specialize</h3><p class="sf-line">Metrics benchmarked against 8.1M+ PRs</p><p class="sf-key">Those linked records become metrics such as cycle time and rework rate, each benchmarked against 4,800+ teams and placed in a tier from elite to needs focus.</p></section>
+            <section class="sf-step" data-k="4"><p class="sf-n">5</p><h3>Serve</h3><p class="sf-line">Answers for people, context for agents</p><p class="sf-key">Every answer and action draws on that same context. You ask the LinearB Assistant how work moves and follow metrics in dashboards and Slack, while agents read it through LinearB's MCP server and gitStream acts on it in your PRs.</p></section>
+            <section class="sf-step" data-k="5"><h3>Context for your software factory</h3><ol class="sf-all-list"><li><span class="sf-n">1</span><b>Collect</b><span>Every commit, ticket and build across your SDLC</span></li><li><span class="sf-n">2</span><b>Normalize</b><span>Every tool's data, in one shared language</span></li><li><span class="sf-n">3</span><b>Enrich</b><span>People and PRs, linked across tools</span></li><li><span class="sf-n">4</span><b>Specialize</b><span>Metrics benchmarked against 8.1M+ PRs</span></li><li><span class="sf-n">5</span><b>Serve</b><span>Answers for people, context for agents</span></li></ol></section>
+          </div>
+          <div class="sf-event" aria-label="One sample event, followed through each stage">
+            <p class="sf-event-h">Follow one event</p>
+            <ol>
+              <li data-k="0"><i style="--c:#10b9d0"></i><span>PLAT-311 moved to review</span><em>Jira</em></li>
+              <li data-k="1"><i style="--c:#4b6cf0"></i><span>Issue · Platform · in review</span></li>
+              <li data-k="2"><i style="--c:#4b6cf0"></i><span>Maya Chen · PLAT-311 → PR #9185</span></li>
+              <li data-k="3"><i style="--c:#c98700"></i><span>Pickup time 7.1h · fair</span></li>
+              <li data-k="4"><i style="--c:#10b9d0"></i><span>To the Assistant</span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="tn">
+          <canvas class="tn-fx" aria-hidden="true"></canvas>
+          <div class="tn-grid">
+            <div class="tn-in" data-stage="0">
+              <p class="pl-h tn-step"><span class="tn-n">1</span>Collect</p><p class="tn-sub">Every commit, ticket and build across your SDLC</p>
+              <ul class="pl-src tn-src"><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="3" data-ai><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="4"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li></ul>
+              <p class="pl-more">+ 40 more integrations</p>
+            </div>
+            <div class="tn-core" aria-label="How LinearB builds the context layer">
+              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1" data-stage="1"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2" data-stage="2"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3" data-stage="3"><i class="tn-glass" aria-hidden="true"><i class="tn-water"></i><i class="tn-edge"></i></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
+              <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
+            </div>
+            <div class="pl-out tn-out" data-stage="4">
+              <p class="pl-h tn-step"><span class="tn-n">5</span>Serve</p>
+              <div class="pl-serve ema-card" data-out="0" data-role="explore" data-lanes="0">
+                <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#10b9d0"></i>Explore</span><span class="ema-via">Assistant · MCP</span></p>
+                <p class="ema-sub">Ask LinearB how work moves</p>
+                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
+              </div>
+              <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
+                <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
+                <p class="ema-sub">Metrics and benchmarks for leaders</p>
+                <div class="cost-flip" data-items="[[&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Checkout redesign&quot;, 184, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Payments migration&quot;, 96, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Mobile app v3&quot;, 142, &quot;k&quot;]]"><p class="cf-h">Cost per effective PR</p><div class="cf-row"><span>All teams</span><b>$602</b><em>▼ 4%</em></div></div>
+              </div>
+              <div class="pl-serve ema-card ema-act" data-out="2" data-role="agents" data-lanes="3">
+                <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#a07cf6"></i>Act</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
+                <p class="ema-sub">For agents and workflows</p>
+                <div class="ema-agent" data-acts="[[&quot;claude&quot;, &quot;Claude&quot;, &quot;via MCP&quot;, &quot;Checking payments-api's team norms before editing&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Holding PR #482 for a human review&quot;], [&quot;cursor&quot;, &quot;Cursor&quot;, &quot;via MCP&quot;, &quot;Adding a test where rework runs high&quot;], [&quot;flow&quot;, &quot;gitStream&quot;, &quot;workflow automation&quot;, &quot;Routing PR #9185 to the right reviewer&quot;]]"><i class="ema-av"></i><p class="ema-who"><b></b><span></span></p><p class="ema-do"><span></span></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
       </div>
     </div>
     <div class="hero-video" data-slot="hero-visual" data-option="Explainer video" hidden>
@@ -2833,10 +3008,17 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
       vMin:v0 + span*0.14, vMax:v1 - span*0.14,
       lane:Array.from({length:LANES}, (_, i) => v0 + span*(0.24 + 0.52*i/(LANES-1))),
       rows:rows.map(rel), outs:outs.map(rel), src:rel(box.querySelector('.tn-in'))};
-    // AI tools marker: a smooth loop out to the left of the list, from AI tools into each other row
+    // AI tools marker: a smooth loop out to the left of the list, from AI tools into each other row.
+    // Top down, where AI tools sits as a hub above the other sources (the scroll funnel on desktop),
+    // a spoke fans down from it to each of them instead; other top-down layouts have no marker
     const ar = L.rows[aiRow];
-    L.ai = !wide || !ar ? [] : L.rows.map((r, i) => {
+    const hub = !wide && ar && L.rows.every((r, i) => i === aiRow || r.t > ar.b + 4);
+    L.ai = !ar || !(wide || hub) ? [] : L.rows.map((r, i) => {
       if(i === aiRow) return null;
+      if(hub){
+        const a = {x:ar.l + ar.w/2, y:ar.b + 2}, e = {x:r.l + r.w/2, y:r.t - 2}, m = (e.y - a.y)*0.6;
+        return {row:i, path:bez(a, {x:a.x, y:a.y + m}, {x:e.x, y:e.y - m}, e)};
+      }
       const a = {x:ar.l - 3, y:ar.t + ar.h/2}, e = {x:r.l - 3, y:r.t + r.h/2}, bx = a.x - (8 + Math.abs(e.y - a.y)*0.09);
       return {row:i, path:bez(a, {x:bx, y:a.y}, {x:bx, y:e.y}, e)};
     }).filter(Boolean);
@@ -3054,6 +3236,8 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
       // phones: pinned to the right of the tube, so it runs down beside the stage names, not over them
       const x = L.wide ? feat.x - cw/2 : L.tubeR - cw - 10, y = feat.y - ch - (L.wide ? 16 : 10);
       chip.style.transform = `translate(${Math.max(8, Math.min(W - cw - 8, x)).toFixed(1)}px,${Math.max(4, y).toFixed(1)}px)`;
+      // scroll funnel: the pill only shows while its event is in the part of the flow in focus
+      if(box.dataset.fb) chip.classList.toggle('below', y + ch > +box.dataset.fb - 40 || y < +box.dataset.fa - 10);
     }
   }
 
@@ -3075,6 +3259,77 @@ document.querySelectorAll('.hero-tunnel .tn').forEach(box => {
     if(document.fonts) document.fonts.ready.then(reset);
     whenVisible(box, v => visible = v); requestAnimationFrame(frame);
   }
+});
+
+/* ---------- Hero visual, scroll funnel option: the stages in turn as the page scrolls ----------
+   Steps 0 to 4 are Collect, Normalize, Enrich, Specialize and Serve; step 5 is the whole funnel.
+   Desktop pins the frame for the length of its track, maps scroll progress to a step, and
+   spotlights that stage: everything shows, the stage in focus at full strength, the flow running
+   only as far as it (dimmed above, full strength around it), the panel showing it large and adding
+   its line to the sample event.
+   Where the frame won't fit the screen, and on phones, each stage instead appears once it rises
+   past four fifths of the way down the screen, with the flow running down to just past it */
+document.querySelectorAll('.tn-scroll').forEach(sf => {
+  const stick = sf.querySelector('.sf-stick'), tn = sf.querySelector('.tn'), fx = tn.querySelector('.tn-fx'), tube = sf.querySelector('.tn-tube');
+  const stages = [...sf.querySelectorAll('[data-stage]')], trail = [...sf.querySelectorAll('.sf-event li')];
+  const steps = [...sf.querySelectorAll('.sf-step')], bar = [...sf.querySelectorAll('.sf-bar li')];
+  const STEPS = 6, LAST = STEPS - 1, wide = matchMedia('(min-width:901px)');
+  const stage = k => stages.find(el => +el.dataset.stage === k);
+  let cur = -1, mode = '';
+  // the band of the diagram where the flow runs at full strength; the pill hides outside it
+  const band = (a, b) => {
+    fx.style.setProperty('--fa', a.toFixed(0) + 'px'); fx.style.setProperty('--fb', b.toFixed(0) + 'px');
+    tn.dataset.fa = a.toFixed(0); tn.dataset.fb = b.toFixed(0);
+  };
+  function set(s, m){
+    if(s === cur && m === mode) return;
+    cur = s; mode = m;
+    const top = tn.getBoundingClientRect().top, H = tn.offsetHeight;
+    const edge = el => { const r = el.getBoundingClientRect(); return [r.top - top, r.bottom - top]; };
+    steps.forEach(el => el.classList.toggle('now', +el.dataset.k === s));
+    bar.forEach((li, i) => { li.classList.toggle('now', i === s || s >= LAST); li.classList.toggle('done', i < s && s < LAST); });
+    trail.forEach(li => li.classList.toggle('in', +li.dataset.k <= s));
+    sf.classList.toggle('sf-all', s >= LAST);
+    if(m === 'pin'){
+      stages.forEach(el => { el.classList.add('in'); el.classList.toggle('focus', +el.dataset.stage === s); });
+      tube.classList.add('in');
+      sf.classList.toggle('sf-dim', s < LAST);
+      if(s >= LAST) band(-400, H + 400);
+      else {
+        // Collect: its rows and the run out of them. A pane: the scattered or laned run into it and
+        // just past it. Serve: the fan out from the tube and the cards
+        const [a, b] = edge(stage(s));
+        band(s === 0 ? -400 : a - (s === 4 ? 70 : 44), s === 4 ? H + 400 : b + 48);
+      }
+    } else {
+      stages.forEach(el => { el.classList.toggle('in', +el.dataset.stage <= s); el.classList.remove('focus'); });
+      tube.classList.toggle('in', s >= 1);
+      sf.classList.remove('sf-dim');
+      band(-400, s >= 4 ? H + 400 : edge(stage(s))[1] + 44);
+    }
+  }
+  function update(){
+    if(!sf.offsetParent) return;
+    // reduced motion: no pinning or dimming, just the whole funnel with the full panel beside it
+    if(reduce){ sf.classList.remove('sf-on', 'sf-pin'); set(LAST, 'reveal'); delete tn.dataset.fa; delete tn.dataset.fb; return; }
+    sf.classList.add('sf-on');
+    // pin only where the whole frame fits on screen
+    const pin = wide.matches && stick.offsetHeight <= innerHeight - 24;
+    sf.classList.toggle('sf-pin', pin);
+    let s = 0;
+    if(pin){
+      const travel = sf.offsetHeight - stick.offsetHeight, p = Math.min(1, Math.max(0, (12 - sf.getBoundingClientRect().top)/travel));
+      s = Math.min(LAST, Math.floor(p*STEPS));
+    } else {
+      const line = innerHeight*0.8;
+      stages.forEach(el => { if(el.getBoundingClientRect().top < line) s = Math.max(s, +el.dataset.stage); });
+    }
+    set(s, pin ? 'pin' : 'reveal');
+  }
+  addEventListener('scroll', update, {passive:true});
+  // shown from the variants panel, resized, or text reflowing: measure again from scratch
+  new ResizeObserver(() => { cur = -1; update(); }).observe(sf);
+  update();
 });
 
 /* ---------- Hero visual, explore measure act option: the explore query and the agent at work ---------- */
