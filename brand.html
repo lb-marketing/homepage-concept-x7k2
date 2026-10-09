@@ -1301,6 +1301,21 @@ body:has(.seats>.mode-feed:not([hidden])) .feed-panel{display:none}
 .fact b{font-weight:600;color:var(--text)}
 .fact span:last-child{font-size:13px;color:#4d5865}
 .next{margin-top:14px;font-size:14px;color:#4d5865}
+/* the line beneath the facts keeps room for two lines, so the panel holds its height as it moves
+   between cards */
+.seats .next{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.4;min-height:2.8em}
+/* the headline above the facts keeps room for two lines too, for the same reason */
+.seats #seat-cmd{min-height:2.6em}
+/* where the facts get too narrow for that, each becomes a row: label and note on the left, the
+   figure on the right */
+.seats .out{container-type:inline-size}
+@container (max-width:440px){
+  .seats .facts{grid-template-columns:1fr;gap:8px}
+  .seats .fact,.seats .fact+.fact{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;align-items:center;padding:10px 14px}
+  .seats .fact .k{grid-area:1/1}
+  .seats .fact b{grid-area:1/2/3/3;margin:0}
+  .seats .fact span:last-child{grid-area:2/1;min-height:0}
+}
 .next::before{content:none}
 .view .grp-h{font:500 14px var(--sans);letter-spacing:0;text-transform:none;color:var(--text)}
 .sprint .s i{text-transform:none;letter-spacing:0;font-size:11px;background:rgba(16,185,208,.12);border-color:transparent;color:#0a7f8f}
@@ -1641,6 +1656,17 @@ canvas.gl{image-rendering:auto}
 }
 /* full width; the footer's padding keeps its text on the page's 1240px column */
 .close{border-top:0;padding-block:clamp(72px,9vw,128px);background:radial-gradient(ellipse 34% 55% at 50% 30%,rgba(87,210,223,.16),transparent 70%),#222326}
+/* colour to break up the page: soft full-width bands behind the role cards and the customer
+   proof, in the brand's aqua and lavender, so the page alternates white and tint down to the
+   dark close. Cards inside them go white so they still lift off the band */
+body{overflow-x:clip}
+.seats,.voices{position:relative;isolation:isolate}
+.seats::before,.voices::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none}
+.seats::before{background:linear-gradient(135deg,#e5f7f9 0%,#ecefff 100%)}
+.voices::before{background:linear-gradient(135deg,#ecefff 0%,#e5f7f9 100%)}
+.voices .secure{background:#fff}
+/* the logos under the hero visual end flush; give them room before the tinted band below */
+.proof-below{padding-bottom:clamp(32px,4vw,56px)}
 .foot{padding-inline:max(clamp(16px,4vw,40px),calc((100% - 1240px)/2 + clamp(16px,4vw,40px)))}
 .close h2,.close .count{color:#fff}
 .close .btn.solid{background:var(--aqua-2);color:#222326}
@@ -3793,23 +3819,23 @@ new IntersectionObserver((es, io) => { if(es[0].isIntersecting){ io.disconnect()
 /* ---------- Seats: one PR, as the agent, reviewer and lead see it (sample data) ---------- */
 {
   const SEATS = [
-    { role: 'claude pr/9185', view: 'No, high risk. PR #9185 needs a human review', title: 'context — pr/9185',
+    { role: 'claude pr/9185', view: 'PR #9185 is high risk and needs a human review', title: 'context — pr/9185',
       verdict: ['bad', 'Auto-merge blocked'], facts: [
         [V('impact', 'Impact'), 'High', '805 changes · 9 files', 'bad'],
-        [V('ai review', 'AI review'), '2 notes', 'backup window unset', 'warn'],
-        [V('reviewer', 'Reviewer'), 'Auto-routed', 'to Platform on-call']],
+        [V('effort', 'Effort'), 'Max', 'high-risk code', 'bad'],
+        [V('reviewer', 'Reviewer'), 'On-call', 'auto-routed']],
       next: 'Claude holds the merge until Platform on-call approves' },
     { role: 'manager team/platform', view: 'Reviews are slowing September’s committed work', title: 'context — @platform · september',
       verdict: ['warn', 'Review queue building'], facts: [
-        [V('pickup time', 'Pickup time'), '7.1h', 'up from 3.4h · org median 3.1h', 'warn'],
-        [V('review load', 'Review load'), '2 of 5', 'reviewers handle most reviews', 'warn'],
-        [V('cycle time', 'Cycle time'), '31h', 'still good · on pace', 'good']],
+        [V('pickup time', 'Pickup time'), '7.1h', 'up from 3.4h', 'warn'],
+        [V('review load', 'Review load'), '2 of 5', 'carry most reviews', 'warn'],
+        [V('cycle time', 'Cycle time'), '31h', 'still on pace', 'good']],
       next: 'The manager moves low-impact infra reviews to a second pool' },
-    { role: 'cto org --quarter Q3', view: 'CTO view · Whole org, Q3', title: 'context — org · Q3',
+    { role: 'cto org --quarter Q3', view: 'AI spend is turning into more shipped work this quarter', title: 'context — org · Q3',
       verdict: ['good', 'Paying off'], facts: [
         [V('cost / effective PR', 'Cost per effective PR'), '$602', '▼ 9% since Q2', 'good'],
-        [V('ai cost', 'AI cost'), '$18.4k/wk', 'estimated from token use'],
-        [V('throughput', 'Throughput'), '+9%', '449 PRs merged a week', 'good']],
+        [V('ai cost', 'AI cost'), '$18.4k/wk', 'from token use'],
+        [V('throughput', 'Throughput'), '+9%', '449 PRs a week', 'good']],
       next: 'The CTO takes it into the quarterly board report' }
   ];
   // org view: 264 dots, ~38% AI-assisted, one of them is #9185
