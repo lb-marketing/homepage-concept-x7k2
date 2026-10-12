@@ -78,73 +78,11 @@ h1{font-weight:500;font-size:clamp(38px,5.8vw,78px);line-height:1.02;letter-spac
 .win-bar .spacer{width:39px}
 .win-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:7px 12px;border-top:1px solid var(--rule);font-size:11px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
 .win-foot b{color:var(--text);font-weight:500}
-canvas.fx{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
-canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated}
 
-/* context layer (hero) */
-.ctx{position:relative}
-.ctx-grid{position:relative;display:grid;grid-template-columns:minmax(0,190px) minmax(240px,1fr) minmax(0,300px);gap:24px;padding:22px 24px;min-height:420px}
-.ctx-src{display:flex;flex-direction:column;justify-content:center;gap:22px}
 .grp-h{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
-.ports{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
-.ports li{position:relative;display:flex;align-items:center;gap:7px;font-size:12.5px;line-height:1;padding:5px 9px 5px 7px;border:1px solid var(--rule);background:var(--black);color:var(--muted);transition:color .9s,border-color .9s}
-.ports svg{width:13px;height:13px;flex:0 0 auto;fill:currentColor}
-.ports .ic{width:13px;height:13px;flex:0 0 auto;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
-.ports li::after{content:"";position:absolute;right:-3px;top:50%;width:5px;height:5px;margin-top:-2.5px;background:var(--dim);transition:background-color .9s}
-.ports li.hit{color:var(--text);border-color:#3a3a36;transition-duration:.12s}
-.ports li.hit::after{background:var(--text);transition-duration:.12s}
-.ctx-core{position:relative}
-.core-tag{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--black);background:var(--text);padding:2px 7px;white-space:nowrap}
-.ctx-out{display:flex;flex-direction:column;justify-content:center;gap:26px}
-.readout-pane{background:var(--black)}
-.readout-pane table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.readout-pane th{text-align:left;font-weight:400;color:var(--muted);padding:5px 0 5px 8px;border-bottom:1px solid var(--rule)}
-.readout-pane td{text-align:right;padding:5px 8px 5px 10px;border-bottom:1px solid var(--rule);white-space:nowrap}
-.readout-pane td.d{color:var(--dim);font-size:11.5px;padding-left:4px}
-.readout-pane td.b{color:var(--text)}
-.readout-pane th{transition:color 1.1s}
-.readout-pane tr.hit th{color:var(--text);transition-duration:.15s}
 .more{margin:0;padding:6px 8px 0;font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.more .cyc{color:var(--muted)}
 .fine{font-size:11.5px;color:var(--dim);margin:12px 0 0}
 
-/* live log */
-.log{padding-block:36px 18px}
-.log-head{display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
-.log-head .live::before{content:"";display:inline-block;width:7px;height:7px;background:var(--live);margin-right:8px;vertical-align:1px;animation:blink 1.05s steps(1) infinite}
-/* two lanes, agents and people, each showing one pair: someone about to act, then the
-   LinearB context that answers them */
-.lanes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.lane{padding:14px 0 16px;min-width:0}
-.lane + .lane{border-left:1px solid var(--rule);padding-left:28px}
-.lane:first-child{padding-right:28px}
-.lane-h{margin:0 0 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
-.lines{overflow-anchor:none;margin:0;padding:0;list-style:none;font-size:13px;line-height:1.6;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
-/* who is speaking sits right above what they said: sender, then LinearB's reply */
-.lines .row{display:block}
-.lines .row + .row{margin-top:10px}
-.lines .lbl{display:flex;align-items:center;font-weight:600;color:var(--text);margin-bottom:2px}
-.lines .t{color:var(--dim);font-weight:400;margin-left:10px}
-@media (max-width:900px){
-  .lanes{grid-template-columns:minmax(0,1fr)}
-  .lane + .lane{border-left:0;border-top:1px solid var(--rule);padding-left:0}
-  .lane:first-child{padding-right:0}
-}
-/* earlier pairs: just who acted and what, on one dimmed line */
-.lines .pair.past{padding-top:9px;margin-top:9px;border-top:1px solid var(--rule);opacity:.5}
-.lines .pair.past .ctx,.lines .pair.past .t{display:none}
-.lines .pair.past .act{display:flex;align-items:center;gap:8px;white-space:nowrap}
-.lines .pair.past .lbl{margin:0;flex:0 0 auto}
-.lines .pair.past .msg{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.lines .pair.new .act{animation:in .25s steps(3) both}
-/* LinearB answers straight away: its logo arrives with the action and gives one soft pulse,
-   while the answer wipes in left to right, so it reads as a reply rather than a wait */
-.lines .pair.new .ctx{animation:in .25s steps(3) both}
-.lines .pair.new .ctx .lbl img{transform-origin:left center;animation:lb-pulse .9s .25s ease-in-out both}
-.lines .pair.new .ctx .msg{-webkit-mask:linear-gradient(90deg,#000 45%,transparent 55%) 100% 0/250% 100% no-repeat;
-  mask:linear-gradient(90deg,#000 45%,transparent 55%) 100% 0/250% 100% no-repeat;animation:lb-wipe .6s .35s cubic-bezier(.3,.6,.3,1) both}
-@keyframes lb-pulse{0%{opacity:.7;transform:scale(1)}40%{opacity:1;transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
-@keyframes lb-wipe{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
 @keyframes in{from{opacity:0}}
 
 /* sections */
@@ -200,9 +138,6 @@ canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-r
 .dash em.r-elite{--c:var(--elite)}
 .dash em.r-good{--c:var(--good)}
 .dash em.r-focus{--c:var(--focus)}
-.readout-pane td.r-elite{color:var(--elite)}
-.readout-pane td.r-good{color:var(--good)}
-.readout-pane td.r-focus{color:var(--focus)}
 .dash-h{display:flex;justify-content:space-between;gap:.6em;letter-spacing:.04em}
 .dash-h span{color:var(--dim)}
 .dash-big{font-size:2.1em;color:var(--text);letter-spacing:-.02em;line-height:1}
@@ -489,11 +424,6 @@ canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-r
   .composer{margin:0 10px 10px}
   .row{grid-template-columns:7.5em minmax(0,1fr) 4em}
   .nav ul{display:none}
-  .ctx-grid{grid-template-columns:1fr;gap:0;padding:20px 16px;min-height:0}
-  .ctx-src{flex-direction:row;flex-wrap:wrap;gap:14px 18px;justify-content:flex-start}
-  .ports{flex-direction:row;flex-wrap:wrap}
-  .ports li::after{display:none}  /* stacked, the wires leave from under the chip block */
-  .ctx-core{height:300px}
   .steps{grid-template-columns:1fr}
   .step{border-left:0;border-top:1px solid var(--rule)}
   .step:first-child{border-top:0}
@@ -506,7 +436,7 @@ canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-r
   .fact+.fact{padding-left:0;border-left:0;border-top:1px dashed var(--rule)}
 }
 @media (prefers-reduced-motion:reduce){
-  .cursor,.log-head .live::before,.close .live::before,.count .s,.tool.run .st::after,.chat-body>*{animation:none}
+  .cursor,.close .live::before,.count .s,.tool.run .st::after,.chat-body>*{animation:none}
   .track s,.col s,.spark polyline,.ltr{transition:none}
   .fact,.next,.view{transition:none}
   .pr-ghost{display:none}
@@ -675,9 +605,6 @@ h1 .cursor{display:none}
 section[aria-label="The context layer"]{padding-block:8px 24px}
 section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22px) var(--aqua),var(--card-shadow);margin:clamp(12px,2vw,22px)}
 /* the context window and the live feed share one aqua frame: the feed is what the layer delivers */
-section[aria-label="The context layer"]>.hero-frame{--f:clamp(12px,2vw,22px);display:grid;gap:var(--f);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
-section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:none}
-.feed-panel{padding:18px clamp(16px,2.4vw,28px) 6px;border-radius:24px;background:#fff}
 
 /* shared by the hero tunnel: source rows, output cards and the live metric */
 .pl-h{margin:0 0 10px;font:600 14.5px/1.25 var(--display);color:var(--text)}
@@ -1092,51 +1019,99 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 .tn-ema .cf-row b{font-size:16px}
 .cf-row em,.tn-ema .pl-metric em{min-width:4.4em;text-align:right;font:12.5px var(--sans);font-style:normal;color:#8798a7}
 @media (min-width:901px){.tn-out>.cost-flip{margin-top:auto;padding-top:10px}.tn-ema .ema-card>.cost-flip{margin-top:auto}}
-/* hero visual, video option: the explainer in the same aqua frame, click to play */
-.hero-video{--f:clamp(12px,2vw,22px);margin:clamp(12px,2vw,22px) 0;padding:var(--f);border-radius:calc(24px + var(--f));background:var(--aqua);box-shadow:var(--card-shadow)}
-.hv-frame{position:relative;aspect-ratio:16/9;border-radius:24px;overflow:hidden;background:#0d1014}
-.hv-frame video{display:block;width:100%;height:100%;object-fit:cover}
-.hv-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border:0;border-radius:50%;background:var(--indigo);box-shadow:0 10px 30px rgba(91,102,251,.4);cursor:pointer;transition:transform .2s}
-.hv-play::before{content:"";position:absolute;left:34px;top:27px;border-style:solid;border-width:15px 0 15px 24px;border-color:transparent transparent transparent #fff}
-.hv-play:hover{transform:scale(1.06)}
-.hv-frame.playing .hv-play{display:none}
-
-.feed-panel .log-head{margin-bottom:12px}
-.feed-panel .lanes{border-bottom:0}
-
-.ports li{border-radius:999px;background:#fff;font:13px/1 var(--sans);padding:7px 13px 7px 10px;color:var(--muted);gap:8px}
-.ports li::after{border-radius:50%;width:7px;height:7px;margin-top:-3.5px;right:-4px;background:var(--rule)}
-.ports li.hit{color:var(--text);border-color:var(--aqua-2)}
-.ports li.hit::after{background:var(--teal)}
-.ports li[data-k="1"].hit::after{background:var(--indigo-2)}
-.ports li[data-k="2"].hit::after{background:var(--coral)}
-.core-tag{font:500 11.5px/1 var(--sans);letter-spacing:.08em;border-radius:999px;padding:7px 12px;color:#fff;background:var(--text)}
-.readout-pane table{font:14px var(--sans)}
-.readout-pane td{color:var(--text)}
-/* one heading over the whole right column: the readouts are the software factory's metrics */
-.ctx-out{gap:18px}
-.ctx-out-h{margin:0 0 -4px;font:600 15px/1.2 var(--display);color:var(--text)}
-
-/* a readout that just updated flashes softly */
-.readout-pane td.tick{animation:tick 1.2s ease-out}
 @keyframes tick{0%{color:var(--indigo)}100%{color:var(--text)}}
 
-.readout-pane td.d{font-size:12.5px}
-.more{font:13px var(--sans)}
+/* hero visual, APEX outcomes option (sales slide 6): your tools on the left feed LinearB in the middle, which explores,
+   measures and acts, and that moves the four APEX outcomes on the right. Colour only ever means an APEX pillar: tools and
+   stages stay neutral until a stage acts for a pillar. Every class is ax- prefixed, and the box carries none of .tn, .tn-ema,
+   .tn-scroll or .cost-flip, so no other hero script or leftover APEX rule picks it up */
+.ax-box{position:relative;isolation:isolate}
+.ax-fx{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+/* the three columns in proportion, APEX a little the widest, so it leads without stretching across the window */
+.ax-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.45fr);column-gap:clamp(30px,3.8vw,58px);padding:24px 26px 26px;align-items:stretch}
+.ax-in,.ax-mid,.ax-out{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column}
+.ax-h{display:flex;align-items:center;gap:7px;font-size:16px}
+.ax-mark{flex:0 0 auto;width:16px;height:16px;background:url(media/linearb-mark.png) center/contain no-repeat}
+.ax-sub{margin:-6px 0 12px;font:12.5px/1.4 var(--sans);color:#4d5865}
+/* sources: neutral rows, each with a grey port on its right edge where its connector starts */
+.ax-src{flex:1;grid-auto-rows:1fr;gap:8px}
+.ax-src li{position:relative;transition:box-shadow .8s}
+.ax-src li::after{content:"";position:absolute;right:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--rule);transition:background-color .8s}
+.ax-src li.hit,.ax-src li.lit{box-shadow:inset 0 0 0 1.5px #4d5865;transition-duration:.12s}
+.ax-src li.hit::after,.ax-src li.lit::after{background:#4d5865;transition-duration:.12s}
+/* LinearB: the tube's aqua glass as one opaque panel, so dots go in grey and come out in a pillar's colour */
+.ax-lb{flex:1;display:flex;flex-direction:column;padding:12px;border-radius:22px;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(90deg,#e2f8fb,#e8ebff);box-shadow:inset 0 0 0 1px rgba(91,102,251,.1),inset 0 -24px 40px -28px rgba(91,102,251,.25)}
+.ax-ema{flex:1;display:grid;grid-auto-rows:1fr;gap:8px;list-style:none;margin:0;padding:0}
+.ax-st{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);transition:box-shadow .8s,background-color .8s,opacity .8s}
+.ax-st p{margin:0}
+.ax-st-h{display:flex;align-items:center;gap:7px;font:600 15px/1.25 var(--display);color:var(--text)}
+.ax-st-h b{font-weight:600}
+.ax-ic{flex:0 0 auto;width:15px;height:15px;background:#4d5865;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;transition:background-color .8s}
+.ax-st[data-st="explore"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%205h16v11H10l-5%204v-4H4z%22/%3E%3C/svg%3E")}
+.ax-st[data-st="measure"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M5%2020v-7M12%2020V5M19%2020v-10%22/%3E%3C/svg%3E")}
+.ax-st[data-st="act"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%226%22%20cy%3D%225%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2219%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%228%22%20r%3D%222.2%22/%3E%3Cpath%20d%3D%22M6%207.2v9.6M18%2010.2c0%204-5%204-11%206.6%22/%3E%3C/svg%3E")}
+.ax-via{font:500 11.5px/1.3 var(--sans);color:#8798a7}
+.ax-do{height:2.7em;overflow:hidden;font:12px/1.35 var(--sans);color:var(--text)}
+.ax-do span,.ax-now span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;transition:opacity .25s}
+.ax-do span.swap,.ax-now span.swap{opacity:0}
+/* a stage takes a pillar's colour only while it acts for that pillar; the other two step back */
+.ax-st.on{background:color-mix(in srgb,var(--bc) 6%,#fff);box-shadow:inset 3px 0 0 var(--bc),inset 0 0 0 1px color-mix(in srgb,var(--bc) 40%,transparent),0 0 0 4px color-mix(in srgb,var(--bc) 12%,transparent);transition-duration:.2s}
+.ax-st.on .ax-ic{background:var(--bc);transition-duration:.2s}
+.ax-ema:has(.ax-st.on) .ax-st:not(.on){opacity:.75}
+.ax-now{display:none}
+/* APEX: four pillar cards whose letters spell the word down the column; figures stay put except AI-assisted PRs, which counts up */
+.ax-apex{flex:1;display:grid;grid-auto-rows:1fr;gap:8px;list-style:none;margin:0;padding:0}
+.ax-pil{--c:#8798a7;position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"l n" "l f";align-content:center;column-gap:14px;row-gap:1px;padding:10px 16px 10px 14px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);transition:box-shadow .9s}
+.ax-pil::before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:color-mix(in srgb,var(--c) 45%,#fff)}
+.ax-pil p{margin:0;min-width:0}
+.ax-ltr{grid-area:l;align-self:center;min-width:.9em;text-align:center;font:600 clamp(36px,3.4vw,48px)/1 var(--display);color:var(--c)}
+.ax-name{grid-area:n;align-self:baseline;font:600 15px/1.25 var(--display);color:var(--text)}
+/* no sample figures: the pillar's metrics as one row of chips, as the APEX sales deck lists them: north stars first, starred and edged in the
+   pillar's colour. When a story lands, the metric it touches lights up in that colour */
+.ax-also{grid-area:f;display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+/* a fixed height with the text centred by flex, since line-height alone sits Roboto a touch high */
+.ax-also span[data-m]{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:#f2f4f7;font:11.5px/1 var(--sans);color:#4d5865;transition:background-color .9s,color .9s}
+.ax-also .ax-star{gap:4px;background:color-mix(in srgb,var(--c) 8%,#fff);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 50%,transparent);font-weight:500;color:var(--text)}
+.ax-star::before{content:"★";font-size:10px;line-height:1;color:var(--c)}
+.ax-also span.hit{background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--text);transition-duration:.15s}
+.ax-pil.on{box-shadow:inset 0 0 0 1.5px var(--c),0 0 0 4px color-mix(in srgb,var(--c) 14%,transparent);transition-duration:.15s}
+.ax-pil.pop .ax-ltr{animation:ax-pop .5s ease-out}
+@keyframes ax-pop{50%{transform:scale(1.06)}}
+/* desktop: three columns share one top and bottom; two-line subs keep the three blocks level */
+/* each column's line fits on one line from 1200px; narrower, any that wrap keep room for two so the blocks still start level */
+@media (min-width:901px) and (max-width:1199px){.ax-sub{min-height:2.8em}}
+@media (min-width:901px){.ax-src li{padding-block:0}
+  /* the integrations line hangs below the list, so Incidents ends level with the LinearB panel and the last pillar */
+  .ax-in>.pl-more{position:absolute;top:100%;left:0;margin-top:10px}
+  /* room under the columns for that line, so it sits clear of both the list and the window edge */
+  .ax-grid{padding-bottom:46px}}
+@media (min-width:901px) and (max-width:1199px){.ax-src .pl-tools{gap:5px}.ax-src .pl-ic{width:13px;height:13px}}
+/* tablet and phone: Collect, then LinearB, then APEX, top to bottom; the flow lives in the 30px gaps */
+@media (max-width:900px){
+  .ax-grid{grid-template-columns:minmax(0,1fr);row-gap:30px;padding:20px 16px 22px}
+  .ax-src{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ax-src .pl-tools{gap:5px}.ax-src .pl-ic{width:14px;height:14px}.ax-src .pl-k{white-space:nowrap}
+  .ax-src li::after,.ax-pil::before{display:none}
+  .ax-ema{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:auto}
+  .ax-do{height:4.05em}.ax-do span{-webkit-line-clamp:3}
+  .ax-apex{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
+  .ax-ltr{font-size:34px}
+}
+@media (max-width:560px){
+  .ax-src{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ax-src li[data-src="ai"],.ax-src li[data-src="incidents"]{grid-column:1/-1}
+  .ax-st{align-items:center;padding:9px 6px}
+  .ax-st-h{flex-direction:column;gap:4px;font-size:13px}
+  .ax-via,.ax-do{display:none}
+  .ax-now{display:flex;align-items:flex-start;gap:8px;margin:10px 4px 0;font:12.5px/1.35 var(--sans);color:var(--text)}
+  .ax-now i{flex:0 0 auto;width:8px;height:8px;margin-top:.35em;border-radius:50%;background:var(--bc,#8798a7)}
+  .ax-apex{grid-template-columns:minmax(0,1fr)}
+  .ax-pil{column-gap:12px;padding:10px 14px 10px 12px}
+  .ax-ltr{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){.ax-src li,.ax-src li::after,.ax-st,.ax-ic,.ax-pil,.ax-do span,.ax-now span{transition:none}}
 
-/* feed: an activity list, not a terminal log */
-.log-head{font:500 12px var(--sans);letter-spacing:.08em}
-.log-head .live::before{border-radius:50%;width:8px;height:8px}
-.lane-h{font:500 11.5px var(--sans);letter-spacing:.08em}
-.lines{font:14px/1.6 var(--sans)}
-.lines .t{font:12px/1.6 var(--mono)}
-.lines .act .msg{color:var(--muted)}
-.lines .act .ai{width:14px;height:14px;margin-right:6px;flex:0 0 auto;fill:var(--text)}
-.lines .act .ai.claude{fill:#d97757}
-.lines .act .ai.ic{background:var(--text);-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
-.lines .act .ai.person{fill:var(--dim)}
-.lines .ctx .lbl img{display:block;height:15px;width:auto}
-.lines .ctx .msg{color:var(--text)}
+.more{font:13px var(--sans)}
 
 /* customer logos: their own grey, not inverted to white */
 .logos img{filter:grayscale(1) brightness(.4);opacity:.55}
@@ -1230,7 +1205,6 @@ section[aria-label="The context layer"] .hero-frame>.win{margin:0;box-shadow:non
 /* role cards as a list on the left, with the window beside them showing whichever one is
    active. The hero's feed panel isn't needed then. */
 .seats>.mode{display:none}
-body:has(.seats>.mode-feed:not([hidden])) .feed-panel{display:none}
 @media (min-width:901px){
   .seats:has(>.mode-feed:not([hidden])){display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);column-gap:clamp(20px,2.4vw,32px);align-items:start}
   .seats:has(>.mode-feed:not([hidden]))>:not(.steps):not(.seat-win){grid-column:1/-1}
@@ -1456,7 +1430,6 @@ body:has(.seats>.mode-feed:not([hidden])) .feed-panel{display:none}
   .steps{gap:8px}
   .pillars{gap:12px}
 }
-canvas.gl{image-rendering:auto}
 
 /* breathing room: text never sits right against the edge of its card or pill */
 .dash{padding:1em 1.2em}
@@ -1626,7 +1599,7 @@ canvas.gl{image-rendering:auto}
 .hero h1.flow .ln + .ln::before{content:" "}
 
 /* on load: the headline's three lines rise in one after another, then the subheading and
-   buttons; the context layer below powers up after them (initCtx in shared.js) */
+   buttons; the hero visual below follows them */
 .hero h1 .ln{display:block}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}
 @media (prefers-reduced-motion:no-preference){
@@ -1786,101 +1759,6 @@ body{overflow-x:clip}
   </section>
 
   <section class="wrap" aria-label="The context layer">
-    <div class="hero-frame" data-slot="hero-visual" data-option="Metrics card" hidden>
-    <div class="win">
-      <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title" data-brand="Live context layer">context-layer — live</span><span class="note">Sample data</span></div>
-      <div class="ctx" id="ctx">
-        <canvas class="gl" id="ctx-gl" aria-hidden="true"></canvas>
-        <canvas class="fx" id="ctx-fx" aria-hidden="true"></canvas>
-        <div class="ctx-grid">
-          <div class="ctx-src">
-            <div class="grp">
-              <div class="grp-h">engineering data</div>
-              <ul class="ports"><li data-k="0" data-brand-text="GitHub"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>github</li><li data-k="0" data-brand-text="Jira"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg>jira</li><li data-k="0" data-brand-text="Jenkins"><i class="ic" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i>jenkins</li><li data-k="0" data-brand-text="SonarCloud"><i class="ic" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i>sonarcloud</li></ul>
-            </div>
-            <div class="grp">
-              <div class="grp-h">ai tools</div>
-              <ul class="ports"><li data-k="1" data-brand-text="Claude"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>claude</li><li data-k="1" data-brand-text="Cursor"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg>cursor</li><li data-k="1" data-brand-text="Copilot"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.922 16.997C23.061 18.492 18.063 22.02 12 22.02 5.937 22.02.939 18.492.078 16.997A.641.641 0 0 1 0 16.741v-2.869a.883.883 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.098 10.098 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952C7.255 2.937 9.248 1.98 11.978 1.98c2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.841.841 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256Zm-11.75-5.992h-.344a4.359 4.359 0 0 1-.355.508c-.77.947-1.918 1.492-3.508 1.492-1.725 0-2.989-.359-3.782-1.259a2.137 2.137 0 0 1-.085-.104L4 11.746v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.359 4.359 0 0 1-.355-.508Zm2.328 3.25c.549 0 1 .451 1 1v2c0 .549-.451 1-1 1-.549 0-1-.451-1-1v-2c0-.549.451-1 1-1Zm-5 0c.549 0 1 .451 1 1v2c0 .549-.451 1-1 1-.549 0-1-.451-1-1v-2c0-.549.451-1 1-1Zm3.313-6.185c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/></svg>copilot</li><li data-k="1" data-brand-text="Gemini"><i class="ic" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/googlegemini.svg)"></i>gemini</li><li data-k="1" data-brand-text="Amazon Q"><i class="ic" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/amazonwebservices.svg)"></i>amazon q</li><li data-k="1" data-brand-text="Windsurf"><i class="ic" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i>windsurf</li></ul>
-            </div>
-            <div class="grp">
-              <div class="grp-h">benchmarks</div>
-              <ul class="ports"><li data-k="2" data-brand-text="Industry benchmarks"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="4" height="8"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="3" width="4" height="18"/></svg>industry benchmarks</li></ul>
-            </div>
-          </div>
-          <div class="ctx-core" id="ctx-core"><span class="core-tag">linearb context layer</span></div>
-          <div class="ctx-out">
-            <p class="ctx-out-h">Software factory metrics</p>
-            <div class="readout-pane">
-              <div class="grp-h">Cost</div>
-              <table>
-                <tr><th>AI cost / wk</th><td data-live="18.4" data-fmt="${v}k" data-dec="1" data-j=".02">$18.4k</td><td class="d">▲ 6%</td></tr>
-                <tr><th>AI cost / PR</th><td data-live="4.12" data-fmt="${v}" data-dec="2" data-j=".03">$4.12</td><td class="d">▼ 11%</td></tr>
-                <tr><th>Cost / effective PR</th><td data-live="602" data-fmt="${v}" data-dec="0" data-j=".01">$602</td><td class="d">▼ 4%</td></tr>
-              </table>
-            </div>
-            <div class="readout-pane">
-              <div class="grp-h">Output</div>
-              <table>
-                <tr><th>Agentic PRs</th><td data-live="12.6" data-fmt="{v}%" data-dec="1" data-j=".03">12.6%</td><td class="d">▲ 2.1 pts</td></tr>
-                <tr><th>Agentic merge rate</th><td data-live="64" data-fmt="{v}%" data-dec="0" data-j=".02">64%</td><td class="d">▲ 5 pts</td></tr>
-                <tr><th>Merge frequency</th><td>2.4/dev/wk</td><td class="d b r-elite">elite</td></tr>
-                <tr><th>Cycle time</th><td data-live="31" data-fmt="{v}h" data-dec="0" data-j=".04">31h</td><td class="d b r-good">good</td></tr>
-              </table>
-            </div>
-            <div class="readout-pane">
-              <div class="grp-h">Quality</div>
-              <table>
-                <tr><th>Effective PR yield</th><td data-live="88.2" data-fmt="{v}%" data-dec="1" data-j=".008">88.2%</td><td class="d">▲ 1.4 pts</td></tr>
-                <tr><th>Rework rate</th><td data-live="8.4" data-fmt="{v}%" data-dec="1" data-j=".03">8.4%</td><td class="d b r-focus">needs focus</td></tr>
-              </table>
-              <p class="more">+17 benchmarked · <span class="cyc" data-list="deploy frequency|change failure rate|PR size|pickup time|review time|refactor rate|planning accuracy|PR maturity">deploy frequency</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="win-foot"><span data-brand="Delivered to agents and people through MCP, Slack and Teams">delivered to agents + people via mcp, slack, teams</span><span data-brand="Benchmarked against &lt;b&gt;8.1M+&lt;/b&gt; PRs">benchmarked against <b>8.1M+</b> PRs</span></div>
-    </div>
-    <div class="log feed-panel" aria-label="Live context feed (illustrative)">
-    <div class="log-head"><span class="live" data-brand="Live context feed · Illustrative">context feed · illustrative</span></div>
-    <div class="lanes">
-      <div class="lane"><p class="lane-h">Agents</p><ul class="lines" id="lines-agents"></ul></div>
-      <div class="lane"><p class="lane-h">People</p><ul class="lines" id="lines-people"></ul></div>
-    </div>
-    </div>
-  </div>
-    <div class="hero-tunnel tn-3" data-slot="hero-visual" data-option="Context tunnel" hidden>
-      <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
-        <div class="tn">
-          <canvas class="tn-fx" aria-hidden="true"></canvas>
-          <div class="tn-grid">
-            <div class="tn-in">
-              <p class="pl-h tn-step"><span class="tn-n">1</span>Collect</p><p class="tn-sub">Every commit, ticket and build across your SDLC</p>
-              <ul class="pl-src tn-src"><li data-k="1"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-k="0"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-k="3" data-ai><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-k="4"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-k="2"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-k="2"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li></ul>
-              <p class="pl-more">+ 40 more integrations</p>
-            </div>
-            <div class="tn-core" aria-label="How LinearB builds the context layer">
-              <div class="tn-tube"><ol class="tn-panes"><li class="tn-pane" data-s="1"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">2</span>Normalize</p><p class="tn-d">Every tool's data, in one shared language</p></li><li class="tn-pane" data-s="2"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">3</span>Enrich</p><p class="tn-d">People and PRs, linked across tools</p></li><li class="tn-pane" data-s="3"><i class="tn-glass" aria-hidden="true"></i><p class="tn-l"><span class="tn-n">4</span>Specialize</p><p class="tn-d">Metrics benchmarked against 8.1M+ PRs</p></li></ol></div>
-              <span class="tn-chip" aria-hidden="true"><i></i><span></span></span>
-            </div>
-            <div class="pl-out tn-out">
-              <p class="pl-h tn-step"><span class="tn-n">5</span>Serve</p>
-              <div class="pl-serve" data-out="0" data-role="agents" data-lanes="0 1">
-                <p class="pl-h"><span>To agents</span><span class="pl-logos" role="img" aria-label="Works with Claude, Cursor, Codex and Windsurf"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Codex" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/openai.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></p>
-                <p class="pl-via"><span>MCP</span><span>API</span><span>Workflow automation</span></p>
-                <ul class="pl-uses"><li>Holds a high-risk merge for a human review</li><li>Routes each PR to the right reviewer</li></ul>
-              </div>
-              <div class="pl-serve" data-out="1" data-role="leaders" data-lanes="3 2">
-                <p class="pl-h">To leaders</p>
-                <p class="pl-via"><span>Dashboards</span><span>AI assistant</span><span>Slack</span></p>
-                <ul class="pl-uses"><li>Answers whether AI is paying off</li><li>Flags a review queue before it slips</li></ul>
-              </div>
-              <div class="cost-flip" data-items="[[&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Checkout redesign&quot;, 184, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Payments migration&quot;, 96, &quot;k&quot;], [&quot;Cost per effective PR&quot;, &quot;All teams&quot;, 602, &quot;&quot;], [&quot;Cost per project&quot;, &quot;Mobile app v3&quot;, 142, &quot;k&quot;]]"><p class="cf-h">Cost per effective PR</p><div class="cf-row"><span>All teams</span><b>$602</b><em>▼ 4%</em></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="hero-tunnel tn-3 tn-ema tn-slab" aria-label="Hero visual" data-slot="hero-visual" data-option="Explore, measure, act" data-default>
       <div class="win">
         <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
@@ -1980,10 +1858,42 @@ body{overflow-x:clip}
       </div>
       </div>
     </div>
-    <div class="hero-video" data-slot="hero-visual" data-option="Explainer video" hidden>
-      <div class="hv-frame">
-        <video id="ctx-video" src="media/context-engine.mp4" poster="media/context-engine-poster.jpg" preload="none" playsinline></video>
-        <button type="button" class="hv-play" id="ctx-video-play" aria-label="Play the video: how LinearB builds the context layer"></button>
+    <div class="hero-tunnel ax-hero" aria-label="Hero visual" data-slot="hero-visual" data-option="APEX outcomes" hidden>
+      <div class="win">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
+        <div class="ax-box">
+          <canvas class="ax-fx" aria-hidden="true"></canvas>
+          <div class="ax-grid">
+            <div class="ax-in">
+              <p class="pl-h ax-h">Collect</p>
+              <p class="ax-sub">Every commit, ticket and build</p>
+              <ul class="pl-src ax-src"><li data-src="planning"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-src="code" class="lit"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-src="ai"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-src="quality"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-src="cicd"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-src="incidents"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li></ul>
+              <p class="pl-more">+ 40 more integrations</p>
+            </div>
+            <div class="ax-mid">
+              <p class="pl-h ax-h"><i class="ax-mark" aria-hidden="true"></i>LinearB</p>
+              <p class="ax-sub">One platform to explore, measure and act</p>
+              <div class="ax-lb">
+                <ul class="ax-ema" aria-label="What LinearB does with it">
+                  <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><p class="ax-via">Assistant · MCP</p><p class="ax-do"><span>“Which epics ran late?” PAY-1142, 9 days over</span></p></li>
+                  <li class="ax-st" data-st="measure"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Measure</b></p><p class="ax-via">Dashboards · Slack</p><p class="ax-do"><span>PR #5120 merged, counted as AI-assisted</span></p></li>
+                  <li class="ax-st on" data-st="act" style="--bc:#ff6445"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Act</b></p><p class="ax-via">gitStream · AI code reviews</p><p class="ax-do"><span>Routing PR #9185 to the right reviewer</span></p></li>
+                </ul>
+                <p class="ax-now" aria-hidden="true" style="--bc:#ff6445"><i></i><span>Routing PR #9185 to the right reviewer</span></p>
+              </div>
+            </div>
+            <div class="ax-out">
+              <p class="pl-h ax-h">APEX outcomes</p>
+              <p class="ax-sub">Four outcomes that show whether AI is paying off</p>
+              <ul class="ax-apex" aria-label="APEX outcomes, sample data">
+                <li class="ax-pil" data-p="a" style="--c:#7c85fc"><span class="ax-ltr" aria-hidden="true">A</span><p class="ax-name">AI leverage</p><p class="ax-also"><span class="ax-star" data-m="ai-prs"><span class="sr">North star: </span>AI-assisted PRs</span><span data-m="assist">Coding assistants</span><span data-m="ai-review">AI code reviews</span><span data-m="agents">Coding agents</span></p></li>
+                <li class="ax-pil" data-p="p" style="--c:#10b9d0"><span class="ax-ltr" aria-hidden="true">P</span><p class="ax-name">Predictability</p><p class="ax-also"><span class="ax-star" data-m="planning"><span class="sr">North star: </span>Planning accuracy</span><span class="ax-star" data-m="capacity"><span class="sr">North star: </span>Capacity accuracy</span><span data-m="rework">Rework rate</span><span data-m="maturity">PR maturity</span></p></li>
+                <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Flow efficiency</p><p class="ax-also"><span class="ax-star" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
+                <li class="ax-pil" data-p="x" style="--c:#f4ab0b"><span class="ax-ltr" aria-hidden="true">X</span><p class="ax-name">Developer experience</p><p class="ax-also"><span class="ax-star" data-m="satisfaction"><span class="sr">North star: </span>Developer satisfaction</span><span data-m="readiness">AI readiness</span></p></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2643,16 +2553,6 @@ if(THEME === 'brand'){
 function whenVisible(el, cb){ new IntersectionObserver(es => cb(es[0].isIntersecting)).observe(el); }
 function flash(el, cls, ms){ el.classList.add(cls); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove(cls), ms); }
 
-// "+ more" lines under each pane: one pane swaps its metric name per beat,
-// alternating, so the panes hint at breadth without adding rows
-const cycs = [...document.querySelectorAll('.more .cyc')].map(el => ({el, list:el.dataset.list.split('|'), i:0}));
-function cycleMore(beat){
-  const c = cycs[beat % cycs.length];
-  if(!c) return;
-  c.i = (c.i + 1) % c.list.length;
-  c.el.textContent = c.list[c.i];
-}
-
 // PR cards on the factory belt
 function roundedRect(w, h, r){
   const s = new THREE.Shape(), x = -w/2, y = -h/2;
@@ -2699,216 +2599,6 @@ const DASHES = [
    <div class="dash-row"><span>Rework rate</span><b>8.4% <em class="r-focus">needs focus</em></b></div>
    <div class="dash-row"><span>Merge freq / dev</span><b>2.4 <em class="r-elite">elite</em></b></div>`
 ];
-
-/* ---------- Hero: the context layer ----------
-   Shared by both versions. Each version passes in how to draw the mark in the
-   middle (`core`) and the colours of the wiring (`style`); everything else, the
-   ports, the lines, the packets and the heartbeat, is the same.
-
-   A plain 2D canvas draws the wiring and packets crisp over whatever renders the
-   mark. Every line runs from a real port or metric row in the HTML, so the
-   diagram stays wired at any width. The mark keeps a steady heartbeat rather
-   than reacting to every packet.
-
-   core:  { layout(canvasRect, cx, cy, size), draw(scale, time) }
-   style: { line: [r,g,b], lineAlpha, packets: [[r,g,b] x3], packetAlpha } */
-function initCtx(core, style){
-  const box = document.getElementById('ctx');
-  const coreEl = document.getElementById('ctx-core'), gridEl = box.querySelector('.ctx-grid');
-  const fx = document.getElementById('ctx-fx'), g = fx.getContext('2d');
-
-  const ports = [...box.querySelectorAll('.ports li')];
-  const rows = [...box.querySelectorAll('.readout-pane tr')];
-  let inPaths = [], outPaths = [], dpr = 1, W = 0, H = 0, ring = {x:0, y:0, r:0};
-
-  // cubic S-curve sampled into a polyline with cumulative lengths, for even packet speed
-  function sCurve(a, e, horiz){
-    const m1 = horiz ? {x:(a.x+e.x)/2, y:a.y} : {x:a.x, y:(a.y+e.y)/2};
-    const m2 = horiz ? {x:(a.x+e.x)/2, y:e.y} : {x:e.x, y:(a.y+e.y)/2};
-    const pts = [], N = 64; let len = 0;
-    for(let i=0;i<=N;i++){
-      const t = i/N, u = 1-t;
-      const x = u*u*u*a.x + 3*u*u*t*m1.x + 3*u*t*t*m2.x + t*t*t*e.x;
-      const y = u*u*u*a.y + 3*u*u*t*m1.y + 3*u*t*t*m2.y + t*t*t*e.y;
-      if(i) len += Math.hypot(x-pts[i-1].x, y-pts[i-1].y);
-      pts.push({x, y, d:len});
-    }
-    return {pts, len};
-  }
-  function at(path, d){
-    const p = path.pts; d = Math.max(0, Math.min(path.len, d));
-    let lo = 0, hi = p.length-1;
-    while(hi-lo > 1){ const mid = (lo+hi)>>1; if(p[mid].d < d) lo = mid; else hi = mid; }
-    const s = p[hi].d - p[lo].d || 1, f = (d - p[lo].d)/s;
-    return {x:p[lo].x + (p[hi].x-p[lo].x)*f, y:p[lo].y + (p[hi].y-p[lo].y)*f};
-  }
-
-  function layout(){
-    const b = box.getBoundingClientRect();
-    W = b.width; H = b.height; dpr = Math.min(window.devicePixelRatio || 1, 2);
-    fx.width = Math.round(W*dpr); fx.height = Math.round(H*dpr);
-    const cr = coreEl.getBoundingClientRect();
-    const cx = cr.left - b.left + cr.width/2, cy = cr.top - b.top + cr.height/2;
-    const size = Math.min(cr.width*0.75, cr.height*0.62);
-    core.layout(b, cx, cy, size);
-    const wide = getComputedStyle(gridEl).gridTemplateColumns.split(' ').length > 1;
-    ring = {x:cx, y:cy, r:size*0.5};
-    // landing points bunched on a tight arc just off the mark, in the same order as the ports
-    const onRing = (i, n, mid) => { const th = mid + (n > 1 ? (i/(n-1) - 0.5) : 0)*0.75; return {x:cx + ring.r*Math.cos(th), y:cy + ring.r*Math.sin(th)}; };
-    // Stacked (phones), wires starting at each chip would cross the chips below them, so
-    // they fan evenly from under the whole chip block into the mark, and out from under
-    // the mark's tag to the top of the readouts
-    const rel = el => { const r = el.getBoundingClientRect(); return {l:r.left-b.left, r:r.right-b.left, t:r.top-b.top, b:r.bottom-b.top, w:r.width}; };
-    const src = rel(box.querySelector('.ctx-src')), outs = rel(box.querySelector('.ctx-out')), tag = rel(coreEl.querySelector('.core-tag'));
-    const spread = (box, i, n) => box.l + box.w*(i + 0.5)/n;
-    inPaths = ports.map((el, i) => {
-      const r = el.getBoundingClientRect();
-      const a = wide ? {x:r.right-b.left+2, y:r.top-b.top+r.height/2} : {x:spread(src, i, ports.length), y:src.b + 10};
-      const e = wide ? onRing(ports.length-1-i, ports.length, Math.PI) : onRing(ports.length-1-i, ports.length, -Math.PI/2);
-      return sCurve(a, e, wide);
-    });
-    outPaths = rows.map((el, i) => {
-      const r = el.getBoundingClientRect(), ry = r.top-b.top+r.height/2;
-      if(!wide) return sCurve({x:spread(tag, i, rows.length), y:tag.b + 6}, {x:spread(outs, i, rows.length), y:outs.t - 8}, false);
-      const a = wide ? onRing(i, rows.length, 0) : onRing(rows.length-1-i, rows.length, Math.PI/2);
-      return sCurve(a, {x:r.left-b.left-2, y:ry}, wide);
-    });
-  }
-
-  const packets = [];
-  let time = 0, spawnAcc = 0, lastBeat = 0;
-  // Brand version, on load: the layer powers up after the hero text has risen in. The
-  // wires into the mark draw in from their sources, then the wires out to the readouts
-  // draw out from the mark, then packets start to flow. The concept version starts live.
-  const POWER = THEME === 'brand' && !reduce ? {start:0.8, in:0.9, out:0.7, stagger:0.035} : null;
-  const powerEnd = POWER ? POWER.start + POWER.in + POWER.out + 0.3 : 0;
-  const ease = t => 1 - Math.pow(1 - Math.min(Math.max(t, 0), 1), 3);
-  const drawn = (i, out) => !POWER ? 1 : ease((time - POWER.start - (out ? POWER.in : 0) - i*POWER.stagger)/(out ? POWER.out : POWER.in));
-  const held = [];
-  const SPEED = 170, TRAIL = 26, FADE = 34;
-  // The heartbeat: a steady soft lub-dub every BEAT seconds, independent of
-  // traffic. Packets that land wait inside the mark and all leave together on
-  // the lub, so the rhythm reads as "take in context, then send it out".
-  const BEAT = 2;
-  const bump = (x, c, w) => Math.exp(-((x-c)/w)*((x-c)/w));
-  const beatEnv = ph => bump(ph, 0.06, 0.045) + 0.45*bump(ph, 0.22, 0.05);
-  // 1 along the run, easing to 0 where the wire fades into the mark
-  const vis = (p, d) => { const F = Math.min(FADE, p.path.len*0.5); return p.out ? Math.min(1, d/F) : Math.min(1, (p.path.len - d)/F); };
-  function spawnIn(d0){
-    const i = Math.floor(Math.random()*ports.length);
-    packets.push({path:inPaths[i], d:d0 ?? 0, k:+ports[i].dataset.k, out:false});
-    if(d0 === undefined) flash(ports[i], 'hit', 220);
-  }
-
-  function step(dt){
-    time += dt;
-    if(time < powerEnd) return;
-    spawnAcc += dt*5;
-    while(spawnAcc >= 1){ spawnAcc--; spawnIn(); }
-    const beat = Math.floor((time - BEAT*0.06)/BEAT);
-    if(beat > lastBeat){
-      lastBeat = beat;
-      // release on the beat, staggered a hair so they fan out rather than stack
-      held.splice(0).forEach((p, n) => { p.wait = n*0.05; packets.push(p); });
-      cycleMore(beat);
-    }
-    for(let i=packets.length-1;i>=0;i--){
-      const p = packets[i];
-      if(p.wait > 0){ p.wait -= dt; continue; }
-      p.d += dt*SPEED;
-      if(p.d < p.path.len + (p.out ? TRAIL : 0)) continue;
-      packets.splice(i,1);
-      if(!p.out){
-        if(Math.random() < 0.75 && held.length < 8){ const j = Math.floor(Math.random()*rows.length); held.push({path:outPaths[j], d:0, k:p.k, out:true, row:rows[j]}); }
-      } else {
-        flash(p.row, 'hit', 260);
-      }
-    }
-  }
-
-  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
-  function drawFx(){
-    g.setTransform(dpr,0,0,dpr,0,0);
-    g.clearRect(0,0,W,H);
-    // wiring: solid along the run, fading to nothing over the last stretch before the mark
-    g.lineWidth = 1;
-    const seg = (path, d0, d1, alpha) => {
-      g.strokeStyle = rgba(style.line, alpha*style.lineAlpha);
-      g.beginPath(); const a = at(path, d0); g.moveTo(a.x, a.y);
-      for(const q of path.pts) if(q.d > d0 && q.d < d1) g.lineTo(q.x, q.y);
-      const e = at(path, d1); g.lineTo(e.x, e.y); g.stroke();
-    };
-    // k: how much of the wire is drawn so far (1 once the layer has powered up)
-    const wire = (path, fadeAtEnd, k) => {
-      const L = path.len, F = Math.min(FADE, L*0.5), S = 6, end = L*k;
-      if(end <= 0) return;
-      const part = (d0, d1, a) => { if(d0 < end) seg(path, d0, Math.min(d1, end), a); };
-      if(fadeAtEnd){ part(0, L-F, 1); for(let s=0;s<S;s++) part(L-F+F*s/S, L-F+F*(s+1)/S, 1-(s+0.5)/S); }
-      else { for(let s=0;s<S;s++) part(F*s/S, F*(s+1)/S, (s+0.5)/S); part(F, L, 1); }
-    };
-    inPaths.forEach((p, i) => wire(p, true, drawn(i, false)));
-    outPaths.forEach((p, i) => wire(p, false, drawn(i, true)));
-    for(const p of packets){
-      if(p.wait > 0) continue;
-      const head = Math.min(p.d, p.path.len), tail = Math.max(0, p.d - TRAIL);
-      if(head <= tail) continue;
-      const c = style.packets[p.k];
-      // fading trail
-      const steps = 8;
-      for(let s=0;s<steps;s++){
-        const d0 = tail + (head-tail)*s/steps, d1 = tail + (head-tail)*(s+1)/steps;
-        const q0 = at(p.path, d0), q1 = at(p.path, d1);
-        g.strokeStyle = rgba(c, (0.08 + 0.6*(s+1)/steps)*vis(p, d1)*style.packetAlpha);
-        g.lineWidth = 1.5;
-        g.beginPath(); g.moveTo(q0.x, q0.y); g.lineTo(q1.x, q1.y); g.stroke();
-      }
-      if(p.d > p.path.len) continue;
-      const q = at(p.path, head);
-      g.fillStyle = rgba(c, vis(p, head)*style.packetAlpha);
-      if(p.k === 1){ g.beginPath(); g.arc(q.x, q.y, 2.6, 0, Math.PI*2); g.fill(); }
-      else if(p.k === 2){ g.beginPath(); g.moveTo(q.x, q.y-3.4); g.lineTo(q.x+3.4, q.y); g.lineTo(q.x, q.y+3.4); g.lineTo(q.x-3.4, q.y); g.fill(); }
-      else g.fillRect(q.x-2.4, q.y-2.4, 4.8, 4.8);
-    }
-  }
-
-  function draw(){
-    // while powering up, the mark swells gently as the wires reach it
-    const up = POWER ? 0.92 + 0.08*ease((time - POWER.start)/(POWER.in + 0.2)) : 1;
-    core.draw(up*(1 + (time < powerEnd ? 0 : 0.03*beatEnv((time/BEAT) % 1))), time);
-    drawFx();
-  }
-
-  let visible = true, last = performance.now();
-  function frame(now){
-    const dt = Math.min((now-last)/1000, 0.05); last = now;
-    if(visible){ step(dt); draw(); }
-    requestAnimationFrame(frame);
-  }
-  const relayout = () => { layout(); draw(); };
-  new ResizeObserver(relayout).observe(box);
-  if(document.fonts) document.fonts.ready.then(relayout);
-  layout();
-  if(reduce){ for(let i=0;i<24;i++) spawnIn(Math.random()*400); draw(); }
-  else { whenVisible(box, vis => visible = vis); requestAnimationFrame(frame); }
-}
-
-
-/* ---------- Hero readouts: the numbers keep moving, so the layer reads as always on (sample data) ---------- */
-{
-  const cells = [...document.querySelectorAll('.readout-pane td[data-live], .pl-metric b[data-live]')];
-  const show = td => {
-    const v = +td.dataset.live*(1 + (Math.random()*2 - 1)*+td.dataset.j);
-    td.textContent = td.dataset.fmt.replace('{v}', v.toFixed(+td.dataset.dec));
-    td.classList.remove('tick'); void td.offsetWidth; td.classList.add('tick');
-  };
-  // only the figures actually on screen move (whichever hero card is showing, once it's in view)
-  const onScreen = td => { const r = td.getBoundingClientRect(); return r.height > 0 && r.bottom > 0 && r.top < innerHeight; };
-  if(!reduce && cells.length) setInterval(() => {
-    if(document.hidden) return;
-    const vis = cells.filter(onScreen);
-    if(vis.length) show(vis[Math.floor(Math.random()*vis.length)]);
-  }, 1400);
-}
 
 /* ---------- Hero visual, tunnel options: events flow through the stages ----------
    Left to right on desktop, top down on phones. Positions are worked out along the flow
@@ -3412,93 +3102,156 @@ document.querySelectorAll('.cost-flip').forEach(el => {
   else setInterval(() => { if(visible && !document.hidden) next(); }, 3200);
 });
 
-/* ---------- Hero visual, video option: click to play ---------- */
-{
-  const v = document.getElementById('ctx-video'), b = document.getElementById('ctx-video-play');
-  if(v && b) b.addEventListener('click', () => { v.controls = true; v.parentElement.classList.add('playing'); v.play(); });
-}
+/* ---------- Hero visual, APEX outcomes option: your tools feed LinearB, which explores, measures and acts, and that
+   moves the four APEX outcomes. One story at a time enters LinearB, lights the stage that handles it in its pillar's
+   colour, then lands on that pillar. Own canvas and geometry; shares nothing with the tunnel engine above ---------- */
+document.querySelectorAll('.ax-hero').forEach(hero => {
+  const $ = s => hero.querySelector(s);
+  const box = $('.ax-box'), fx = $('.ax-fx'), grid = $('.ax-grid'), lb = $('.ax-lb'), inCol = $('.ax-in'), midCol = $('.ax-mid'), outCol = $('.ax-out'), now = $('.ax-now span');
+  if(!box || !fx || !grid || !lb || !inCol || !midCol || !outCol || !fx.getContext) return;
+  const g = fx.getContext('2d'), rows = [...hero.querySelectorAll('.ax-src li[data-src]')];
+  const ST = {}; hero.querySelectorAll('.ax-st[data-st]').forEach(s => ST[s.dataset.st] = s);
+  const PK = ['a','p','e','x'], PIL = {}; hero.querySelectorAll('.ax-pil[data-p]').forEach(p => PIL[p.dataset.p] = p);
+  if(!g || rows.length < 6 || !ST.explore || !ST.measure || !ST.act || PK.some(k => !PIL[k])) return;
+  const rowOf = k => rows.find(r => r.dataset.src === k);
+  // pillar colours come from each card's --c, so the markup is the one place they are set
+  const HEX = {}, RGB = {};
+  PK.forEach(k => { HEX[k] = PIL[k].style.getPropertyValue('--c').trim() || '#8798a7'; RGB[k] = (HEX[k].slice(1).match(/../g) || ['87','98','a7']).map(h => parseInt(h, 16)); });
+  const SLATE = [135,152,167], INK = [77,88,101], IN_V = 95, OUT_V = 85, STORY_V = 110, DWELL = 1.4, GAP = 5.5;
+  // the story loop: landings spell A, P, E, X twice, every stage gets a turn, and m is the metric each one touches
+  const BEATS = [
+    {src:'ai', st:'measure', p:'a', m:'ai-prs', text:'PR #5120 merged, counted as AI-assisted'},
+    {src:'planning', st:'explore', p:'p', m:'planning', text:'“Which epics ran late?” PAY-1142, 9 days over'},
+    {src:'code', st:'act', p:'e', m:'pickup', text:'Routing PR #9185 to the right reviewer'},
+    {src:null, st:'measure', p:'x', m:'satisfaction', text:'Q3 developer survey closed, 212 responses'},
+    {src:'ai', st:'measure', p:'a', m:'agents', text:'Agent-authored PR #9201 merged'},
+    {src:'planning', st:'measure', p:'p', m:'capacity', text:'Sprint 42: 42 of 50 planned issues done'},
+    {src:'code', st:'explore', p:'e', m:'review', text:'“Why is review slow?” Pickup time is 7.1h'},
+    {src:null, st:'act', p:'x', m:'satisfaction', text:'Survey reminder sent in Slack'}
+  ];
+  let W = 0, H = 0, dpr = 1, L = null, time = 0, visible = false, rand = Math.random, story = null, link = null, hi = null, beat = 0, nextBeat = .6, inAcc = 0, outAcc = 0;
+  const parts = [];
+  // the tunnel engine's curve and at helpers, copied because they are private to its closure
+  function curve(a, e, horiz){
+    const m1 = horiz ? {x:(a.x+e.x)/2, y:a.y} : {x:a.x, y:(a.y+e.y)/2};
+    const m2 = horiz ? {x:(a.x+e.x)/2, y:e.y} : {x:e.x, y:(a.y+e.y)/2};
+    const pts = [], N = 40; let len = 0;
+    for(let i=0;i<=N;i++){
+      const t = i/N, u = 1-t;
+      const x = u*u*u*a.x + 3*u*u*t*m1.x + 3*u*t*t*m2.x + t*t*t*e.x;
+      const y = u*u*u*a.y + 3*u*u*t*m1.y + 3*u*t*t*m2.y + t*t*t*e.y;
+      if(i) len += Math.hypot(x - pts[i-1].x, y - pts[i-1].y);
+      pts.push({x, y, d:len});
+    }
+    return {pts, len};
+  }
+  function at(path, d){
+    const p = path.pts; d = Math.max(0, Math.min(path.len, d));
+    let lo = 0, hi = p.length - 1;
+    while(hi - lo > 1){ const mid = (lo + hi) >> 1; if(p[mid].d < d) lo = mid; else hi = mid; }
+    const s = p[hi].d - p[lo].d || 1, f = (d - p[lo].d)/s;
+    return {x:p[lo].x + (p[hi].x - p[lo].x)*f, y:p[lo].y + (p[hi].y - p[lo].y)*f};
+  }
+  const rel = el => { const b = el.getBoundingClientRect(), o = box.getBoundingClientRect(); return {l:b.left-o.left, t:b.top-o.top, r:b.right-o.left, b:b.bottom-o.top, w:b.width, h:b.height}; };
+  const cy = q => q.t + q.h/2, cx = q => q.l + q.w/2, pick = a => a[Math.floor(rand()*a.length)];
+  // measure everything relative to the box; side by side the flow runs on drawn connectors (a story leaves on its
+  // pillar's connector too, so no new line ever appears), stacked it crosses the gaps
+  function layout(){
+    const o = box.getBoundingClientRect(); W = o.width; H = o.height;
+    if(!W || !H){ L = null; return; }
+    dpr = Math.min(window.devicePixelRatio || 1, 2); fx.width = Math.round(W*dpr); fx.height = Math.round(H*dpr);
+    const wide = getComputedStyle(grid).gridTemplateColumns.split(' ').length > 1;
+    const P = rel(lb), I = rel(inCol), M = rel(midCol), O = rel(outCol), R = rows.map(rel), S = {}, C = {};
+    for(const k in ST) S[k] = rel(ST[k]); PK.forEach(k => C[k] = rel(PIL[k]));
+    const stk = Object.keys(S);
+    if(wide){
+      const conIn = R.map((q, i) => curve({x:q.r + 3, y:cy(q)}, {x:P.l, y:P.t + P.h*(.15 + .7*i/(R.length - 1))}, true));
+      const conOut = PK.map(k => curve({x:P.r, y:Math.max(P.t + 14, Math.min(P.b - 14, cy(C[k])))}, {x:C[k].l - 3, y:cy(C[k])}, true));
+      L = {wide, conIn, conOut, inBg:() => pick(conIn), inStory:src => conIn[rows.indexOf(rowOf(src))], outBg:k => conOut[PK.indexOf(k)],
+           outStory:(st, k) => conOut[PK.indexOf(k)]};
+    } else {
+      // stacked: the flow lives only in the gaps between the three blocks
+      const slot = k => O.l + O.w*(.125 + .25*PK.indexOf(k));
+      L = {wide, conIn:[], conOut:[],
+           inBg:() => curve({x:cx(pick(R)), y:I.b + 2}, {x:cx(S[pick(stk)]), y:M.t - 2}, false),
+           inStory:(src, st) => curve({x:cx(rel(rowOf(src))), y:I.b + 2}, {x:cx(S[st]), y:M.t - 2}, false),
+           outBg:k => curve({x:cx(S[pick(stk)]), y:P.b + 2}, {x:slot(k), y:O.t - 2}, false),
+           outStory:(st, k) => curve({x:cx(S[st]), y:P.b + 2}, {x:slot(k), y:O.t - 2}, false)};
+    }
+  }
+  const dot = (path, v, c, r, a) => ({path, d:0, v, c, r, a, tr:[]});
+  const say = (el, text) => { if(!el) return; el.classList.add('swap'); setTimeout(() => { el.textContent = text; el.classList.remove('swap'); }, 250); };
+  // a beat: the source row flashes and its story dot heads for LinearB (beats that start inside LinearB skip this)
+  function start(b){
+    hero.querySelectorAll('.ax-src li.lit').forEach(r => r.classList.remove('lit'));
+    const r = b.src && rowOf(b.src);
+    if(r){ flash(r, 'hit', 700); story = {b, ph:'in', ...dot(L.inStory(b.src, b.st), STORY_V, INK, 3.6, 1)}; } else enter(b);
+  }
+  // inside LinearB the stage that handles it takes the pillar's colour and says what it did
+  function enter(b){
+    for(const k in ST) ST[k].classList.remove('on'); PK.forEach(k => PIL[k].classList.remove('on')); link = null;
+    ST[b.st].style.setProperty('--bc', HEX[b.p]); ST[b.st].classList.add('on'); say(ST[b.st].querySelector('.ax-do span'), b.text);
+    if(now){ now.parentNode.style.setProperty('--bc', HEX[b.p]); say(now, b.text); }
+    story = {b, ph:'dwell', t:DWELL};
+  }
+  // the landing lights the pillar, pops its letter and lights the metric it touched; the path stays drawn as the link
+  function land(s){
+    const card = PIL[s.b.p], m = card.querySelector(`[data-m="${s.b.m}"]`);
+    card.classList.add('on'); flash(card, 'pop', 500);
+    if(m) flash(m, 'hit', 2600);
+    link = {path:s.path, c:RGB[s.b.p]}; story = null;
+  }
+  function move(p, dt){ p.d += p.v*dt; p.tr.unshift(at(p.path, p.d)); if(p.tr.length > 7) p.tr.pop(); }
+  function step(dt, quiet){
+    time += dt;
+    inAcc += dt*1.4; while(inAcc >= 1){ inAcc--; if(parts.length < 60) parts.push(dot(L.inBg(), IN_V*(.85 + rand()*.3), SLATE, 2, .55)); }
+    outAcc += dt*.8; while(outAcc >= 1){ outAcc--; const k = pick(PK); if(parts.length < 60) parts.push(dot(L.outBg(k), OUT_V*(.85 + rand()*.3), RGB[k], 1.8, .5)); }
+    for(let i = parts.length - 1; i >= 0; i--){ const p = parts[i]; move(p, dt); if(p.d >= p.path.len) parts.splice(i, 1); }
+    if(quiet) return;
+    if(!story && time >= nextBeat){ nextBeat = time + GAP; start(BEATS[beat++ % BEATS.length]); }
+    if(!story) return;
+    if(story.ph === 'dwell'){ story.t -= dt; if(story.t <= 0) story = {b:story.b, ph:'out', ...dot(L.outStory(story.b.st, story.b.p), STORY_V, RGB[story.b.p], 3.6, 1)}; }
+    else { move(story, dt); if(story.d >= story.path.len){ if(story.ph === 'in') enter(story.b); else land(story); } }
+  }
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  function stroke(path, c, a, w){ g.beginPath(); path.pts.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.strokeStyle = rgba(c, a); g.lineWidth = w; g.stroke(); }
+  // a dot: soft halo, a short trail, a white ring on story dots, then the core
+  function paint(p){
+    const q = p.tr[0]; if(!q) return;
+    if(p.tr.length > 1){ g.beginPath(); p.tr.forEach((t, i) => i ? g.lineTo(t.x, t.y) : g.moveTo(t.x, t.y)); g.strokeStyle = rgba(p.c, p.a*.35); g.lineWidth = p.r; g.lineCap = 'round'; g.stroke(); }
+    g.beginPath(); g.arc(q.x, q.y, p.r*2.6, 0, 7); g.fillStyle = rgba(p.c, p.a*.16); g.fill();
+    if(p.r > 3){ g.beginPath(); g.arc(q.x, q.y, p.r + 1.5, 0, 7); g.fillStyle = '#fff'; g.fill(); }
+    g.beginPath(); g.arc(q.x, q.y, p.r, 0, 7); g.fillStyle = rgba(p.c, p.a); g.fill();
+  }
+  function draw(){
+    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H); if(!L) return;
+    L.conIn.forEach(c => stroke(c, SLATE, .3, 1.2)); L.conOut.forEach((c, i) => stroke(c, RGB[PK[i]], .32, 1.4));
+    const h = story && story.ph === 'in' ? story.path : hi; if(h) stroke(h, INK, .4, 1.4);
+    if(link) stroke(link.path, link.c, .45, 1.6);
+    parts.forEach(paint); if(story && story.ph !== 'dwell') paint(story);
+  }
+  let last = 0;
+  function frame(t){ const dt = Math.min(.05, Math.max(0, (t - last)/1000)); last = t; if(visible && L && !document.hidden){ step(dt); draw(); } requestAnimationFrame(frame); }
+  const reset = () => { layout(); parts.length = 0; story = null; link = null; draw(); };
+  if(reduce){
+    // one still frame, the same on every load: beat 3 (Code, Act, Flow efficiency) with the background flow frozen mid-flight
+    const still = () => { reset(); if(!L) return; let seed = 11; rand = () => (seed = seed*16807 % 2147483647)/2147483647; time = 0; for(let i = 0; i < 300; i++) step(1/30, true); rand = Math.random;
+      hi = L.inStory('code', 'act'); link = {path:L.outStory('act', 'e'), c:RGB.e};
+      const s = dot(link.path, 0, RGB.e, 3.6, 1); s.d = link.path.len*.85; for(let j = 0; j < 7; j++) s.tr.push(at(link.path, s.d - j*4)); parts.push(s); draw(); };
+    new ResizeObserver(still).observe(box);
+  } else {
+    // a width change restarts the flow; a height change only re-measures
+    let lastW = -1;
+    new ResizeObserver(() => { const w = box.offsetWidth; if(w !== lastW){ lastW = w; reset(); } else layout(); draw(); }).observe(box);
+    if(document.fonts) document.fonts.ready.then(reset);
+    whenVisible(box, v => visible = v); requestAnimationFrame(frame);
+  }
+});
 
-/* ---------- Context feed (illustrative) ---------- */
-// Pairs: someone about to act, then the context LinearB hands them before they do.
-// [who, action, LinearB context]
-const FEED = [
-  ['Claude', 'Opens PR #9182 in payments-api: retry idempotency keys',
-    'Owned by Payments Core · 2 incidents in 30 days · needs 2 approvals and passing tests'],
-  ['Engineering manager', 'Why are my team’s PRs taking longer to merge this sprint?',
-    'PRs have waited 2.1× longer for a first review since 12 Sep, and 2 of 5 reviewers handle most of them'],
-  ['Copilot', 'Reviews PR #9190 in cart-web: validate promo codes',
-    'Touches pricing rules owned by Revenue · 2 of the last 5 changes here were reverted · flag for a human reviewer'],
-  ['Cursor', 'Opens PR #9185 in infra/terraform: add a read replica',
-    'High impact · 805 changes across 9 files · routed to Platform on-call for review'],
-  ['Amazon Q', 'Reviews PR #9194 in auth-service: rotate session tokens',
-    'Security-sensitive path · needs a review from Identity · the last change here caused a login incident on 3 Sep'],
-  ['Payments lead', 'What else changed ledger.ts this month?',
-    '6 PRs, 4 of them AI-assisted · 1 reverted (PR #8870, timeout regression)'],
-  ['CTO', 'Is our AI spend paying off this quarter?',
-    'AI cost per PR is down 11% and cycle time rates good against benchmark, but rework needs attention']
-];
-// AI tools show their own mark, borrowed from the hero card's AI tools list; people get a
-// generic person mark, so every name lines up
-const TOOL_AI = ['Claude', 'Cursor', 'Copilot', 'Gemini', 'Amazon Q', 'Windsurf'];
-function toolIcon(who){
-  // the hero card draws each mark as inline SVG or as a masked <i class="ic">
-  const mark = TOOL_AI.includes(who) && document.querySelector(`.ports [data-brand-text="${who}"] :is(svg, .ic)`);
-  if(!mark) return '';
-  const c = mark.cloneNode(true);
-  c.setAttribute('class', 'ai' + (mark.matches('.ic') ? ' ic' : '') + (who === 'Claude' ? ' claude' : ''));
-  return c.outerHTML;
-}
+/* ---------- Role card icons ---------- */
+// Claude's mark leads the first role card; people get a generic person mark
+const CLAUDE_ICON = TOOL_ICONS['claude code'].replace('<svg ', '<svg class="ai claude" ');
 const PERSON_ICON = `<svg class="ai person" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c.6-4.4 4.1-7.2 8.5-7.2s7.9 2.8 8.5 7.2z"/></svg>`;
-const isAgent = ([who]) => TOOL_AI.includes(who);
-const lanes = [
-  {el: document.getElementById('lines-agents'), feed: FEED.filter(isAgent), i: 0},
-  {el: document.getElementById('lines-people'), feed: FEED.filter(f => !isAgent(f)), i: 0},
-];
-let clock = new Date(2026, 8, 22, 2, 14, 7), turn = 0;
-function pairEl([who, act, ctx], time){
-  const li = document.createElement('li');
-  li.className = 'pair';
-  li.innerHTML = `<div class="row act"><span class="lbl">${toolIcon(who) || PERSON_ICON}${who}<span class="t">${time}</span></span><span class="msg">${act}</span></div>`
-    + `<div class="row ctx"><span class="lbl"><img src="https://assets.linearb.io/image/upload/c_fit,w_240/f_auto/q_auto/v1/linearb-logo-2026" alt="LinearB" width="72" height="17"></span><span class="msg">${ctx}</span></div>`;
-  return li;
-}
-// the newest pair sits on top in full; the ones before it collapse to a single dimmed line
-const HISTORY = 2;
-function addPair(lane, animate){
-  const entry = lane.feed[lane.i % lane.feed.length]; lane.i++;
-  clock = new Date(clock.getTime() + 60000 + (turn*37000)%90000);
-  const li = pairEl(entry, clock.toTimeString().slice(0,5));
-  if(animate) li.classList.add('new');
-  [...lane.el.children].forEach(p => p.classList.add('past'));
-  lane.el.prepend(li);
-  while(lane.el.children.length > HISTORY + 1) lane.el.lastChild.remove();
-}
-for(let i = 0; i <= HISTORY; i++) lanes.forEach(l => addPair(l, false));
-// hold the height of the tallest pair (plus its history lines) in either lane, so the
-// section doesn't jump as pairs of different lengths arrive, and the two lanes stay level
-function sizeFeed(){
-  const hs = lanes.flatMap(l => {
-    const probe = l.el.cloneNode(false);
-    probe.removeAttribute('id');
-    probe.style.cssText = `position:absolute;visibility:hidden;height:auto;width:${l.el.clientWidth}px`;
-    l.feed.forEach(f => probe.append(pairEl(f, '00:00')));
-    const past = pairEl(l.feed[0], '00:00');
-    past.classList.add('past');
-    probe.append(past);
-    l.el.after(probe);
-    const kids = [...probe.children].map(li => li.getBoundingClientRect().height);
-    const line = kids.pop() + parseFloat(getComputedStyle(past).marginTop);
-    probe.remove();
-    return kids.map(h => h + HISTORY * line);
-  });
-  const tallest = Math.ceil(Math.max(...hs)) + 'px';
-  lanes.forEach(l => { l.el.style.height = tallest; });
-}
-sizeFeed();
-document.fonts && document.fonts.ready.then(sizeFeed);
-addEventListener('resize', sizeFeed);
-// the lanes take turns, so one thing changes at a time
-if(!reduce) setInterval(() => addPair(lanes[turn++ % 2], true), 3400);
 
 /* ---------- Product tour video: click to play, chapters jump ---------- */
 {
@@ -3909,7 +3662,7 @@ new IntersectionObserver((es, io) => { if(es[0].isIntersecting){ io.disconnect()
   addEventListener('resize', place);
   document.fonts && document.fonts.ready.then(place);
   const sec = document.getElementById('context'), btns = SEATS.map((_, i) => document.getElementById('seat' + i));
-  btns[0].querySelector('.n').insertAdjacentHTML('afterbegin', toolIcon('Claude'));
+  btns[0].querySelector('.n').insertAdjacentHTML('afterbegin', CLAUDE_ICON);
   btns.slice(1).forEach(b => b.querySelector('.n').insertAdjacentHTML('afterbegin', PERSON_ICON));
   ['gitStream', 'Slack', 'Dashboard'].forEach((via, i) => btns[i].querySelector('.n').insertAdjacentHTML('beforeend', `<span class="via">${via}</span>`));
   const cmd = document.getElementById('seat-cmd'), kv = document.getElementById('seat-kv');
@@ -4019,106 +3772,6 @@ new IntersectionObserver((es, io) => { if(es[0].isIntersecting){ io.disconnect()
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
   }
 }
-
-/* Current brand version: the two 3D scenes, rendered clean in LinearB colours.
-   Same geometry and story as the concept scenes, no dither. */
-
-// the plain counterpart to ditherer(): same fit/render shape, rendered straight to the canvas
-function plainRenderer(canvas, transparent){
-  const r = new THREE.WebGLRenderer({canvas, antialias:true, alpha:!!transparent});
-  if(transparent) r.setClearColor(0x000000, 0);
-  return {
-    fit(){
-      const b = canvas.getBoundingClientRect();
-      r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      r.setSize(Math.max(1, b.width), Math.max(1, b.height), false);
-      return b;
-    },
-    render(scene, cam){ r.render(scene, cam); },
-    gl: r
-  };
-}
-
-// the mark in the middle of the context layer: the same puffy logo, in LinearB ink,
-// lit like an object, on a soft aqua halo
-function brandCtxCore(geo){
-  const D = plainRenderer(document.getElementById('ctx-gl'), true);
-  const sc = new THREE.Scene();
-  const cam = new THREE.OrthographicCamera(0, 1, 0, -1, 1, 4000); cam.position.z = 2000;
-  const key = new THREE.DirectionalLight(0xffffff, 1.2); key.position.set(-0.5, 0.7, 1); sc.add(key);
-  const rim = new THREE.DirectionalLight(0x9feaed, 1.0); rim.position.set(0.7, 0.3, -1); sc.add(rim);
-  sc.add(new THREE.AmbientLight(0xffffff, 0.35));
-  const core = new THREE.Mesh(geo, inkFinish());
-  sc.add(core);
-  const hc = document.createElement('canvas'); hc.width = hc.height = 256;
-  const hg = hc.getContext('2d'), grd = hg.createRadialGradient(128,128,0,128,128,128);
-  grd.addColorStop(0, 'rgba(195,241,245,1)'); grd.addColorStop(0.45, 'rgba(195,241,245,.55)'); grd.addColorStop(1, 'rgba(195,241,245,0)');
-  hg.fillStyle = grd; hg.fillRect(0, 0, 256, 256);
-  const halo = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(hc), transparent:true, depthWrite:false}));
-  sc.add(halo);
-  let base = 1, haloBase = 1;
-  return {
-    layout(b, cx, cy, size){
-      D.fit(); cam.right = b.width; cam.bottom = -b.height; cam.updateProjectionMatrix();
-      base = size/2.4; core.position.set(cx, -cy, 0);
-      haloBase = size*2.1; halo.position.set(cx, -cy, -800);
-    },
-    draw(scale, time){
-      core.scale.setScalar(base*scale);
-      core.rotation.y = Math.sin(time*0.35)*0.28;
-      core.rotation.x = Math.sin(time*0.23)*0.06;
-      // the halo breathes with the heartbeat, a touch more than the mark
-      halo.scale.setScalar(haloBase*(1 + (scale - 1)*2.5));
-      D.render(sc, cam);
-    }
-  };
-}
-
-
-/* ---------- Smoothing the mark ----------
-   buildPuff raises the mark from a stepped distance map on a coarse grid. Under the
-   concept's dither that never shows, but rendered clean the light picks out faint
-   terraces across the surface, like the layers of a 3D print. This relaxes the height
-   of every surface vertex towards its neighbours (Taubin smoothing: alternate shrink
-   and inflate steps, so the mark stays as puffy as it was). Only depth moves, and
-   the outline vertices (depth 0) are pinned, so the silhouette is untouched. */
-function smoothPuff(geo, passes){
-  const pos = geo.attributes.position, idx = geo.index.array, n = pos.count;
-  const nb = Array.from({length:n}, () => new Set());
-  for(let i = 0; i < idx.length; i += 3){
-    const a = idx[i], b = idx[i+1], c = idx[i+2];
-    nb[a].add(b).add(c); nb[b].add(a).add(c); nb[c].add(a).add(b);
-  }
-  const adj = nb.map(s => [...s]), z = new Float32Array(n), next = new Float32Array(n);
-  for(let i = 0; i < n; i++) z[i] = pos.getZ(i);
-  const step = f => {
-    for(let i = 0; i < n; i++){
-      if(z[i] === 0 || !adj[i].length){ next[i] = z[i]; continue; }
-      let s = 0; for(const j of adj[i]) s += z[j];
-      next[i] = z[i] + f*(s/adj[i].length - z[i]);
-    }
-    z.set(next);
-  };
-  for(let p = 0; p < passes; p++){ step(0.6); step(-0.63); }
-  for(let i = 0; i < n; i++) pos.setZ(i, z[i]);
-  pos.needsUpdate = true;
-  geo.computeVertexNormals();
-  return geo;
-}
-
-// the mark's finish in the brand version: glossy ink, like a lacquered object,
-// with a soft clear coat so the highlights stay smooth instead of catching every facet
-const inkFinish = () => new THREE.MeshPhysicalMaterial({color:0x1a1b1f, roughness:0.45, metalness:0, clearcoat:0.8, clearcoatRoughness:0.28});
-
-/* ---------- Boot ---------- */
-const img = new Image();
-img.onload = () => {
-  const geo = smoothPuff(buildPuff(img), 12);
-  // ink wiring; packets in the linearb.io illustration colours: teal squares for
-  // engineering data, indigo dots for AI tools, coral diamonds for benchmarks
-  initCtx(brandCtxCore(geo), {line:[34,35,38], lineAlpha:0.22, packets:[[16,185,208],[123,133,251],[255,99,69]], packetAlpha:1});
-};
-img.src = MASK;
 
 })();
 </script>
