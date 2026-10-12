@@ -1031,13 +1031,24 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 .ax-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.45fr);column-gap:clamp(30px,3.8vw,58px);padding:24px 26px 26px;align-items:stretch}
 .ax-in,.ax-mid,.ax-out{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column}
 .ax-h{display:flex;align-items:center;gap:7px;font-size:16px}
-.ax-mark{flex:0 0 auto;width:16px;height:16px;background:url(media/linearb-mark.png) center/contain no-repeat}
+/* the LinearB heading is the real wordmark, the same asset as the nav and the window bar */
+.ax-wm{flex:0 0 auto;width:80px;height:19px;background:url(https://assets.linearb.io/image/upload/c_fit,w_480/f_auto/q_auto/v1/linearb-logo-2026) left center/contain no-repeat}
 .ax-sub{margin:-6px 0 12px;font:12.5px/1.4 var(--sans);color:#4d5865}
 /* sources: neutral rows, each with a grey port on its right edge where its connector starts */
 .ax-src{flex:1;grid-auto-rows:1fr;gap:8px}
 .ax-src li{position:relative;transition:box-shadow .8s}
 .ax-src li::after{content:"";position:absolute;right:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--rule);transition:background-color .8s}
 .ax-src li.hit,.ax-src li.lit{box-shadow:inset 0 0 0 1.5px #4d5865;transition-duration:.12s}
+/* AI tools feeds every other source, as in the explore, measure, act option: a purple row, with curved lines out to
+   the others on desktop (drawn on the canvas). The one colour here that isn't a pillar's, kept to the AI loop */
+.ax-src li[data-src="ai"],.ax-src li[data-src="ai"].hit{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
+@media (min-width:901px){
+  .ax-src li[data-src="ai"],.ax-src li[data-src="ai"].hit{z-index:1;margin-inline:-6px;box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.95),0 0 0 4px rgba(160,124,246,.12),0 8px 20px -8px rgba(160,124,246,.6);background:linear-gradient(90deg,rgba(160,124,246,.18),#fff 85%)}
+  .ax-src li[data-src="ai"] .pl-k{font-weight:600}
+  .ax-src li[data-src="ai"] .pl-ic{background:#24262b}
+  .ax-src li[data-src="ai"] .pl-ic[title="Claude"]{background:#d97757}
+  .ax-src li[data-src="ai"] .pl-ic[title="Gemini"]{background:#8e75b2}
+}
 .ax-src li.hit::after,.ax-src li.lit::after{background:#4d5865;transition-duration:.12s}
 /* LinearB: the tube's aqua glass as one opaque panel, so dots go in grey and come out in a pillar's colour */
 .ax-lb{flex:1;display:flex;flex-direction:column;padding:12px;border-radius:22px;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(90deg,#e2f8fb,#e8ebff);box-shadow:inset 0 0 0 1px rgba(91,102,251,.1),inset 0 -24px 40px -28px rgba(91,102,251,.25)}
@@ -1052,7 +1063,7 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 .ax-st[data-st="act"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%226%22%20cy%3D%225%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2219%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%228%22%20r%3D%222.2%22/%3E%3Cpath%20d%3D%22M6%207.2v9.6M18%2010.2c0%204-5%204-11%206.6%22/%3E%3C/svg%3E")}
 .ax-via{font:500 11.5px/1.3 var(--sans);color:#8798a7}
 .ax-do{height:2.7em;overflow:hidden;font:12px/1.35 var(--sans);color:var(--text)}
-.ax-do span,.ax-now span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;transition:opacity .25s}
+.ax-do span,.ax-now span{text-wrap:pretty;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;transition:opacity .25s}
 .ax-do span.swap,.ax-now span.swap{opacity:0}
 /* a stage takes a pillar's colour only while it acts for that pillar; the other two step back */
 .ax-st.on{background:color-mix(in srgb,var(--bc) 6%,#fff);box-shadow:inset 3px 0 0 var(--bc),inset 0 0 0 1px color-mix(in srgb,var(--bc) 40%,transparent),0 0 0 4px color-mix(in srgb,var(--bc) 12%,transparent);transition-duration:.2s}
@@ -1074,17 +1085,27 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 .ax-also .ax-star{gap:4px;background:color-mix(in srgb,var(--c) 8%,#fff);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 50%,transparent);font-weight:500;color:var(--text)}
 .ax-star::before{content:"★";font-size:10px;line-height:1;color:var(--c)}
 .ax-also span.hit{background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--text);transition-duration:.15s}
+/* the benchmark line under APEX mirrors the integrations line under Collect */
+.ax-bench{margin:10px 2px 0;font:500 13px var(--sans);color:#4d5865}
 .ax-pil.on{box-shadow:inset 0 0 0 1.5px var(--c),0 0 0 4px color-mix(in srgb,var(--c) 14%,transparent);transition-duration:.15s}
 .ax-pil.pop .ax-ltr{animation:ax-pop .5s ease-out}
 @keyframes ax-pop{50%{transform:scale(1.06)}}
 /* desktop: three columns share one top and bottom; two-line subs keep the three blocks level */
 /* each column's line fits on one line from 1200px; narrower, any that wrap keep room for two so the blocks still start level */
 @media (min-width:901px) and (max-width:1199px){.ax-sub{min-height:2.8em}}
-@media (min-width:901px){.ax-src li{padding-block:0}
+/* desktop: the action line holds the longest beat's height at this width (measured in the script), not a fixed two lines */
+@media (min-width:901px){.ax-do{height:var(--ax-do-h,2.7em)}.ax-src li{padding-block:0}
+  /* a clear type scale: column headings, then card titles, then the line each card says, then quiet labels and chips */
+  .ax-h{font-size:20px}.ax-wm{width:100px;height:24px}.ax-sub{margin-top:-4px;font-size:13px}
+  .ax-src .pl-k{font-size:14px}
+  .ax-st-h,.ax-name{font-size:16.5px}.ax-ic{width:16px;height:16px}
+  .ax-do{font-size:13.5px}
   /* the integrations line hangs below the list, so Incidents ends level with the LinearB panel and the last pillar */
-  .ax-in>.pl-more{position:absolute;top:100%;left:0;margin-top:10px}
+  .ax-in>.pl-more,.ax-out>.ax-bench{position:absolute;top:100%;left:0;margin-top:10px}
   /* room under the columns for that line, so it sits clear of both the list and the window edge */
-  .ax-grid{padding-bottom:46px}}
+  .ax-grid{padding-bottom:46px}
+  /* room on the left for the AI tools loops to swing out */
+  .ax-grid{padding-left:56px}}
 @media (min-width:901px) and (max-width:1199px){.ax-src .pl-tools{gap:5px}.ax-src .pl-ic{width:13px;height:13px}}
 /* tablet and phone: Collect, then LinearB, then APEX, top to bottom; the flow lives in the 30px gaps */
 @media (max-width:900px){
@@ -1871,13 +1892,13 @@ body{overflow-x:clip}
               <p class="pl-more">+ 40 more integrations</p>
             </div>
             <div class="ax-mid">
-              <p class="pl-h ax-h"><i class="ax-mark" aria-hidden="true"></i>LinearB</p>
+              <p class="pl-h ax-h"><span class="ax-wm" role="img" aria-label="LinearB"></span></p>
               <p class="ax-sub">One platform to explore, measure and act</p>
               <div class="ax-lb">
                 <ul class="ax-ema" aria-label="What LinearB does with it">
-                  <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><p class="ax-via">Assistant · MCP</p><p class="ax-do"><span>“Which epics ran late?” PAY-1142, 9 days over</span></p></li>
-                  <li class="ax-st" data-st="measure"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Measure</b></p><p class="ax-via">Dashboards · Slack</p><p class="ax-do"><span>PR #5120 merged, counted as AI-assisted</span></p></li>
-                  <li class="ax-st on" data-st="act" style="--bc:#ff6445"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Act</b></p><p class="ax-via">gitStream · AI code reviews</p><p class="ax-do"><span>Routing PR #9185 to the right reviewer</span></p></li>
+                  <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><p class="ax-via">Ask anything, in plain language</p><p class="ax-do"><span>“Which epics ran late?” PAY-1142, 9 days over</span></p></li>
+                  <li class="ax-st" data-st="measure"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Measure</b></p><p class="ax-via">Your metrics, benchmarked</p><p class="ax-do"><span>PR #5120 merged, counted as AI-assisted</span></p></li>
+                  <li class="ax-st on" data-st="act" style="--bc:#ff6445"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Act</b></p><p class="ax-via">Automate the fix in your workflow</p><p class="ax-do"><span>Routing PR #9185 to the right reviewer</span></p></li>
                 </ul>
                 <p class="ax-now" aria-hidden="true" style="--bc:#ff6445"><i></i><span>Routing PR #9185 to the right reviewer</span></p>
               </div>
@@ -1891,6 +1912,7 @@ body{overflow-x:clip}
                 <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Flow efficiency</p><p class="ax-also"><span class="ax-star" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
                 <li class="ax-pil" data-p="x" style="--c:#f4ab0b"><span class="ax-ltr" aria-hidden="true">X</span><p class="ax-name">Developer experience</p><p class="ax-also"><span class="ax-star" data-m="satisfaction"><span class="sr">North star: </span>Developer satisfaction</span><span data-m="readiness">AI readiness</span></p></li>
               </ul>
+              <p class="ax-bench">Benchmarked against 8.1M+ PRs from 4,800 teams</p>
             </div>
           </div>
         </div>
@@ -3117,7 +3139,7 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
   // pillar colours come from each card's --c, so the markup is the one place they are set
   const HEX = {}, RGB = {};
   PK.forEach(k => { HEX[k] = PIL[k].style.getPropertyValue('--c').trim() || '#8798a7'; RGB[k] = (HEX[k].slice(1).match(/../g) || ['87','98','a7']).map(h => parseInt(h, 16)); });
-  const SLATE = [135,152,167], INK = [77,88,101], IN_V = 95, OUT_V = 85, STORY_V = 110, DWELL = 1.4, GAP = 5.5;
+  const SLATE = [135,152,167], INK = [77,88,101], AI = [160,124,246], IN_V = 95, OUT_V = 85, STORY_V = 110, DWELL = 1.4, GAP = 5.5;
   // the story loop: landings spell A, P, E, X twice, every stage gets a turn, and m is the metric each one touches
   const BEATS = [
     {src:'ai', st:'measure', p:'a', m:'ai-prs', text:'PR #5120 merged, counted as AI-assisted'},
@@ -3129,7 +3151,7 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     {src:'code', st:'explore', p:'e', m:'review', text:'“Why is review slow?” Pickup time is 7.1h'},
     {src:null, st:'act', p:'x', m:'satisfaction', text:'Survey reminder sent in Slack'}
   ];
-  let W = 0, H = 0, dpr = 1, L = null, time = 0, visible = false, rand = Math.random, story = null, link = null, hi = null, beat = 0, nextBeat = .6, inAcc = 0, outAcc = 0;
+  let W = 0, H = 0, dpr = 1, L = null, time = 0, visible = false, rand = Math.random, story = null, link = null, hi = null, beat = 0, nextBeat = .6, inAcc = 0, outAcc = 0, aiAcc = 0, backAcc = 0;
   const parts = [];
   // the tunnel engine's curve and at helpers, copied because they are private to its closure
   function curve(a, e, horiz){
@@ -3152,11 +3174,33 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     const s = p[hi].d - p[lo].d || 1, f = (d - p[lo].d)/s;
     return {x:p[lo].x + (p[hi].x - p[lo].x)*f, y:p[lo].y + (p[hi].y - p[lo].y)*f};
   }
+  // cubic through explicit control points, for the AI tools loops (also the tunnel's, copied for the same reason)
+  function bez(a, c1, c2, e){
+    const pts = [], N = 40; let len = 0;
+    for(let i=0;i<=N;i++){
+      const t = i/N, u = 1-t;
+      const x = u*u*u*a.x + 3*u*u*t*c1.x + 3*u*t*t*c2.x + t*t*t*e.x;
+      const y = u*u*u*a.y + 3*u*u*t*c1.y + 3*u*t*t*c2.y + t*t*t*e.y;
+      if(i) len += Math.hypot(x - pts[i-1].x, y - pts[i-1].y);
+      pts.push({x, y, d:len});
+    }
+    return {pts, len};
+  }
   const rel = el => { const b = el.getBoundingClientRect(), o = box.getBoundingClientRect(); return {l:b.left-o.left, t:b.top-o.top, r:b.right-o.left, b:b.bottom-o.top, w:b.width, h:b.height}; };
   const cy = q => q.t + q.h/2, cx = q => q.l + q.w/2, pick = a => a[Math.floor(rand()*a.length)];
   // measure everything relative to the box; side by side the flow runs on drawn connectors (a story leaves on its
   // pillar's connector too, so no new line ever appears), stacked it crosses the gaps
+  // the action line is as tall as the longest beat text needs at the cards' current width, so a one-line
+  // width leaves no empty line under it and the text still never shifts the card as it changes
+  function fitDo(){
+    const sp = ST.explore.querySelector('.ax-do span'), keep = sp.textContent;
+    hero.style.removeProperty('--ax-do-h'); sp.parentNode.style.height = 'auto';
+    let max = 0; for(const b of BEATS){ sp.textContent = tidy(b.text); max = Math.max(max, sp.getBoundingClientRect().height); }
+    sp.textContent = keep; sp.parentNode.style.height = '';
+    if(max) hero.style.setProperty('--ax-do-h', Math.ceil(max) + 'px');
+  }
   function layout(){
+    fitDo();
     const o = box.getBoundingClientRect(); W = o.width; H = o.height;
     if(!W || !H){ L = null; return; }
     dpr = Math.min(window.devicePixelRatio || 1, 2); fx.width = Math.round(W*dpr); fx.height = Math.round(H*dpr);
@@ -3167,12 +3211,16 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     if(wide){
       const conIn = R.map((q, i) => curve({x:q.r + 3, y:cy(q)}, {x:P.l, y:P.t + P.h*(.15 + .7*i/(R.length - 1))}, true));
       const conOut = PK.map(k => curve({x:P.r, y:Math.max(P.t + 14, Math.min(P.b - 14, cy(C[k])))}, {x:C[k].l - 3, y:cy(C[k])}, true));
-      L = {wide, conIn, conOut, inBg:() => pick(conIn), inStory:src => conIn[rows.indexOf(rowOf(src))], outBg:k => conOut[PK.indexOf(k)],
+      // AI tools to every other row: a smooth loop out to the left of the list, like the tunnel's
+      const ai = rows.indexOf(rowOf('ai')), A = R[ai];
+      const conAi = R.map((q, i) => { if(i === ai) return null; const a = {x:A.l - 3, y:cy(A)}, e = {x:q.l - 3, y:cy(q)}, bx = Math.max(10, a.x - (12 + Math.abs(e.y - a.y)*0.14));
+        return {row:i, path:bez(a, {x:bx, y:a.y}, {x:bx, y:e.y}, e), back:bez(e, {x:bx, y:e.y}, {x:bx, y:a.y}, a)}; }).filter(Boolean);
+      L = {wide, conIn, conOut, conAi, inBg:() => pick(conIn), inStory:src => conIn[rows.indexOf(rowOf(src))], outBg:k => conOut[PK.indexOf(k)],
            outStory:(st, k) => conOut[PK.indexOf(k)]};
     } else {
       // stacked: the flow lives only in the gaps between the three blocks
       const slot = k => O.l + O.w*(.125 + .25*PK.indexOf(k));
-      L = {wide, conIn:[], conOut:[],
+      L = {wide, conIn:[], conOut:[], conAi:[],
            inBg:() => curve({x:cx(pick(R)), y:I.b + 2}, {x:cx(S[pick(stk)]), y:M.t - 2}, false),
            inStory:(src, st) => curve({x:cx(rel(rowOf(src))), y:I.b + 2}, {x:cx(S[st]), y:M.t - 2}, false),
            outBg:k => curve({x:cx(S[pick(stk)]), y:P.b + 2}, {x:slot(k), y:O.t - 2}, false),
@@ -3180,7 +3228,10 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     }
   }
   const dot = (path, v, c, r, a) => ({path, d:0, v, c, r, a, tr:[]});
-  const say = (el, text) => { if(!el) return; el.classList.add('swap'); setTimeout(() => { el.textContent = text; el.classList.remove('swap'); }, 250); };
+  // no lone word on a line: ids like PAY-1142 and PR #482 stay in one piece, and the last two words stay together
+  const tidy = t => t.replace(/-/g, '\u2011').replace(/(PR|build) #/g, '$1\u00a0#').replace(/ (\S+)$/, '\u00a0$1');
+  hero.querySelectorAll('.ax-do span, .ax-now span').forEach(sp => sp.textContent = tidy(sp.textContent));
+  const say = (el, text) => { if(!el) return; el.classList.add('swap'); setTimeout(() => { el.textContent = tidy(text); el.classList.remove('swap'); }, 250); };
   // a beat: the source row flashes and its story dot heads for LinearB (beats that start inside LinearB skip this)
   function start(b){
     hero.querySelectorAll('.ax-src li.lit').forEach(r => r.classList.remove('lit'));
@@ -3206,7 +3257,13 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     time += dt;
     inAcc += dt*1.4; while(inAcc >= 1){ inAcc--; if(parts.length < 60) parts.push(dot(L.inBg(), IN_V*(.85 + rand()*.3), SLATE, 2, .55)); }
     outAcc += dt*.8; while(outAcc >= 1){ outAcc--; const k = pick(PK); if(parts.length < 60) parts.push(dot(L.outBg(k), OUT_V*(.85 + rand()*.3), RGB[k], 1.8, .5)); }
-    for(let i = parts.length - 1; i >= 0; i--){ const p = parts[i]; move(p, dt); if(p.d >= p.path.len) parts.splice(i, 1); }
+    // AI tools touches the other sources: a purple dot runs out to a row, which then sends that work on to LinearB;
+    // now and then context runs back to AI tools in the row's grey
+    if(L.conAi.length){
+      aiAcc += dt*.45; while(aiAcc >= 1){ aiAcc--; const c = pick(L.conAi); if(parts.length < 60) parts.push({...dot(c.path, 96, AI, 1.9, .8), then:() => { if(!quiet) flash(rows[c.row], 'hit', 260); parts.push(dot(L.conIn[c.row], IN_V, SLATE, 2, .55)); }}); }
+      backAcc += dt*.33; while(backAcc >= 1){ backAcc--; const c = pick(L.conAi); if(parts.length < 60) parts.push(dot(c.back, 96, SLATE, 1.9, .7)); }
+    }
+    for(let i = parts.length - 1; i >= 0; i--){ const p = parts[i]; move(p, dt); if(p.d >= p.path.len){ parts.splice(i, 1); if(p.then) p.then(); } }
     if(quiet) return;
     if(!story && time >= nextBeat){ nextBeat = time + GAP; start(BEATS[beat++ % BEATS.length]); }
     if(!story) return;
@@ -3225,7 +3282,7 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
   }
   function draw(){
     g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H); if(!L) return;
-    L.conIn.forEach(c => stroke(c, SLATE, .3, 1.2)); L.conOut.forEach((c, i) => stroke(c, RGB[PK[i]], .32, 1.4));
+    L.conAi.forEach(c => stroke(c.path, AI, .38, 1.6)); L.conIn.forEach(c => stroke(c, SLATE, .3, 1.2)); L.conOut.forEach((c, i) => stroke(c, RGB[PK[i]], .32, 1.4));
     const h = story && story.ph === 'in' ? story.path : hi; if(h) stroke(h, INK, .4, 1.4);
     if(link) stroke(link.path, link.c, .45, 1.6);
     parts.forEach(paint); if(story && story.ph !== 'dwell') paint(story);
