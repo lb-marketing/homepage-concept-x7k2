@@ -1027,8 +1027,9 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
    .tn-scroll or .cost-flip, so no other hero script or leftover APEX rule picks it up */
 .ax-box{position:relative;isolation:isolate}
 .ax-fx{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
-/* the three columns in proportion, APEX a little the widest, so it leads without stretching across the window */
-.ax-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.45fr);column-gap:clamp(30px,3.8vw,58px);padding:24px 26px 26px;align-items:stretch}
+/* LinearB the widest, so its three stages have room to show what they do; Context a little narrower than APEX and never
+   much wider than its rows need, so a tool's logos sit close to its name */
+.ax-grid{display:grid;grid-template-columns:minmax(180px,.62fr) minmax(0,1.35fr) minmax(0,1fr);column-gap:clamp(30px,3.8vw,58px);padding:24px 26px 26px;align-items:stretch}
 .ax-in,.ax-mid,.ax-out{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column}
 .ax-h{display:flex;align-items:center;gap:7px;font-size:16px}
 /* the LinearB heading is the real wordmark, the same asset as the nav and the window bar */
@@ -1038,7 +1039,7 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 .ax-src{flex:1;grid-auto-rows:1fr;gap:8px}
 .ax-src li{position:relative;transition:box-shadow .8s}
 .ax-src li::after{content:"";position:absolute;right:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--rule);transition:background-color .8s}
-.ax-src li.hit,.ax-src li.lit{box-shadow:inset 0 0 0 1.5px #4d5865;transition-duration:.12s}
+.ax-src li.hit,.ax-src li.lit{box-shadow:inset 0 0 0 1.5px #4d5865;transition-duration:.4s}
 /* AI tools feeds every other source, as in the explore, measure, act option: a purple row, with curved lines out to
    the others on desktop (drawn on the canvas). The one colour here that isn't a pillar's, kept to the AI loop */
 .ax-src li[data-src="ai"],.ax-src li[data-src="ai"].hit{box-shadow:inset 0 0 0 1.5px rgba(160,124,246,.55);background:linear-gradient(90deg,rgba(160,124,246,.1),#fff 70%)}
@@ -1049,11 +1050,11 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
   .ax-src li[data-src="ai"] .pl-ic[title="Claude"]{background:#d97757}
   .ax-src li[data-src="ai"] .pl-ic[title="Gemini"]{background:#8e75b2}
 }
-.ax-src li.hit::after,.ax-src li.lit::after{background:#4d5865;transition-duration:.12s}
+.ax-src li.hit::after,.ax-src li.lit::after{background:#4d5865;transition-duration:.4s}
 /* LinearB: the tube's aqua glass as one opaque panel, so dots go in grey and come out in a pillar's colour */
 .ax-lb{flex:1;display:flex;flex-direction:column;padding:12px;border-radius:22px;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,.95),rgba(255,255,255,0) 70%),linear-gradient(90deg,#e2f8fb,#e8ebff);box-shadow:inset 0 0 0 1px rgba(91,102,251,.1),inset 0 -24px 40px -28px rgba(91,102,251,.25)}
 .ax-ema{flex:1;display:grid;grid-auto-rows:1fr;gap:8px;list-style:none;margin:0;padding:0}
-.ax-st{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);transition:box-shadow .8s,background-color .8s,opacity .8s}
+.ax-st{display:flex;flex-direction:column;gap:8px;min-width:0;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);transition:box-shadow .8s,background-color .8s,opacity .8s}
 .ax-st p{margin:0}
 .ax-st-h{display:flex;align-items:center;gap:7px;font:600 15px/1.25 var(--display);color:var(--text)}
 .ax-st-h b{font-weight:600}
@@ -1061,45 +1062,102 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
 .ax-st[data-st="explore"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%205h16v11H10l-5%204v-4H4z%22/%3E%3C/svg%3E")}
 .ax-st[data-st="measure"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M5%2020v-7M12%2020V5M19%2020v-10%22/%3E%3C/svg%3E")}
 .ax-st[data-st="act"] .ax-ic{--i:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%226%22%20cy%3D%225%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2219%22%20r%3D%222.2%22/%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%228%22%20r%3D%222.2%22/%3E%3Cpath%20d%3D%22M6%207.2v9.6M18%2010.2c0%204-5%204-11%206.6%22/%3E%3C/svg%3E")}
-.ax-via{font:500 11.5px/1.3 var(--sans);color:#8798a7}
-.ax-do{height:2.7em;overflow:hidden;font:12px/1.35 var(--sans);color:var(--text)}
-.ax-do span,.ax-now span{text-wrap:pretty;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;transition:opacity .25s}
-.ax-do span.swap,.ax-now span.swap{opacity:0}
-/* a stage takes a pillar's colour only while it acts for that pillar; the other two step back */
-.ax-st.on{background:color-mix(in srgb,var(--bc) 6%,#fff);box-shadow:inset 3px 0 0 var(--bc),inset 0 0 0 1px color-mix(in srgb,var(--bc) 40%,transparent),0 0 0 4px color-mix(in srgb,var(--bc) 12%,transparent);transition-duration:.2s}
-.ax-st.on .ax-ic{background:var(--bc);transition-duration:.2s}
-.ax-ema:has(.ax-st.on) .ax-st:not(.on){opacity:.75}
+/* each stage shows what it does as a small piece of product UI, not a line of text: Explore a chat, Measure a metric and
+   its trend, Act an agent at work. Sample content only; one line each where there's room, two at most where there isn't */
+.ax-ui{flex:1;display:flex;flex-direction:column;justify-content:center;gap:5px;min-height:0;padding:8px 10px;border-radius:10px;background:#f6f7f9;font:12.5px/1.3 var(--sans);color:var(--text)}
+.ax-ui p{margin:0;min-width:0}
+.ax-ui p>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;text-wrap:pretty;transition:opacity .25s}
+.ax-ui .swap,.ax-now span.swap{opacity:0}
+.ax-now span{text-wrap:pretty;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;transition:opacity .25s}
+/* Explore: the same exchange as the explore, measure, act option (.ema-chat): the question types out beside the person
+   asking, then LinearB's mark answers after a typing indicator. The answer edges in the pillar's colour while it acts */
+/* here a bubble can take a second line on a narrow screen rather than cut its text off */
+.ax-chat .ema-chat p{height:auto;min-height:30px;padding-block:6px;white-space:normal;font-size:12.5px;line-height:1.3}
+.ax-chat .ema-chat p>span{line-height:1.3}
+.ax-st.on .ema-ai{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bc) 55%,transparent);transition:box-shadow .5s}
+/* Measure: the metric a merged PR or a survey just moved, and its recent trend; the newest bar takes the pillar's colour */
+.ax-meas{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+.ax-meas>div,.ax-act>div{min-width:0;display:flex;flex-direction:column;gap:2px}
+.ax-m-k{font-weight:500}
+.ax-m-ev{font-size:12px;color:#4d5865}
+.ax-act-d{font-size:12.5px}
+/* the chart suits the metric: stacked columns for the AI-assisted share of PRs, a line for agent PRs over time, a ring
+   for a sprint's capacity accuracy, a split bar for how a survey's responses fall. Drawn in the script; grey until the
+   stage acts, then the pillar's colour, and each one draws itself in as it arrives */
+.ax-meas{--cc:#4d5865}
+.ax-st.on .ax-meas{--cc:var(--bc)}
+/* the chart grows with its card, up to about a third of it */
+.ax-chart{flex:0 0 auto;width:clamp(96px,36%,150px);aspect-ratio:96/42;transition:opacity .25s}
+.ax-chart.swap{opacity:0}
+.ax-chart svg{display:block;width:100%;height:100%;overflow:visible}
+.ax-chart .g{fill:#dde2e8}
+.ax-chart .c{fill:var(--cc);transition:fill .8s}
+.ax-chart rect{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .5s ease-out var(--d,0ms),fill .8s}
+.ax-chart rect.h{transform-origin:0 50%;transform:scaleX(0)}
+.ax-chart.in rect{transform:none}
+.ax-chart .ln{fill:none;stroke:var(--cc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s ease-out,stroke .8s}
+.ax-chart .area{fill:color-mix(in srgb,var(--cc) 12%,transparent);opacity:0;transition:opacity .6s .5s}
+.ax-chart circle.c{opacity:0;transition:opacity .3s .8s,fill .8s}
+.ax-chart .trk{fill:none;stroke:#e4e8ee;stroke-width:5}
+.ax-chart .arc{fill:none;stroke:var(--cc);stroke-width:5;stroke-linecap:round;stroke-dasharray:0 100;transform:rotate(-90deg);transform-origin:21px 21px;transition:stroke-dasharray .9s ease-out,stroke .8s}
+.ax-chart text{font:600 15px var(--display);fill:var(--text)}
+.ax-chart.in .ln{stroke-dashoffset:0}
+.ax-chart.in .area,.ax-chart.in circle.c{opacity:1}
+.ax-chart.in .arc{stroke-dasharray:var(--v) 100}
+/* Act: the agent or automation at work, as in the explore, measure, act option (.ema-av, .ema-who): who it is and how
+   it's connected, what it's doing (typed out), then a tick once it's done, in the pillar's colour */
+.ax-act{flex-direction:row;align-items:center;justify-content:flex-start;gap:10px}
+.ax-who-av{position:relative;flex:0 0 auto}
+.ax-act .ema-av{display:block;width:30px;height:30px}
+/* each actor's mark in its own colour on a plain white avatar, never recoloured: Claude's orange (as in the AI tools
+   row), Cursor's black, and gitStream and anything else in the neutral grey */
+.ax-act .ema-av,.ax-act .ema-av[data-k]{background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
+.ax-act .ema-av::after,.ax-act .ema-av[data-k]::after{background:#4d5865}
+.ax-act .ema-av[data-k="claude"]::after{background:#d97757}
+.ax-act .ema-av[data-k="cursor"]::after{background:#24262b}
+.ax-act .ema-av[data-k="lb"]::after{inset:7px;-webkit-mask:none;mask:none;background:url(media/linearb-mark.png) center/contain no-repeat}
+.ax-act .ema-who{transition:opacity .25s}
+.ax-act .ema-who span{display:inline}
+.ax-act .ema-who.swap{opacity:0}
+/* done: a tick on the corner of the avatar, in the pillar's colour while the stage acts */
+.ax-done{position:absolute;right:-3px;bottom:-3px;width:15px;height:15px;border-radius:50%;background:#4d5865 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M5%2012.5l4.5%204.5L19%207.5%22/%3E%3C/svg%3E") center/9px no-repeat;box-shadow:0 0 0 2px #f6f7f9;opacity:0;transition:opacity .4s,background-color .5s}
+.ax-done.ok{opacity:1}
+.ax-st.on .ax-done{background-color:var(--bc)}
+/* a stage takes a pillar's colour only while it acts for that pillar, as a thin edge and its icon: no fill, no glow,
+   and the other two stay as they are, so the eye can keep reading wherever it is */
+.ax-st.on{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bc) 55%,transparent);transition-duration:.5s}
+.ax-st.on .ax-ic{background:var(--bc);transition-duration:.5s}
 .ax-now{display:none}
-/* APEX: four pillar cards whose letters spell the word down the column; figures stay put except AI-assisted PRs, which counts up */
+/* APEX: four pillar cards whose letters spell the word down the column */
 .ax-apex{flex:1;display:grid;grid-auto-rows:1fr;gap:8px;list-style:none;margin:0;padding:0}
 .ax-pil{--c:#8798a7;position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"l n" "l f";align-content:center;column-gap:14px;row-gap:1px;padding:10px 16px 10px 14px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);transition:box-shadow .9s}
 .ax-pil::before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:color-mix(in srgb,var(--c) 45%,#fff)}
 .ax-pil p{margin:0;min-width:0}
 .ax-ltr{grid-area:l;align-self:center;min-width:.9em;text-align:center;font:600 clamp(36px,3.4vw,48px)/1 var(--display);color:var(--c)}
 .ax-name{grid-area:n;align-self:baseline;font:600 15px/1.25 var(--display);color:var(--text)}
-/* no sample figures: the pillar's metrics as one row of chips, as the APEX sales deck lists them: north stars first, starred and edged in the
-   pillar's colour. When a story lands, the metric it touches lights up in that colour */
-.ax-also{grid-area:f;display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+/* one metric at a time under each pillar, named as the APEX sales deck names them, north stars starred and edged in the
+   pillar's colour. Every metric is in the markup, so screen readers get the full list; only the current one shows, and a
+   story that lands swaps in the metric it touched */
+.ax-also{grid-area:f;position:relative;height:20px;margin-top:6px}
 /* a fixed height with the text centred by flex, since line-height alone sits Roboto a touch high */
-.ax-also span[data-m]{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:#f2f4f7;font:11.5px/1 var(--sans);color:#4d5865;transition:background-color .9s,color .9s}
+.ax-also span[data-m]{position:absolute;left:0;top:0;display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:#f2f4f7;font:11.5px/1 var(--sans);color:#4d5865;white-space:nowrap;opacity:0;transition:opacity .4s,background-color .9s,color .9s}
+/* the old metric fades out before the new one fades in, so the two never overlap */
+.ax-also span.cur{opacity:1;transition:opacity .3s .3s,background-color .9s,color .9s}
 .ax-also .ax-star{gap:4px;background:color-mix(in srgb,var(--c) 8%,#fff);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 50%,transparent);font-weight:500;color:var(--text)}
 .ax-star::before{content:"★";font-size:10px;line-height:1;color:var(--c)}
 .ax-also span.hit{background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--text);transition-duration:.15s}
-/* the benchmark line under APEX mirrors the integrations line under Collect */
+/* the benchmark line under APEX mirrors the integrations line under Context */
 .ax-bench{margin:10px 2px 0;font:500 13px var(--sans);color:#4d5865}
-.ax-pil.on{box-shadow:inset 0 0 0 1.5px var(--c),0 0 0 4px color-mix(in srgb,var(--c) 14%,transparent);transition-duration:.15s}
-.ax-pil.pop .ax-ltr{animation:ax-pop .5s ease-out}
-@keyframes ax-pop{50%{transform:scale(1.06)}}
+.ax-pil.on{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 60%,transparent);transition-duration:.5s}
 /* desktop: three columns share one top and bottom; two-line subs keep the three blocks level */
 /* each column's line fits on one line from 1200px; narrower, any that wrap keep room for two so the blocks still start level */
 @media (min-width:901px) and (max-width:1199px){.ax-sub{min-height:2.8em}}
-/* desktop: the action line holds the longest beat's height at this width (measured in the script), not a fixed two lines */
-@media (min-width:901px){.ax-do{height:var(--ax-do-h,2.7em)}.ax-src li{padding-block:0}
+@media (min-width:901px){.ax-src li{padding-block:0}
   /* a clear type scale: column headings, then card titles, then the line each card says, then quiet labels and chips */
   .ax-h{font-size:20px}.ax-wm{width:100px;height:24px}.ax-sub{margin-top:-4px;font-size:13px}
   .ax-src .pl-k{font-size:14px}
   .ax-st-h,.ax-name{font-size:16.5px}.ax-ic{width:16px;height:16px}
-  .ax-do{font-size:13.5px}
+  .ax-ui{font-size:13px}
   /* the integrations line hangs below the list, so Incidents ends level with the LinearB panel and the last pillar */
   .ax-in>.pl-more,.ax-out>.ax-bench{position:absolute;top:100%;left:0;margin-top:10px}
   /* room under the columns for that line, so it sits clear of both the list and the window edge */
@@ -1107,30 +1165,45 @@ section[aria-label="The context layer"]>.win{box-shadow:0 0 0 clamp(12px,2vw,22p
   /* room on the left for the AI tools loops to swing out */
   .ax-grid{padding-left:56px}}
 @media (min-width:901px) and (max-width:1199px){.ax-src .pl-tools{gap:5px}.ax-src .pl-ic{width:13px;height:13px}}
-/* tablet and phone: Collect, then LinearB, then APEX, top to bottom; the flow lives in the 30px gaps */
+/* laptop and up: the columns have room to spare, so the type steps up a size rather than leaving white space around it */
+@media (min-width:1200px){
+  .ax-src .pl-k{font-size:15px}.ax-src .pl-ic{width:17px;height:17px}
+  .ax-st-h,.ax-name{font-size:18px}.ax-ic{width:17px;height:17px}
+  .ax-ui{font-size:14px}.ax-m-ev{font-size:13px}.ax-act-d{font-size:14px}.ax-act .ema-who{font-size:12.5px}
+  .ax-chat .ema-chat p{font-size:13.5px}
+  .ax-chart{width:clamp(110px,36%,170px)}
+  .ax-ltr{font-size:52px}
+  .ax-also{height:23px}.ax-also span[data-m]{height:23px;padding:0 9px;font-size:12.5px}
+}
+/* tablet and phone: Context, then LinearB, then APEX, top to bottom; the flow lives in the 30px gaps */
 @media (max-width:900px){
   .ax-grid{grid-template-columns:minmax(0,1fr);row-gap:30px;padding:20px 16px 22px}
   .ax-src{grid-template-columns:repeat(3,minmax(0,1fr))}
   .ax-src .pl-tools{gap:5px}.ax-src .pl-ic{width:14px;height:14px}.ax-src .pl-k{white-space:nowrap}
   .ax-src li::after,.ax-pil::before{display:none}
   .ax-ema{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:auto}
-  .ax-do{height:4.05em}.ax-do span{-webkit-line-clamp:3}
   .ax-apex{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
   .ax-ltr{font-size:34px}
+}
+/* tablet: the three stages as rows, name on the left and its UI on the right, so each line still fits on one line */
+@media (min-width:561px) and (max-width:900px){
+  .ax-ema{grid-template-columns:minmax(0,1fr)}
+  .ax-st{flex-direction:row;align-items:center;gap:12px}
+  .ax-st-h{flex:0 0 96px}
 }
 @media (max-width:560px){
   .ax-src{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ax-src li[data-src="ai"],.ax-src li[data-src="incidents"]{grid-column:1/-1}
   .ax-st{align-items:center;padding:9px 6px}
   .ax-st-h{flex-direction:column;gap:4px;font-size:13px}
-  .ax-via,.ax-do{display:none}
+  .ax-ui{display:none}
   .ax-now{display:flex;align-items:flex-start;gap:8px;margin:10px 4px 0;font:12.5px/1.35 var(--sans);color:var(--text)}
   .ax-now i{flex:0 0 auto;width:8px;height:8px;margin-top:.35em;border-radius:50%;background:var(--bc,#8798a7)}
   .ax-apex{grid-template-columns:minmax(0,1fr)}
   .ax-pil{column-gap:12px;padding:10px 14px 10px 12px}
   .ax-ltr{font-size:28px}
 }
-@media (prefers-reduced-motion:reduce){.ax-src li,.ax-src li::after,.ax-st,.ax-ic,.ax-pil,.ax-do span,.ax-now span{transition:none}}
+@media (prefers-reduced-motion:reduce){.ax-src li,.ax-src li::after,.ax-st,.ax-ic,.ax-pil,.ax-ui p>span,.ax-now span,.ax-chart,.ax-chart *,.ax-also span[data-m]{transition:none}}
 
 .more{font:13px var(--sans)}
 
@@ -1800,7 +1873,7 @@ body{overflow-x:clip}
               <div class="pl-serve ema-card" data-out="0" data-role="explore" data-lanes="0">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#10b9d0"></i>Explore</span><span class="ema-via">Assistant · MCP</span></p>
                 <p class="ema-sub">Ask LinearB how work moves</p>
-                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
+                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;In payments-api, at 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;PRs wait 7.1h for a first reviewer&quot;], [&quot;Which epics are running late?&quot;, &quot;PAY-1142, 9 days past its due date&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
               </div>
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
@@ -1860,7 +1933,7 @@ body{overflow-x:clip}
               <div class="pl-serve ema-card" data-out="0" data-role="explore" data-lanes="0">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#10b9d0"></i>Explore</span><span class="ema-via">Assistant · MCP</span></p>
                 <p class="ema-sub">Ask LinearB how work moves</p>
-                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;payments-api, 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;Pickup time is up to 7.1h&quot;], [&quot;Which epics ran late?&quot;, &quot;PAY-1142, 9 days over&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
+                <div class="ema-chat" data-q="[[&quot;Where's AI rework highest?&quot;, &quot;In payments-api, at 12.3%&quot;], [&quot;Why is review slow?&quot;, &quot;PRs wait 7.1h for a first reviewer&quot;], [&quot;Which epics are running late?&quot;, &quot;PAY-1142, 9 days past its due date&quot;]]"><p class="ema-me"><span></span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span></span></p></div>
               </div>
               <div class="pl-serve ema-card" data-out="1" data-role="leaders" data-lanes="2 1">
                 <p class="pl-h ema-h"><span><i class="ema-dot" style="--c:#5b66fb"></i>Measure</span><span class="ema-via">Dashboards · Slack</span></p>
@@ -1881,12 +1954,12 @@ body{overflow-x:clip}
     </div>
     <div class="hero-tunnel ax-hero" aria-label="Hero visual" data-slot="hero-visual" data-option="APEX outcomes" hidden>
       <div class="win">
-        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Context for your software factory</span></span><span class="note">Sample data</span></div>
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title"><span class="win-lb" role="img" aria-label="LinearB"></span><span class="win-t">Your software factory</span></span><span class="note">Sample data</span></div>
         <div class="ax-box">
           <canvas class="ax-fx" aria-hidden="true"></canvas>
           <div class="ax-grid">
             <div class="ax-in">
-              <p class="pl-h ax-h">Collect</p>
+              <p class="pl-h ax-h">Context</p>
               <p class="ax-sub">Every commit, ticket and build</p>
               <ul class="pl-src ax-src"><li data-src="planning"><span class="pl-k">Planning</span><span class="pl-tools"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span></li><li data-src="code" class="lit"><span class="pl-k">Code</span><span class="pl-tools"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i></span></li><li data-src="ai"><span class="pl-k">AI tools</span><span class="pl-tools"><i class="pl-ic" title="Claude" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Gemini" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/googlegemini.svg)"></i><i class="pl-ic" title="Windsurf" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/windsurf.svg)"></i></span></li><li data-src="quality"><span class="pl-k">Quality</span><span class="pl-tools"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span></li><li data-src="cicd"><span class="pl-k">CI/CD</span><span class="pl-tools"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span></li><li data-src="incidents"><span class="pl-k">Incidents</span><span class="pl-tools"><em>via API</em></span></li></ul>
               <p class="pl-more">+ 40 more integrations</p>
@@ -1896,21 +1969,21 @@ body{overflow-x:clip}
               <p class="ax-sub">One platform to explore, measure and act</p>
               <div class="ax-lb">
                 <ul class="ax-ema" aria-label="What LinearB does with it">
-                  <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><p class="ax-via">Ask anything, in plain language</p><p class="ax-do"><span>“Which epics ran late?” PAY-1142, 9 days over</span></p></li>
-                  <li class="ax-st" data-st="measure"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Measure</b></p><p class="ax-via">Your metrics, benchmarked</p><p class="ax-do"><span>PR #5120 merged, counted as AI-assisted</span></p></li>
-                  <li class="ax-st on" data-st="act" style="--bc:#ff6445"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Act</b></p><p class="ax-via">Automate the fix in your workflow</p><p class="ax-do"><span>Routing PR #9185 to the right reviewer</span></p></li>
+                  <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><div class="ax-ui ax-chat"><div class="ema-chat"><p class="ema-me"><span>Which epics are running late?</span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span>PAY-1142, 9 days past its due date</span></p></div></div></li>
+                  <li class="ax-st" data-st="measure"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Measure</b></p><div class="ax-ui ax-meas"><div><p class="ax-m-k"><span>AI-assisted PRs</span></p><p class="ax-m-ev"><span>PR #5120 merged</span></p></div><span class="ax-chart" aria-hidden="true"></span></div></li>
+                  <li class="ax-st on" data-st="act" style="--bc:#ff6445"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Act</b></p><div class="ax-ui ax-act"><span class="ax-who-av"><i class="ema-av" data-k="flow" aria-hidden="true"></i><i class="ax-done ok" role="img" aria-label="Done"></i></span><div><p class="ema-who"><b>gitStream</b><span>workflow automation</span></p><p class="ax-act-d"><span>Routing PR #9185 to the right reviewer</span></p></div></div></li>
                 </ul>
-                <p class="ax-now" aria-hidden="true" style="--bc:#ff6445"><i></i><span>Routing PR #9185 to the right reviewer</span></p>
+                <p class="ax-now" aria-hidden="true" style="--bc:#ff6445"><i></i><span>gitStream routed PR #9185 to the right reviewer</span></p>
               </div>
             </div>
             <div class="ax-out">
               <p class="pl-h ax-h">APEX outcomes</p>
-              <p class="ax-sub">Four outcomes that show whether AI is paying off</p>
+              <p class="ax-sub">How you know AI is paying off</p>
               <ul class="ax-apex" aria-label="APEX outcomes, sample data">
-                <li class="ax-pil" data-p="a" style="--c:#7c85fc"><span class="ax-ltr" aria-hidden="true">A</span><p class="ax-name">AI leverage</p><p class="ax-also"><span class="ax-star" data-m="ai-prs"><span class="sr">North star: </span>AI-assisted PRs</span><span data-m="assist">Coding assistants</span><span data-m="ai-review">AI code reviews</span><span data-m="agents">Coding agents</span></p></li>
-                <li class="ax-pil" data-p="p" style="--c:#10b9d0"><span class="ax-ltr" aria-hidden="true">P</span><p class="ax-name">Predictability</p><p class="ax-also"><span class="ax-star" data-m="planning"><span class="sr">North star: </span>Planning accuracy</span><span class="ax-star" data-m="capacity"><span class="sr">North star: </span>Capacity accuracy</span><span data-m="rework">Rework rate</span><span data-m="maturity">PR maturity</span></p></li>
-                <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Flow efficiency</p><p class="ax-also"><span class="ax-star" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
-                <li class="ax-pil" data-p="x" style="--c:#f4ab0b"><span class="ax-ltr" aria-hidden="true">X</span><p class="ax-name">Developer experience</p><p class="ax-also"><span class="ax-star" data-m="satisfaction"><span class="sr">North star: </span>Developer satisfaction</span><span data-m="readiness">AI readiness</span></p></li>
+                <li class="ax-pil" data-p="a" style="--c:#7c85fc"><span class="ax-ltr" aria-hidden="true">A</span><p class="ax-name">AI leverage</p><p class="ax-also"><span class="ax-star cur" data-m="ai-prs"><span class="sr">North star: </span>AI-assisted PRs</span><span data-m="assist">Coding assistants</span><span data-m="ai-review">AI code reviews</span><span data-m="agents">Coding agents</span></p></li>
+                <li class="ax-pil" data-p="p" style="--c:#10b9d0"><span class="ax-ltr" aria-hidden="true">P</span><p class="ax-name">Predictability</p><p class="ax-also"><span class="ax-star cur" data-m="planning"><span class="sr">North star: </span>Planning accuracy</span><span class="ax-star" data-m="capacity"><span class="sr">North star: </span>Capacity accuracy</span><span data-m="rework">Rework rate</span><span data-m="maturity">PR maturity</span></p></li>
+                <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Flow efficiency</p><p class="ax-also"><span class="ax-star cur" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
+                <li class="ax-pil" data-p="x" style="--c:#f4ab0b"><span class="ax-ltr" aria-hidden="true">X</span><p class="ax-name">Developer experience</p><p class="ax-also"><span class="ax-star cur" data-m="satisfaction"><span class="sr">North star: </span>Developer satisfaction</span><span data-m="readiness">AI readiness</span></p></li>
               </ul>
               <p class="ax-bench">Benchmarked against 8.1M+ PRs from 4,800 teams</p>
             </div>
@@ -3139,17 +3212,24 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
   // pillar colours come from each card's --c, so the markup is the one place they are set
   const HEX = {}, RGB = {};
   PK.forEach(k => { HEX[k] = PIL[k].style.getPropertyValue('--c').trim() || '#8798a7'; RGB[k] = (HEX[k].slice(1).match(/../g) || ['87','98','a7']).map(h => parseInt(h, 16)); });
-  const SLATE = [135,152,167], INK = [77,88,101], AI = [160,124,246], IN_V = 95, OUT_V = 85, STORY_V = 110, DWELL = 1.4, GAP = 5.5;
-  // the story loop: landings spell A, P, E, X twice, every stage gets a turn, and m is the metric each one touches
+  const SLATE = [135,152,167], INK = [77,88,101], AI = [160,124,246], IN_V = 70, OUT_V = 65, STORY_V = 110, DWELL = 1.4, GAP = 7;
+  // the story loop: landings spell A, P, E, X three times, every stage gets a turn with each pillar, and m is the metric
+  // each one touches. Each stage shows its beat its own way: Explore a question and its answer, Measure an event, the
+  // metric it moved (named from the pillar's chip) and a chart that suits it, Act who acted, how, and what it did (the
+  // agents and gitStream as in the explore, measure, act option); text is the one line the phone layout shows
   const BEATS = [
-    {src:'ai', st:'measure', p:'a', m:'ai-prs', text:'PR #5120 merged, counted as AI-assisted'},
-    {src:'planning', st:'explore', p:'p', m:'planning', text:'“Which epics ran late?” PAY-1142, 9 days over'},
-    {src:'code', st:'act', p:'e', m:'pickup', text:'Routing PR #9185 to the right reviewer'},
-    {src:null, st:'measure', p:'x', m:'satisfaction', text:'Q3 developer survey closed, 212 responses'},
-    {src:'ai', st:'measure', p:'a', m:'agents', text:'Agent-authored PR #9201 merged'},
-    {src:'planning', st:'measure', p:'p', m:'capacity', text:'Sprint 42: 42 of 50 planned issues done'},
-    {src:'code', st:'explore', p:'e', m:'review', text:'“Why is review slow?” Pickup time is 7.1h'},
-    {src:null, st:'act', p:'x', m:'satisfaction', text:'Survey reminder sent in Slack'}
+    {src:'ai', st:'measure', p:'a', m:'ai-prs', chart:['stack'], ev:'PR #5120 merged', text:'PR #5120 merged, counted as AI-assisted'},
+    {src:'planning', st:'explore', p:'p', m:'planning', q:'Which epics are running late?', a:'PAY-1142, 9 days past its due date', text:'“Which epics are running late?” PAY-1142, 9 days past its due date'},
+    {src:'code', st:'act', p:'e', m:'cycle', k:'flow', who:'gitStream', via:'workflow automation', d:'Routing PR #9185 to the right reviewer', text:'gitStream routed PR #9185 to the right reviewer'},
+    {src:null, st:'measure', p:'x', m:'satisfaction', chart:['split'], ev:'Q3 survey: 212 responses', text:'Q3 developer survey closed, 212 responses'},
+    {src:'ai', st:'act', p:'a', m:'agents', k:'claude', who:'Claude', via:'via MCP', d:'Checking payments-api\'s team norms before editing', text:'Claude checked payments-api\'s team norms before editing'},
+    {src:'planning', st:'measure', p:'p', m:'capacity', chart:['ring', 84], ev:'Sprint 42: 42 of 50 issues done', text:'Sprint 42: 42 of 50 planned issues done'},
+    {src:'code', st:'explore', p:'e', m:'pickup', q:'Why is review slow?', a:'PRs wait 7.1h for a first reviewer', text:'“Why is review slow?” PRs wait 7.1h for a first reviewer'},
+    {src:null, st:'act', p:'x', m:'satisfaction', k:'lb', who:'LinearB', via:'in Slack', d:'Reminding the team to answer the Q3 survey', text:'Survey reminder sent in Slack'},
+    {src:'ai', st:'measure', p:'a', m:'agents', chart:['line'], ev:'Agent-authored PR #9201 merged', text:'Agent-authored PR #9201 merged'},
+    {src:'code', st:'act', p:'p', m:'rework', k:'cursor', who:'Cursor', via:'via MCP', d:'Adding a test where rework runs high', text:'Cursor added a test where rework runs high'},
+    {src:'code', st:'measure', p:'e', m:'cycle', chart:['bars'], ev:'PR #9240 merged in 1.8 days', text:'PR #9240 merged in 1.8 days'},
+    {src:'code', st:'explore', p:'x', m:'satisfaction', q:'Who\'s carrying the most reviews?', a:'Dana, with 3× the team average', text:'“Who\'s carrying the most reviews?” Dana, with 3× the team average'}
   ];
   let W = 0, H = 0, dpr = 1, L = null, time = 0, visible = false, rand = Math.random, story = null, link = null, hi = null, beat = 0, nextBeat = .6, inAcc = 0, outAcc = 0, aiAcc = 0, backAcc = 0;
   const parts = [];
@@ -3190,17 +3270,24 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
   const cy = q => q.t + q.h/2, cx = q => q.l + q.w/2, pick = a => a[Math.floor(rand()*a.length)];
   // measure everything relative to the box; side by side the flow runs on drawn connectors (a story leaves on its
   // pillar's connector too, so no new line ever appears), stacked it crosses the gaps
-  // the action line is as tall as the longest beat text needs at the cards' current width, so a one-line
-  // width leaves no empty line under it and the text still never shifts the card as it changes
-  function fitDo(){
-    const sp = ST.explore.querySelector('.ax-do span'), keep = sp.textContent;
-    hero.style.removeProperty('--ax-do-h'); sp.parentNode.style.height = 'auto';
-    let max = 0; for(const b of BEATS){ sp.textContent = tidy(b.text); max = Math.max(max, sp.getBoundingClientRect().height); }
-    sp.textContent = keep; sp.parentNode.style.height = '';
-    if(max) hero.style.setProperty('--ax-do-h', Math.ceil(max) + 'px');
+  // each stage's card holds the height its tallest beat needs at this width, so text that wraps on a narrow screen
+  // never makes the hero grow and shrink as the beats change
+  function fitUI(){
+    const fill = {
+      explore: b => { ask.textContent = tidy(b.q); ans.textContent = tidy(b.a); },
+      measure: b => { ui('measure', '.ax-m-k span').textContent = metric(b.p, b.m); ui('measure', '.ax-m-ev span').textContent = tidy(b.ev); },
+      act: b => { who.querySelector('b').textContent = b.who; who.querySelector('span').textContent = b.via; doing.textContent = tidy(b.d); }
+    };
+    for(const st in fill){
+      const box = ui(st, '.ax-ui'), spans = [...box.querySelectorAll('p span, p b')], keep = spans.map(e => e.textContent);
+      box.style.minHeight = ''; box.style.flex = 'none';
+      let max = 0; for(const b of BEATS) if(b.st === st){ fill[st](b); max = Math.max(max, box.getBoundingClientRect().height); }
+      spans.forEach((e, i) => e.textContent = keep[i]); box.style.flex = '';
+      if(max) box.style.minHeight = Math.ceil(max) + 'px';
+    }
   }
   function layout(){
-    fitDo();
+    fitUI();
     const o = box.getBoundingClientRect(); W = o.width; H = o.height;
     if(!W || !H){ L = null; return; }
     dpr = Math.min(window.devicePixelRatio || 1, 2); fx.width = Math.round(W*dpr); fx.height = Math.round(H*dpr);
@@ -3230,7 +3317,7 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
   const dot = (path, v, c, r, a) => ({path, d:0, v, c, r, a, tr:[]});
   // no lone word on a line: ids like PAY-1142 and PR #482 stay in one piece, and the last two words stay together
   const tidy = t => t.replace(/-/g, '\u2011').replace(/(PR|build) #/g, '$1\u00a0#').replace(/ (\S+)$/, '\u00a0$1');
-  hero.querySelectorAll('.ax-do span, .ax-now span').forEach(sp => sp.textContent = tidy(sp.textContent));
+  hero.querySelectorAll('.ax-ui p>span, .ax-now span').forEach(sp => sp.textContent = tidy(sp.textContent));
   const say = (el, text) => { if(!el) return; el.classList.add('swap'); setTimeout(() => { el.textContent = tidy(text); el.classList.remove('swap'); }, 250); };
   // a beat: the source row flashes and its story dot heads for LinearB (beats that start inside LinearB skip this)
   function start(b){
@@ -3238,30 +3325,91 @@ document.querySelectorAll('.ax-hero').forEach(hero => {
     const r = b.src && rowOf(b.src);
     if(r){ flash(r, 'hit', 700); story = {b, ph:'in', ...dot(L.inStory(b.src, b.st), STORY_V, INK, 3.6, 1)}; } else enter(b);
   }
-  // inside LinearB the stage that handles it takes the pillar's colour and says what it did
+  // inside LinearB the stage that handles it takes the pillar's colour and shows what it did
+  const ui = (st, sel) => ST[st].querySelector(sel);
+  const chart = ui('measure', '.ax-chart'), me = ui('explore', '.ema-me'), ask = me.querySelector('span'), ai = ui('explore', '.ema-ai'), ans = ai.querySelector('span');
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  // the exchange, as in the explore, measure, act option: both bubbles clear, the question types out, then LinearB
+  // types for a moment and answers. A newer exchange cancels an older one still running
+  let chatRun = 0, actRun = 0;
+  // types text into el a letter at a time; stops (false) as soon as live() says a newer beat has taken over
+  async function type(el, text, live){
+    el.classList.add('ema-type'); el.textContent = '';
+    for(const ch of text){ el.textContent += ch; await sleep(26 + rand()*30); if(!live()) return false; }
+    el.classList.remove('ema-type'); return true;
+  }
+  // Measure's charts, in a 96 by 42 box; sample shapes only, no axes or figures beyond the ring's
+  const f = n => n.toFixed(1);
+  const CHART = {
+    stack(){ let o = ''; for(let i = 0; i < 8; i++){ const t = (.55 + rand()*.35)*40, a = t*(.22 + i*.05), x = i*12 + 1, d = `style="--d:${i*40}ms"`;
+      o += `<rect class="g" x="${x}" y="${f(41 - t)}" width="8" height="${f(t)}" rx="1.5" ${d}/><rect class="c" x="${x}" y="${f(41 - a)}" width="8" height="${f(a)}" rx="1.5" ${d}/>`; } return o; },
+    line(){ const pts = []; for(let i = 0; i < 8; i++) pts.push([2 + i*13, 36 - i*3.6 - rand()*6]); const d = pts.map(q => f(q[0]) + ',' + f(q[1])).join(' '), e = pts[7];
+      return `<polygon class="area" points="2,41 ${d} ${f(e[0])},41"/><polyline class="ln" pathLength="1" points="${d}"/><circle class="c" cx="${f(e[0])}" cy="${f(e[1])}" r="3"/>`; },
+    ring(v){ return `<circle class="trk" cx="21" cy="21" r="16"/><circle class="arc" cx="21" cy="21" r="16" pathLength="100" style="--v:${v}"/><text x="46" y="26.5">${v}%</text>`; },
+    // cycle time per week, falling as PRs merge faster; the latest week in the pillar's colour
+    bars(){ let o = ''; for(let i = 0; i < 8; i++){ const t = (.9 - i*.07 - rand()*.08)*40, x = i*12 + 1;
+      o += `<rect class="${i === 7 ? 'c' : 'g'}" x="${x}" y="${f(41 - t)}" width="8" height="${f(t)}" rx="1.5" style="--d:${i*40}ms"/>`; } return o; },
+    // survey responses from least to most favourable, the favourable end in the pillar's colour
+    split(){ let x = 0, o = ''; [5, 9, 20, 38, 28].forEach((v, i) => { const w = v*.96;
+      o += `<rect class="c h" x="${f(x)}" y="15" width="${f(w - 1.5)}" height="12" rx="2" style="opacity:${[.2, .35, .55, .8, 1][i]};--d:${i*60}ms"/>`; x += w; }); return o; }
+  };
+  const svg = c => `<svg viewBox="0 0 96 42">${CHART[c[0]](c[1])}</svg>`;
+  function chartIn(c){
+    chart.classList.add('swap');
+    setTimeout(() => { chart.classList.remove('in'); chart.innerHTML = svg(c); chart.classList.remove('swap');
+      requestAnimationFrame(() => requestAnimationFrame(() => chart.classList.add('in'))); }, 250);
+  }
+  // the act card: the agent and how it's connected swap in, what it's doing types out, then it's ticked off
+  const av = ui('act', '.ema-av'), who = ui('act', '.ema-who'), doing = ui('act', '.ax-act-d span'), done = ui('act', '.ax-done');
+  const AV = {claude:'https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg', cursor:'https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg'};
+  async function act(b){
+    const run = ++actRun, live = () => run === actRun;
+    done.classList.remove('ok'); who.classList.add('swap'); await sleep(250); if(!live()) return;
+    av.dataset.k = b.k; if(AV[b.k]) av.style.setProperty('--i', `url(${AV[b.k]})`); else av.style.removeProperty('--i');
+    who.querySelector('b').textContent = b.who; who.querySelector('span').textContent = b.via; who.classList.remove('swap');
+    if(!await type(doing, tidy(b.d), live)) return; await sleep(250); if(live()) done.classList.add('ok');
+  }
+  // the first measure beat's chart is already drawn when the page loads
+  chart.innerHTML = svg(BEATS.find(b => b.chart).chart); chart.classList.add('in');
+  async function chat(b){
+    const run = ++chatRun, live = () => run === chatRun;
+    me.classList.add('off'); ai.classList.add('off'); await sleep(350); if(!live()) return;
+    ans.textContent = ''; me.classList.remove('off');
+    if(!await type(ask, b.q, live)) return; await sleep(300); if(!live()) return;
+    ai.classList.remove('off'); ai.classList.add('typing'); await sleep(900); if(!live()) return;
+    ai.classList.remove('typing'); ans.textContent = tidy(b.a);
+  }
+  const metric = (p, m) => { const el = PIL[p].querySelector(`[data-m="${m}"]`); return el ? [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim() : ''; };
   function enter(b){
     for(const k in ST) ST[k].classList.remove('on'); PK.forEach(k => PIL[k].classList.remove('on')); link = null;
-    ST[b.st].style.setProperty('--bc', HEX[b.p]); ST[b.st].classList.add('on'); say(ST[b.st].querySelector('.ax-do span'), b.text);
+    ST[b.st].style.setProperty('--bc', HEX[b.p]); ST[b.st].classList.add('on');
+    if(b.st === 'explore') chat(b);
+    else if(b.st === 'measure'){
+      say(ui('measure', '.ax-m-k span'), metric(b.p, b.m)); say(ui('measure', '.ax-m-ev span'), b.ev);
+      chartIn(b.chart);
+    } else act(b);
     if(now){ now.parentNode.style.setProperty('--bc', HEX[b.p]); say(now, b.text); }
-    story = {b, ph:'dwell', t:DWELL};
+    // an exchange or a typed action takes longer than a chart, so those hold the story until they're done
+    story = {b, ph:'dwell', t:b.st === 'explore' ? 2.6 : b.st === 'act' ? 2.4 : DWELL};
   }
-  // the landing lights the pillar, pops its letter and lights the metric it touched; the path stays drawn as the link
+  // the landing edges the pillar in its colour and swaps in the metric it touched; the path stays drawn as the link
   function land(s){
     const card = PIL[s.b.p], m = card.querySelector(`[data-m="${s.b.m}"]`);
-    card.classList.add('on'); flash(card, 'pop', 500);
-    if(m) flash(m, 'hit', 2600);
+    card.classList.add('on');
+    if(m){ card.querySelectorAll('[data-m].cur').forEach(c => c.classList.remove('cur')); m.classList.add('cur'); }
     link = {path:s.path, c:RGB[s.b.p]}; story = null;
   }
   function move(p, dt){ p.d += p.v*dt; p.tr.unshift(at(p.path, p.d)); if(p.tr.length > 7) p.tr.pop(); }
   function step(dt, quiet){
     time += dt;
-    inAcc += dt*1.4; while(inAcc >= 1){ inAcc--; if(parts.length < 60) parts.push(dot(L.inBg(), IN_V*(.85 + rand()*.3), SLATE, 2, .55)); }
-    outAcc += dt*.8; while(outAcc >= 1){ outAcc--; const k = pick(PK); if(parts.length < 60) parts.push(dot(L.outBg(k), OUT_V*(.85 + rand()*.3), RGB[k], 1.8, .5)); }
+    // the background flow is a slow, faint trickle under the story, so it reads as data moving without pulling the eye
+    inAcc += dt*.6; while(inAcc >= 1){ inAcc--; if(parts.length < 30) parts.push(dot(L.inBg(), IN_V*(.85 + rand()*.3), SLATE, 1.8, .35)); }
+    outAcc += dt*.3; while(outAcc >= 1){ outAcc--; const k = pick(PK); if(parts.length < 30) parts.push(dot(L.outBg(k), OUT_V*(.85 + rand()*.3), RGB[k], 1.6, .3)); }
     // AI tools touches the other sources: a purple dot runs out to a row, which then sends that work on to LinearB;
-    // now and then context runs back to AI tools in the row's grey
+    // now and then context runs back to AI tools in the row's grey. The row it reaches doesn't flash
     if(L.conAi.length){
-      aiAcc += dt*.45; while(aiAcc >= 1){ aiAcc--; const c = pick(L.conAi); if(parts.length < 60) parts.push({...dot(c.path, 96, AI, 1.9, .8), then:() => { if(!quiet) flash(rows[c.row], 'hit', 260); parts.push(dot(L.conIn[c.row], IN_V, SLATE, 2, .55)); }}); }
-      backAcc += dt*.33; while(backAcc >= 1){ backAcc--; const c = pick(L.conAi); if(parts.length < 60) parts.push(dot(c.back, 96, SLATE, 1.9, .7)); }
+      aiAcc += dt*.25; while(aiAcc >= 1){ aiAcc--; const c = pick(L.conAi); if(parts.length < 30) parts.push({...dot(c.path, 70, AI, 1.8, .55), then:() => parts.push(dot(L.conIn[c.row], IN_V, SLATE, 1.8, .35))}); }
+      backAcc += dt*.15; while(backAcc >= 1){ backAcc--; const c = pick(L.conAi); if(parts.length < 30) parts.push(dot(c.back, 70, SLATE, 1.8, .45)); }
     }
     for(let i = parts.length - 1; i >= 0; i--){ const p = parts[i]; move(p, dt); if(p.d >= p.path.len){ parts.splice(i, 1); if(p.then) p.then(); } }
     if(quiet) return;
