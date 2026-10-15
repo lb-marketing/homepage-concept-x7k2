@@ -34,9 +34,23 @@
     ],
     "default": 0
   },
+  "seats": {
+    "label": "Role cards heading",
+    "options": [
+      "Every decision runs on the same data, from merging a PR to reporting AI impact",
+      "Every decision runs on the same data, from merging a PR to reporting AI impact to the board",
+      "Every decision runs on the same data, from routing a PR to briefing the board",
+      "Clear what's stuck, from a single PR to the whole quarter",
+      "Agents, managers, and your CTO work from the same data",
+      "Nobody on the line works blind"
+    ],
+    "default": 0
+  },
   "seats-lede": {
     "label": "Role cards subheading",
     "options": [
+      "LinearB puts the right context in front of every agent and person, in the tools they already use.",
+      "LinearB brings it to agents in the PR, managers in Slack, and leaders in their dashboards.",
       "LinearB puts the right context in front of every agent and person, at the moment they decide.",
       "When a metric moves, agents and people ask LinearB why, then act on the answer.",
       "Agents and leaders see the same data, zoomed to the decision in front of them."

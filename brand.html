@@ -2125,7 +2125,7 @@ body{overflow-x:clip}
 html.pf-on .hero{display:none}
 html.pf-on body{overflow-x:clip}
 .pf{--g:clamp(10px,1.2vw,18px);width:calc(100vw - 2*var(--g));margin:4px 0 clamp(12px,2vw,22px) calc(50% - 50vw + var(--g))}
-.pf-stage{position:relative;isolation:isolate;display:flex;flex-direction:column;height:clamp(620px,calc(100svh - 140px),840px);border-radius:32px;overflow:hidden;
+.pf-stage{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:clamp(620px,calc(100svh - 140px),840px);border-radius:32px;overflow:hidden;
   background:radial-gradient(50% 70% at 8% 10%,#d3f5f7 0%,rgba(211,245,247,0) 70%),radial-gradient(45% 70% at 95% 92%,#e2e5ff 0%,rgba(226,229,255,0) 70%),linear-gradient(180deg,#f8fcfc,#f4f5fc)}
 .pf-cv{position:absolute;inset:0;z-index:-1;width:100%;height:100%;transition:opacity .5s ease}
 .pf.is-out .pf-cv{opacity:0}
@@ -2134,7 +2134,8 @@ html.pf-on body{overflow-x:clip}
 .pf-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(36px,6vh,64px) 24px 0}
 .pf-head h1{margin:0;font-size:clamp(40px,4.6vw,66px);line-height:1.02}
 .pf-head h1 .ln{display:block}
-.pf-head .sub{margin:18px 0 0;max-width:36em;text-wrap:balance}
+.pf-head .sub{margin:18px 0 0;min-height:0;max-width:36em;text-wrap:balance}
+.pf-head .sub em{display:block}
 .pf-head .ctas{justify-content:center;margin-top:24px}
 @media (prefers-reduced-motion:no-preference){
   .pf-head>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
@@ -2142,6 +2143,13 @@ html.pf-on body{overflow-x:clip}
   .pf-head .ctas{animation-delay:.35s}
 }
 .pf-floor{flex:1;min-height:300px}
+/* a short desktop window: tighten the words so the line and the PR card have room under the buttons */
+@media (min-width:901px) and (max-height:860px){
+  .pf-head{padding-top:clamp(24px,4vh,40px)}
+  .pf-head h1{font-size:clamp(40px,min(4.6vw,7.6vh),66px)}
+  .pf-head .sub{margin-top:12px}
+  .pf-head .ctas{margin-top:18px}
+}
 
 /* things on the line: the AI tools at the head of their stream, then a note wherever the story is */
 .pf-src{position:absolute;left:0;top:0;display:flex;align-items:center;gap:12px;margin:0;padding:7px 16px 7px 8px;border-radius:999px;background:#fff;box-shadow:0 0 0 6px rgba(91,102,251,.08),var(--card-shadow);transform:translate(0,-50%) scale(.9);transform-origin:center;opacity:0;transition:opacity .4s ease,transform .5s cubic-bezier(.3,1.4,.5,1)}
@@ -2165,8 +2173,8 @@ html.pf-on body{overflow-x:clip}
 .pf.is-ans .pf-jam{opacity:1;transform:translate(-50%,-100%)}
 .pf-pr{width:480px;padding:16px 18px 17px;border-radius:18px;background:#fff;box-shadow:0 1px 2px rgba(34,35,38,.05),0 18px 40px rgba(34,35,38,.12);transform:translate(-50%,calc(-100% + 10px)) scale(.97)}
 .pf.is-pr .pf-pr{opacity:1;transform:translate(-50%,-100%) scale(1)}
-.pf-by{display:flex;align-items:center;gap:12px;margin:0 0 13px;padding-bottom:12px;border-bottom:1px solid var(--rule);font:500 14.5px var(--sans);color:var(--text)}
-.pf-by .win-lb{width:74px;height:18px;padding-right:12px}
+.pf-by{display:flex;align-items:center;gap:14px;margin:0 0 13px;padding-bottom:13px;border-bottom:1px solid var(--rule);font:600 16px var(--sans);color:var(--text)}
+.pf-by .win-lb{width:96px;height:23px;padding-right:14px}
 .pf-prh{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:600 16.5px/1.3 var(--display);color:var(--text)}
 .pf-prh span{font-weight:400;color:var(--dim)}
 .pf-pr ol{list-style:none;margin:0;padding:0;display:grid;gap:9px}
@@ -2196,8 +2204,8 @@ html.pf-on body{overflow-x:clip}
   .pf-ai,.pf-jam,.pf-win{font-size:17px;gap:7px;max-width:min(330px,calc(100vw - 40px))}
   .pf-note .l{text-wrap:balance}
   .pf-ai i,.pf-jam i,.pf-win i{width:8px;height:8px}
-  .pf-by{font-size:13px}
-  .pf-by .win-lb{width:60px;height:15px;padding-right:9px}
+  .pf-by{font-size:13px;gap:10px;text-wrap:balance}
+  .pf-by .win-lb{width:70px;height:17px;padding-right:10px}
   .pf-pr{width:min(310px,calc(100vw - 48px));padding:13px 15px 14px}
   .pf-prh{font-size:14.5px}
   .pf-pr li{font-size:12.5px}
@@ -2465,7 +2473,7 @@ html.pf-on body{overflow-x:clip}
             </div>
             <div class="ax-mid">
               <p class="pl-h ax-h"><span class="ax-wm" role="img" aria-label="LinearB"></span></p>
-              <p class="ax-sub">One platform to explore, measure and act</p>
+              <p class="ax-sub">Answers for your leaders, automation in every PR</p>
               <div class="ax-lb"><canvas class="ax-loop" aria-hidden="true"></canvas>
                 <ul class="ax-ema" aria-label="What LinearB does with it">
                   <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><div class="ax-ui ax-chat"><div class="ema-chat"><p class="ema-me"><span>Which epics are running late?</span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span>PAY-1142, 9 days past its due date</span></p></div></div></li>
@@ -2476,9 +2484,9 @@ html.pf-on body{overflow-x:clip}
               </div>
             </div>
             <div class="ax-out">
-              <p class="pl-h ax-h">APEX outcomes</p>
-              <p class="ax-sub">How to tell AI is working</p>
-              <ul class="ax-apex" aria-label="APEX outcomes, sample data">
+              <p class="pl-h ax-h">Outcomes</p>
+              <p class="ax-sub">Benchmarked against 8.1M+ PRs</p>
+              <ul class="ax-apex" aria-label="Outcomes, sample data">
                 <li class="ax-pil" data-p="a" style="--c:#7c85fc"><span class="ax-ltr" aria-hidden="true">A</span><p class="ax-name">AI leverage</p><p class="ax-q">Is AI helping us ship more?</p><p class="ax-also"><span class="ax-star cur" data-m="ai-prs"><span class="sr">North star: </span>AI-assisted PRs</span><span data-m="assist">Coding assistants</span><span data-m="ai-review">AI code reviews</span><span data-m="agents">Coding agents</span></p></li>
                 <li class="ax-pil" data-p="p" style="--c:#10b9d0"><span class="ax-ltr" aria-hidden="true">P</span><p class="ax-name">Predictability</p><p class="ax-q">Do we deliver what we commit to?</p><p class="ax-also"><span class="ax-star cur" data-m="planning"><span class="sr">North star: </span>Planning accuracy</span><span class="ax-star" data-m="capacity"><span class="sr">North star: </span>Capacity accuracy</span><span data-m="rework">Rework rate</span><span data-m="maturity">PR maturity</span></p></li>
                 <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Efficiency</p><p class="ax-q">How smoothly does work reach production?</p><p class="ax-also"><span class="ax-star cur" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
@@ -2501,10 +2509,10 @@ html.pf-on body{overflow-x:clip}
             <section class="sf-step" data-k="1"><p class="sf-n">2</p><h3>Explore</h3><p class="sf-line">Ask how work moves, in plain words</p><p class="sf-key">Ask the LinearB Assistant why cycle time jumped and it answers in plain words, from data across your tools. Agents ask the same questions through MCP.</p></section>
             <section class="sf-step" data-k="2"><p class="sf-n">3</p><h3>Measure</h3><p class="sf-line">See what AI changes in delivery</p><p class="sf-key">LinearB dashboards track AI adoption and cost, cycle time and DORA metrics for every team, so you see where AI speeds work up or adds cost.</p></section>
             <section class="sf-step" data-k="3"><p class="sf-n">4</p><h3>Act</h3><p class="sf-line">Put agents and workflows to work</p><p class="sf-key">gitStream acts on that context in your PRs, labeling review time and routing each PR to a code expert, while agents check team norms through MCP.</p></section>
-            <section class="sf-step" data-k="4"><p class="sf-n">5</p><h3>APEX outcomes</h3><p class="sf-line">How to tell AI is working</p><p class="sf-key">LinearB answers each question with your own data, on a set rhythm: AI leverage weekly, predictability each sprint, efficiency monthly, eXperience quarterly.</p></section>
+            <section class="sf-step" data-k="4"><p class="sf-n">5</p><h3>Outcomes</h3><p class="sf-line">Benchmarked against 8.1M+ PRs</p><p class="sf-key">LinearB answers each question with your own data, on a set rhythm: AI leverage weekly, predictability each sprint, efficiency monthly, eXperience quarterly.</p></section>
           </div>
         </div>
-        <div class="bu" aria-label="How LinearB turns your tools into APEX outcomes, one step at a time">
+        <div class="bu" aria-label="How LinearB turns your tools into outcomes, one step at a time">
           <div class="bu-b" data-k="0">
             <div class="bu-mini"><b class="bu-t">Context</b><span class="bu-c"><span class="bu-icons"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i><i class="pl-ic" title="Bitbucket" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/bitbucket.svg)"></i><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i><i class="pl-ic" title="Claude Code" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span><span class="bu-more">+ 40 more</span></span></div>
             <div class="bu-full"><div class="sc-in cx"><div class="ap-win cx-win"><p class="cx-h"><i class="ap-mk"></i><b>Incoming context</b><span class="cx-live"><i></i>Live</span><span class="cx-count"><span></span> events this hour</span></p><div class="cx-feed"><ul><li><span class="cx-ic"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i></span><p><b>PLAT-311</b> moved to In Review</p><small>Jira</small></li><li class="ai"><span class="cx-ic"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i></span><p><b>PR #9185</b> opened by <b>Claude Code</b></p><em>AI</em><small>GitHub</small></li><li><span class="cx-ic"><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span><p><b>Build #2231</b> passed on payments-api</p><small>CircleCI</small></li><li class="ai"><span class="cx-ic"><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i></span><p><b>38</b> Copilot suggestions accepted in checkout-web</p><em>AI</em><small>Copilot</small></li><li><span class="cx-ic"><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i></span><p><b>MR !412</b> merged into main</p><small>GitLab</small></li><li class="ai"><span class="cx-ic"><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i></span><p>Cursor agent pushed <b>3 commits</b> to PR #9201</p><em>AI</em><small>Cursor</small></li><li><span class="cx-ic"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i></span><p>Quality gate passed on <b>PR #9185</b></p><small>SonarCloud</small></li><li><span class="cx-ic"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i></span><p><b>Deploy #884</b> to production</p><small>Jenkins</small></li><li class="ai"><span class="cx-ic"><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span><p>CodeRabbit reviewed <b>PR #9240</b></p><em>AI</em><small>CodeRabbit</small></li><li><span class="cx-ic"><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span><p>Work item <b>5521</b> closed</p><small>Azure Boards</small></li><li class="ai"><span class="cx-ic"><i class="pl-ic" title="Claude Code" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i></span><p>Claude Code usage: <b>1.2M tokens</b> in payments-api</p><em>AI</em><small>Claude Code</small></li><li><span class="cx-ic"><i class="cx-api">API</i></span><p><b>INC-77</b> resolved</p><small>Incident API</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Jira" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jira.svg)"></i></span><p><b>PLAT-311</b> moved to In Review</p><small>Jira</small></li><li class="ai" aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="GitHub" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/github.svg)"></i></span><p><b>PR #9185</b> opened by <b>Claude Code</b></p><em>AI</em><small>GitHub</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="CircleCI" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/circleci.svg)"></i></span><p><b>Build #2231</b> passed on payments-api</p><small>CircleCI</small></li><li class="ai" aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Copilot" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/githubcopilot.svg)"></i></span><p><b>38</b> Copilot suggestions accepted in checkout-web</p><em>AI</em><small>Copilot</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="GitLab" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/gitlab.svg)"></i></span><p><b>MR !412</b> merged into main</p><small>GitLab</small></li><li class="ai" aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Cursor" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/cursor.svg)"></i></span><p>Cursor agent pushed <b>3 commits</b> to PR #9201</p><em>AI</em><small>Cursor</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="SonarCloud" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/sonarcloud.svg)"></i></span><p>Quality gate passed on <b>PR #9185</b></p><small>SonarCloud</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Jenkins" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/jenkins.svg)"></i></span><p><b>Deploy #884</b> to production</p><small>Jenkins</small></li><li class="ai" aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="CodeRabbit" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/coderabbit.svg)"></i></span><p>CodeRabbit reviewed <b>PR #9240</b></p><em>AI</em><small>CodeRabbit</small></li><li aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Azure Boards" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@12/icons/azuredevops.svg)"></i></span><p>Work item <b>5521</b> closed</p><small>Azure Boards</small></li><li class="ai" aria-hidden="true"><span class="cx-ic"><i class="pl-ic" title="Claude Code" style="--i:url(https://cdn.jsdelivr.net/npm/simple-icons@16.32.0/icons/claude.svg)"></i></span><p>Claude Code usage: <b>1.2M tokens</b> in payments-api</p><em>AI</em><small>Claude Code</small></li><li aria-hidden="true"><span class="cx-ic"><i class="cx-api">API</i></span><p><b>INC-77</b> resolved</p><small>Incident API</small></li></ul></div></div><p class="sc-cap">Everything your tools do, including the work AI does, flows into LinearB</p></div></div>
@@ -2524,7 +2532,7 @@ html.pf-on body{overflow-x:clip}
           </div>
           </div>
           <div class="bu-b" data-k="4">
-            <div class="bu-mini"><b class="bu-t">APEX outcomes</b><span class="bu-c"><span class="bu-pils"><span class="bu-pil" style="--c:#7c85fc"><b>A</b><span>AI leverage<em>Is AI helping us ship more?</em></span></span><span class="bu-pil" style="--c:#10b9d0"><b>P</b><span>Predictability<em>Do we deliver what we commit to?</em></span></span><span class="bu-pil" style="--c:#ff6445"><b>E</b><span>Efficiency<em>How smoothly does work reach production?</em></span></span><span class="bu-pil" style="--c:#f4ab0b"><b>X</b><span>eXperience<em>Are the gains sustainable for developers?</em></span></span></span></span></div>
+            <div class="bu-mini"><b class="bu-t">Outcomes</b><span class="bu-c"><span class="bu-pils"><span class="bu-pil" style="--c:#7c85fc"><b>A</b><span>AI leverage<em>Is AI helping us ship more?</em></span></span><span class="bu-pil" style="--c:#10b9d0"><b>P</b><span>Predictability<em>Do we deliver what we commit to?</em></span></span><span class="bu-pil" style="--c:#ff6445"><b>E</b><span>Efficiency<em>How smoothly does work reach production?</em></span></span><span class="bu-pil" style="--c:#f4ab0b"><b>X</b><span>eXperience<em>Are the gains sustainable for developers?</em></span></span></span></span></div>
             <div class="bu-full"><div class="sc-in ap ap-apx"><div class="ap-win"><div class="ap-main"><p class="ao-h"><b>APEX</b><span>Platform team · last 90 days</span></p><ul class="ao-ts"><li class="ao-t" style="--n:0;--c:#7c85fc"><p class="ao-th"><b class="ao-l">A</b><span>AI leverage</span><em>Weekly</em></p><p class="ao-q">Is AI helping us ship more?</p><div class="ao-m"><p><span>AI-assisted PRs</span><b>41%</b><i class="up">▲ 9 pts</i></p><svg viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polygon class="ao-a" points="2,34 0.0,31.0 12.0,27.9 24.0,26.4 36.0,23.4 48.0,20.3 60.0,21.8 72.0,15.7 84.0,12.6 96.0,11.1 108.0,8.1 120.0,5.0 120.0,34"/><polyline class="ao-ln" pathLength="1" points="0.0,31.0 12.0,27.9 24.0,26.4 36.0,23.4 48.0,20.3 60.0,21.8 72.0,15.7 84.0,12.6 96.0,11.1 108.0,8.1 120.0,5.0"/><circle cx="120.0" cy="5.0" r="2.6"/></svg></div></li><li class="ao-t" style="--n:1;--c:#10b9d0"><p class="ao-th"><b class="ao-l">P</b><span>Predictability</span><em>Every sprint</em></p><p class="ao-q">Do we deliver what we commit to?</p><div class="ao-m"><p><span>Planning accuracy</span><b>84%</b><i class="up">▲ 6 pts</i></p><svg viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polygon class="ao-a" points="2,34 0.0,31.0 13.3,24.5 26.7,27.8 40.0,18.0 53.3,21.2 66.7,14.8 80.0,11.5 93.3,14.8 106.7,8.2 120.0,5.0 120.0,34"/><polyline class="ao-ln" pathLength="1" points="0.0,31.0 13.3,24.5 26.7,27.8 40.0,18.0 53.3,21.2 66.7,14.8 80.0,11.5 93.3,14.8 106.7,8.2 120.0,5.0"/><circle cx="120.0" cy="5.0" r="2.6"/></svg></div></li><li class="ao-t on" style="--n:2;--c:#ff6445"><p class="ao-th"><b class="ao-l">E</b><span>Efficiency</span><em>Monthly</em></p><p class="ao-q">How smoothly does work reach production?</p><div class="ao-m"><p><span>Cycle time</span><b>1.8 days</b><i class="up">▼ 31%</i></p><svg viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><line class="ao-mk" x1="80.0" y1="0" x2="80.0" y2="34"/><polygon class="ao-a" points="2,34 0.0,13.7 13.3,10.8 26.7,7.9 40.0,5.0 53.3,7.9 66.7,7.9 80.0,19.4 93.3,25.2 106.7,28.1 120.0,31.0 120.0,34"/><polyline class="ao-ln" pathLength="1" points="0.0,13.7 13.3,10.8 26.7,7.9 40.0,5.0 53.3,7.9 66.7,7.9 80.0,19.4 93.3,25.2 106.7,28.1 120.0,31.0"/><circle cx="120.0" cy="31.0" r="2.6"/></svg></div><p class="ao-note"><i class="sc-flow"></i>gitStream routing on</p></li><li class="ao-t" style="--n:3;--c:#f4ab0b"><p class="ao-th"><b class="ao-l">X</b><span>eXperience</span><em>Quarterly</em></p><p class="ao-q">Are the gains sustainable for developers?</p><div class="ao-m"><p><span>Developer satisfaction</span><b>4.1 / 5</b><i class="up">▲ 0.3</i></p><svg viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true"><polygon class="ao-a" points="2,34 0.0,31.0 13.3,31.0 26.7,24.5 40.0,24.5 53.3,18.0 66.7,18.0 80.0,11.5 93.3,11.5 106.7,5.0 120.0,5.0 120.0,34"/><polyline class="ao-ln" pathLength="1" points="0.0,31.0 13.3,31.0 26.7,24.5 40.0,24.5 53.3,18.0 66.7,18.0 80.0,11.5 93.3,11.5 106.7,5.0 120.0,5.0"/><circle cx="120.0" cy="5.0" r="2.6"/></svg></div></li></ul></div></div></div></div>
           </div>
         </div>
@@ -2540,7 +2548,7 @@ html.pf-on body{overflow-x:clip}
             </div>
             <div class="ax-mid">
               <p class="pl-h ax-h"><span class="ax-wm" role="img" aria-label="LinearB"></span></p>
-              <p class="ax-sub">One platform to explore, measure and act</p>
+              <p class="ax-sub">Answers for your leaders, automation in every PR</p>
               <div class="ax-lb"><canvas class="ax-loop" aria-hidden="true"></canvas>
                 <ul class="ax-ema" aria-label="What LinearB does with it">
                   <li class="ax-st" data-st="explore"><p class="ax-st-h"><i class="ax-ic" aria-hidden="true"></i><b>Explore</b></p><div class="ax-ui ax-chat"><div class="ema-chat"><p class="ema-me"><span>Which epics are running late?</span><i class="ema-you" role="img" aria-label="You"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9.4" r="4.6"/><path d="M2.5 27c0-6 4.3-10.2 9.5-10.2s9.5 4.2 9.5 10.2z"/></svg></i></p><p class="ema-ai"><i class="ema-lb" role="img" aria-label="LinearB"></i><i class="ema-dots" aria-hidden="true"><b></b><b></b><b></b></i><span>PAY-1142, 9 days past its due date</span></p></div></div></li>
@@ -2551,9 +2559,9 @@ html.pf-on body{overflow-x:clip}
               </div>
             </div>
             <div class="ax-out">
-              <p class="pl-h ax-h">APEX outcomes</p>
-              <p class="ax-sub">How to tell AI is working</p>
-              <ul class="ax-apex" aria-label="APEX outcomes, sample data">
+              <p class="pl-h ax-h">Outcomes</p>
+              <p class="ax-sub">Benchmarked against 8.1M+ PRs</p>
+              <ul class="ax-apex" aria-label="Outcomes, sample data">
                 <li class="ax-pil" data-p="a" style="--c:#7c85fc"><span class="ax-ltr" aria-hidden="true">A</span><p class="ax-name">AI leverage</p><p class="ax-q">Is AI helping us ship more?</p><p class="ax-also"><span class="ax-star cur" data-m="ai-prs"><span class="sr">North star: </span>AI-assisted PRs</span><span data-m="assist">Coding assistants</span><span data-m="ai-review">AI code reviews</span><span data-m="agents">Coding agents</span></p></li>
                 <li class="ax-pil" data-p="p" style="--c:#10b9d0"><span class="ax-ltr" aria-hidden="true">P</span><p class="ax-name">Predictability</p><p class="ax-q">Do we deliver what we commit to?</p><p class="ax-also"><span class="ax-star cur" data-m="planning"><span class="sr">North star: </span>Planning accuracy</span><span class="ax-star" data-m="capacity"><span class="sr">North star: </span>Capacity accuracy</span><span data-m="rework">Rework rate</span><span data-m="maturity">PR maturity</span></p></li>
                 <li class="ax-pil on" data-p="e" style="--c:#ff6445"><span class="ax-ltr" aria-hidden="true">E</span><p class="ax-name">Efficiency</p><p class="ax-q">How smoothly does work reach production?</p><p class="ax-also"><span class="ax-star cur" data-m="cycle"><span class="sr">North star: </span>Cycle time</span><span class="ax-star" data-m="cfr"><span class="sr">North star: </span>CFR</span><span data-m="pickup">Pickup time</span><span data-m="review">Review time</span></p></li>
@@ -2572,7 +2580,7 @@ html.pf-on body{overflow-x:clip}
         <canvas class="pf-cv" aria-hidden="true"></canvas>
         <div class="pf-head">
           <h1><span class="ln">Turn AI spend</span><span class="ln">into shipped work</span></h1>
-          <p class="sub">LinearB shows where AI-generated work gets stuck <em>and gives your teams the context to clear it.</em></p>
+          <p class="sub">LinearB shows where work gets stuck <em>and gives your teams the context to clear it.</em></p>
           <div class="ctas"><a class="btn solid" href="#top">Book a demo</a><a class="btn ghost" href="#top">Start free trial</a></div>
         </div>
         <div class="pf-floor"></div>
@@ -2587,7 +2595,7 @@ html.pf-on body{overflow-x:clip}
             <li style="--n:1"><i class="gs" aria-hidden="true">✓</i><span>Requested a review from <b>Dana Ruiz</b>, who knows this code best</span></li>
           </ol>
         </div>
-        <p class="pf-note pf-win"><i></i><span><span class="l">Review keeps up, so</span> <b class="l">your AI spend turns into shipped work</b></span></p>
+        <p class="pf-note pf-win"><i></i><span><span class="l">With LinearB, your teams clear what's stuck,</span> <b class="l">so your AI spend turns into shipped work</b></span></p>
         <p class="pf-st">Plan</p><p class="pf-st">Code</p><p class="pf-st rv">Review</p><p class="pf-st">Test</p><p class="pf-st">Deploy</p>
       </div>
     </div>
@@ -2741,8 +2749,8 @@ html.pf-on body{overflow-x:clip}
     <i class="mode mode-feed" aria-label="Role cards layout" data-slot="seats-layout" data-option="Roles beside the detail" data-default></i>
     <i class="mode mode-tabs" data-slot="seats-layout" data-option="Role tabs above (v1)" hidden></i>
     <p class="eyebrow">context --for</p>
-    <h2>Nobody on the line works blind</h2>
-    <p class="lede" data-variant="seats-lede">LinearB puts the right context in front of every agent and person, at the moment they decide.</p>
+    <h2 data-variant="seats">Every decision runs on the same data, from merging a PR to reporting AI impact</h2>
+    <p class="lede" data-variant="seats-lede">LinearB puts the right context in front of every agent and person, in the tools they already use.</p>
     <div class="steps" role="group" aria-label="Seats">
       <button type="button" class="step" id="seat0"><span class="n" data-brand="Claude">01 · this PR</span><code><span class="p">$</span> context --for claude</code><span class="q">PR #9185 is high impact, routed to Platform on-call</span><i class="bar" aria-hidden="true"></i></button>
       <button type="button" class="step" id="seat1"><span class="n" data-brand="Engineering manager">02 · this month</span><code><span class="p">$</span> context --for manager</code><span class="q">Pickup time on Platform is up to 7.1h this week</span><i class="bar" aria-hidden="true"></i></button>
@@ -4685,7 +4693,7 @@ new IntersectionObserver((es, io) => { if(es[0].isIntersecting){ io.disconnect()
 
   const stage = pf.querySelector('.pf-stage'), floor = pf.querySelector('.pf-floor'), cv = pf.querySelector('.pf-cv'), cx = cv.getContext('2d');
   const notes = [...pf.querySelectorAll('.pf-note')], prEl = pf.querySelector('.pf-pr');
-  const labs = [...pf.querySelectorAll('.pf-st')], src = pf.querySelector('.pf-src');
+  const labs = [...pf.querySelectorAll('.pf-st')], src = pf.querySelector('.pf-src'), ctas = pf.querySelector('.pf-head .ctas');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const UR = .5, MU = .27, STAGES = [.08, .28, .5, .72, .92];
   // the beats, in seconds: calm while the headline lands, AI's stream arrives, LinearB answers at the jam, the PR is
@@ -4821,6 +4829,9 @@ new IntersectionObserver((es, io) => { if(es[0].isIntersecting){ io.disconnect()
     const r = stage.getBoundingClientRect(), fh = floor.offsetHeight;
     // less work on a narrow line, so the jam stays in proportion
     W = r.width; H = r.height; Y0 = floor.offsetTop + fh*.56; SC = Math.max(.45, Math.min(1, W/1200)); AMP = Math.min(H*.04, fh*.08);
+    // the PR card grows up from the line at review, so drop the line until the card clears the buttons
+    const clash = ctas.offsetTop + ctas.offsetHeight + 16 + prEl.offsetHeight + 14 + base() - yAt(UR*W);
+    if(clash > 0) Y0 = Math.min(Y0 + clash, H - base() - AMP - 44);
     // the AI tools sit in one pill at the head of their stream, and the stream drops out of its underside
     const rise = Math.max(90, Math.min(200, fh*.56 - 40)), mx = MU*W, pw = src.offsetWidth, ph = src.offsetHeight;
     const pcx = Math.max(pw/2 + 16, .13*W), pcy = Y0 - rise, s0 = [pcx, pcy + ph/2 - 8];
