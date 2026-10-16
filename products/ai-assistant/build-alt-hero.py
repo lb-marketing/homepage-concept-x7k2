@@ -7,7 +7,7 @@ this after the homepage changes replaces the old copy instead of adding another.
 import json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-HOME = os.path.join(HERE, '..', 'brand.html')
+HOME = os.path.join(HERE, '..', '..', 'brand.html')
 PAGE = os.path.join(HERE, 'index.html')
 
 home = open(HOME).read()

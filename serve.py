@@ -11,7 +11,7 @@ variants panel (variants.js) uses to lock in a default:
       versions in the slot stay in the file, marked hidden.
 
 The homepage is brand.html at the root (/api/...); every other page is index.html
-in its own folder (/ai-assistant/api/...). Either way the locked-in version is what
+in its own folder (/products/ai-assistant/api/...). Either way the locked-in version is what
 the page shows with or without the panel.
 """
 import html
