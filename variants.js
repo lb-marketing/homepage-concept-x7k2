@@ -10,10 +10,16 @@
 
    ‹ › rotates a version in place and leaves the rest of the page alone. Rotations are kept in
    this browser until you lock them in; locking saves through serve.py, which writes the
-   choice into brand.html so it is the default with or without this panel. */
+   choice into this page's file so it is the default with or without this panel.
+
+   Each page lives in its own folder with its own variants.json, and loads this file from the
+   site root. Saves go to api/... relative to the page, so serve.py knows which page to write. */
 (() => {
-const PICKS = 'variants:picks';
-const OPEN = 'variants:open';
+// the homepage at the root keeps its original keys; pages in folders get their own
+const DIR = location.pathname.replace(/[^/]*$/, '');
+const KEY = DIR === '/' ? '' : ':' + DIR;
+const PICKS = 'variants:picks' + KEY;
+const OPEN = 'variants:open' + KEY;
 
 const store = {
   get(k, d){ try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -83,7 +89,7 @@ function textItem(el){
     show: i => renderText(el, v.options[i]),
     lock: async i => {
       const prev = v.default; v.default = i;
-      try { await post('/api/variants', data); } catch(e){ v.default = prev; throw e; }
+      try { await post('api/variants', data); } catch(e){ v.default = prev; throw e; }
     },
   };
 }
@@ -104,7 +110,7 @@ function slotItem(slot, els){
       els[i].dispatchEvent(new CustomEvent('variant:show', {bubbles:true}));
       dispatchEvent(new Event('resize'));
     },
-    lock: async i => { await post('/api/section', {slot, option: els[i].dataset.option}); def = i; },
+    lock: async i => { await post('api/section', {slot, option: els[i].dataset.option}); def = i; },
     scrollTarget: () => els.find(e => !e.hidden) || els[0],
   };
 }
@@ -218,7 +224,7 @@ function build(){
   // only the local dev server can save; shared copies just preview
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   if(canSave && !local) canSave = false;
-  if(canSave) try { canSave = (await fetch('/api/variants', {method:'OPTIONS'})).ok; } catch { canSave = false; }
+  if(canSave) try { canSave = (await fetch('api/variants', {method:'OPTIONS'})).ok; } catch { canSave = false; }
 
   const texts = [...document.querySelectorAll('[data-variant]')]
     .filter(el => data[el.dataset.variant] && data[el.dataset.variant].options.length > 1)

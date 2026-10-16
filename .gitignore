@@ -3,3 +3,7 @@
 /concept.html
 /factory-options.js
 /apex-options.js
+
+# AI assistant page: built for sharing, re-made by its build scripts
+/ai-assistant/*.zip
+/ai-assistant/LinearB-AI-assistant-page.html

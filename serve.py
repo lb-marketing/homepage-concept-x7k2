@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Local preview server for the homepage drafts.
+"""Local preview server for the website drafts.
 
 Serves this folder like `python3 -m http.server`, plus two endpoints the
 variants panel (variants.js) uses to lock in a default:
 
-  POST /api/variants   body: the full variants.json (headline options)
-      Saves variants.json and writes each heading's default wording into brand.html.
-  POST /api/section    body: {"slot": "factory", "option": "Original"}
-      Makes that version of the section the one brand.html shows; the other
+  POST <page folder>/api/variants   body: the full variants.json (headline options)
+      Saves that folder's variants.json and writes each heading's default wording into the page.
+  POST <page folder>/api/section    body: {"slot": "factory", "option": "Original"}
+      Makes that version of the section the one the page shows; the other
       versions in the slot stay in the file, marked hidden.
 
-Either way the locked-in version is what the page shows with or without the panel.
+The homepage is brand.html at the root (/api/...); every other page is index.html
+in its own folder (/ai-assistant/api/...). Either way the locked-in version is what
+the page shows with or without the panel.
 """
 import html
 import json
@@ -20,8 +22,13 @@ import sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-VARIANTS = os.path.join(ROOT, 'variants.json')
-PAGE = os.path.join(ROOT, 'brand.html')
+API = re.compile(r'^/((?:[\w-]+/)*)api/(variants|section)$')
+
+
+def page_for(folder):
+    """The page file and variants.json for a page folder ('' is the homepage), or None."""
+    path = os.path.join(ROOT, folder, 'brand.html' if folder == '' else 'index.html')
+    return (path, os.path.join(ROOT, folder, 'variants.json')) if os.path.isfile(path) else None
 
 
 def render(tag, text):
@@ -32,21 +39,21 @@ def render(tag, text):
     return '<br>'.join(lines)
 
 
-def bake(data):
-    with open(PAGE, encoding='utf-8') as f:
+def bake(page, data):
+    with open(page, encoding='utf-8') as f:
         src = f.read()
     for vid, v in data.items():
         text = v['options'][v['default']]
         pat = re.compile(r'(<(h[1-6]|p)\b[^>]*\bdata-variant="%s"[^>]*>)(.*?)(</\2>)' % re.escape(vid), re.S)
         src = pat.sub(lambda m: m.group(1) + render(m.group(2), text) + m.group(4), src, count=1)
-    tmp = PAGE + '.tmp'
+    tmp = page + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         f.write(src)
-    os.replace(tmp, PAGE)
+    os.replace(tmp, page)
 
 
-def set_section_default(slot, option):
-    with open(PAGE, encoding='utf-8') as f:
+def set_section_default(page, slot, option):
+    with open(page, encoding='utf-8') as f:
         src = f.read()
     tag = re.compile(r'<[a-z][a-z0-9]*\b[^>]*\bdata-slot="%s"[^>]*>' % re.escape(slot))
     found = False
@@ -64,10 +71,10 @@ def set_section_default(slot, option):
     src = tag.sub(fix, src)
     if not found:
         return False
-    tmp = PAGE + '.tmp'
+    tmp = page + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         f.write(src)
-    os.replace(tmp, PAGE)
+    os.replace(tmp, page)
     return True
 
 
@@ -133,33 +140,41 @@ class Handler(SimpleHTTPRequestHandler):
                 break
             left -= len(chunk)
 
+    def target(self):
+        """(endpoint, page file, variants.json) for an api path, or None."""
+        m = API.match(self.path)
+        found = m and page_for(m.group(1).rstrip('/'))
+        return found and (m.group(2),) + found
+
     def do_OPTIONS(self):
-        # lets variants.js check that saving is available
-        self.send_response(204 if self.path in ('/api/variants', '/api/section') else 404)
+        # lets variants.js check that saving is available for this page
+        self.send_response(204 if self.target() else 404)
         self.end_headers()
 
     def do_POST(self):
-        if self.path not in ('/api/variants', '/api/section'):
+        t = self.target()
+        if not t:
             return self.send_error(404)
+        endpoint, page, variants = t
         try:
             data = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))))
         except ValueError:
             return self.send_error(400, 'Invalid JSON')
-        if self.path == '/api/section':
+        if endpoint == 'section':
             if not (isinstance(data, dict) and isinstance(data.get('slot'), str) and isinstance(data.get('option'), str)):
                 return self.send_error(400, 'Expected {"slot", "option"}')
-            if not set_section_default(data['slot'], data['option']):
+            if not set_section_default(page, data['slot'], data['option']):
                 return self.send_error(404, 'No such section version')
             self.send_response(204)
             return self.end_headers()
         if not valid(data):
             return self.send_error(400, 'Unexpected variants shape')
-        tmp = VARIANTS + '.tmp'
+        tmp = variants + '.tmp'
         with open(tmp, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
             f.write('\n')
-        os.replace(tmp, VARIANTS)
-        bake(data)
+        os.replace(tmp, variants)
+        bake(page, data)
         self.send_response(204)
         self.end_headers()
 

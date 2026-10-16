@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "label": "Hero headline",
+    "options": [
+      "Ask the LinearB AI assistant / *why the number moved*",
+      "The next time a number moves, / *ask the LinearB AI assistant*",
+      "The AI assistant for / *your software factory*",
+      "The LinearB AI assistant: / *answers about how your teams ship*",
+      "The next time a number moves, *ask LinearB*",
+      "Ask LinearB / *anything about how your teams ship*",
+      "Engineering answers, / *on demand*"
+    ],
+    "default": 2
+  },
+  "sub": {
+    "label": "Hero subheading",
+    "options": [
+      "The LinearB AI assistant puts your engineering context behind every answer. Ask about delivery, AI impact or developer experience in your own words, and get back what changed, why, and where to act in seconds.",
+      "Ask anything about delivery, AI impact or developer experience in your own words. The LinearB AI assistant draws on the full context of your SDLC and comes back in seconds with what changed, why, and where to act.",
+      "Your engineering context, on demand. Ask about delivery, AI impact or developer experience in your own words, and get back what changed, why, and where to act in seconds.",
+      "Ask any question about delivery, AI impact or developer experience in your own words. The LinearB AI assistant comes back in seconds with what changed, why, and where to act.",
+      "Ask LinearB anything about how your teams ship, the way you'd ask a colleague, and get back what changed, why, and what to do next in seconds.",
+      "Type a question about your SDLC in plain language. LinearB answers in seconds with the cause, the numbers behind it, and the next thing to check."
+    ],
+    "default": 0
+  },
+  "builder": {
+    "label": "Builder heading",
+    "options": [
+      "Build custom metrics in plain language",
+      "Describe a custom metric, and LinearB builds it",
+      "When the metric you need doesn't exist yet, build a custom one",
+      "Custom metrics, built from a sentence",
+      "When the chart you need doesn't exist yet, describe it",
+      "When the chart doesn't exist yet, build it",
+      "Build the chart you're missing",
+      "Describe the chart, and LinearB builds it",
+      "Missing a chart? Describe it",
+      "Any chart you can describe, LinearB can build"
+    ],
+    "default": 0
+  }
+}
