@@ -79,7 +79,7 @@ os.makedirs(OUT + '/blocks')
 full = s
 full = re.sub(r'\n?<!-- hx:section -->.*?<!-- /hx:section -->\n?', '\n', full, flags=re.S)
 full = re.sub(r'\n?<!-- hx:script -->.*?<!-- /hx:script -->\n?', '\n', full, flags=re.S)
-full = full.replace('<script src="../variants.js"></script>', '')
+full = full.replace('<script src="../../variants.js"></script>', '')
 full = full.replace('<meta name="robots" content="noindex, nofollow">\n', '', 1)
 full = clean(full)
 full = full.replace('<meta charset="utf-8">\n', '', 1)
