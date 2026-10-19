@@ -1,0 +1,76 @@
+{
+  "hero": {
+    "label": "Hero headline",
+    "options": [
+      "Bring LinearB context / *to your AI with MCP*",
+      "Bring LinearB context / *into your AI workflows* / *with MCP*",
+      "Bring LinearB via MCP / *into your AI workflows*",
+      "Use MCP to bring / LinearB context into / *your AI workflows*",
+      "Put your engineering data / *to work in any AI tool*",
+      "Ask, automate and build / *with LinearB in any AI tool*",
+      "Your engineering data, / *next to everything else*",
+      "Combine LinearB / *with every tool you connect*",
+      "Ask LinearB anything / *from Claude, ChatGPT or Cursor*"
+    ],
+    "default": 0
+  },
+  "sub": {
+    "label": "Hero subheading",
+    "options": [
+      "With the LinearB MCP server, your AI sees how your teams ship next to your roadmap, incidents and pipeline, so it can answer questions, run automations and build reports no single tool could.",
+      "The LinearB MCP server puts your delivery, quality, DORA and AI adoption data in Claude, ChatGPT and Cursor, next to your other tools, so you can answer questions, run automations and build reports.",
+      "Ask Claude why a release is at risk, post a delivery brief to Slack every Monday, or build the board’s AI ROI slide, with LinearB data next to the rest of your tools.",
+      "Put how your teams ship next to your roadmap, incidents and pipeline in Claude, ChatGPT or Cursor, and build the answers, automations and reports no single tool could give you.",
+      "The LinearB MCP server gives your AI the engineering context behind every release, so it can work across Jira, Slack, PagerDuty and Salesforce to answer, automate and build what you need next.",
+      "The LinearB MCP server brings your delivery, quality, DORA and AI adoption data into Claude, ChatGPT and Cursor, so you can combine it with your other tools to answer questions, run automations and build reports.",
+      "The LinearB MCP server brings delivery, quality, DORA and AI adoption data into Claude, ChatGPT, Cursor and any MCP client, so you can combine it with your other tools in answers, automations and reports.",
+      "Connect the LinearB MCP server to Claude, ChatGPT or Cursor, and use your engineering data next to Jira, Slack, PagerDuty and the rest of your tools.",
+      "With the LinearB MCP server, you can ask anything you’d ask LinearB from the AI tool your team works in, then turn the answer into a report, a scheduled Slack post or a page your leads open every morning."
+    ],
+    "default": 0
+  },
+  "context": {
+    "label": "Dark band heading",
+    "options": [
+      "Combine LinearB with every other tool you connect",
+      "Add LinearB’s engineering context to every tool you connect",
+      "Answer questions no single tool can answer on its own"
+    ],
+    "default": 2
+  },
+  "recipes": {
+    "label": "Recipes heading",
+    "options": [
+      "Start from a recipe and make it yours",
+      "Copy a recipe into your AI tool",
+      "Get started with recipes that combine LinearB and your other tools"
+    ],
+    "default": 0
+  },
+  "trust": {
+    "label": "Trust heading",
+    "options": [
+      "Connect with your own account and check every number",
+      "Keep every answer scoped to what each person can see",
+      "Add LinearB next to the MCP servers you already run"
+    ],
+    "default": 0
+  },
+  "assistant": {
+    "label": "Cross-link heading",
+    "options": [
+      "Ask the same questions inside LinearB",
+      "Prefer to ask inside LinearB?"
+    ],
+    "default": 0
+  },
+  "close": {
+    "label": "Closing CTA heading",
+    "options": [
+      "Put LinearB to work in the AI tools your teams use",
+      "Bring your engineering data into the AI tools you already use",
+      "Connect LinearB to Claude, ChatGPT or Cursor today"
+    ],
+    "default": 0
+  }
+}

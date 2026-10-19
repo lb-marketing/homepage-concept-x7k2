@@ -75,7 +75,7 @@ let data = {}, picks = store.get(PICKS, {}), canSave = true, items = [];
 function renderText(el, text){
   const lines = text.split(' / ').map(l => l.trim()).filter(Boolean).map(l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>'));
   el.innerHTML = el.tagName === 'H1'
-    ? lines.map(l => `<span class="ln">${l}</span>`).join('')
+    ? lines.map(l => `<span class="ln">${l}</span>`).join(' ')  // the space keeps the words apart for search engines and screen readers
     : lines.join('<br>');
 }
 function textItem(el){

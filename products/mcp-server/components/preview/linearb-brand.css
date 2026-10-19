@@ -1,0 +1,469 @@
+/* LinearB brand stylesheet — tokens and the handful of classes built on them.
+ *
+ * Paste this whole file into a <style> block and build with the classes at the
+ * bottom. Every value here comes from LinearB_Brand_Guidelines.pdf; the
+ * guidelines say outright: "do not modify the colors in any way or add
+ * additional colors outside of our two brand palettes." Use the variables
+ * rather than hex literals and that holds without anyone having to check.
+ *
+ * Fonts load from Google Fonts on the line below. If you would rather use a
+ * <link> tag in the page head, this is the same request — delete the @import
+ * and add:
+ * <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:wght@400;700&family=Roboto+Mono:wght@100..700&display=swap">
+ *
+ * These are the three faces linearb.io loads, at the weights it loads them --
+ * see the next/font block in pages/_app.tsx. Outfit and Roboto Mono are
+ * variable, so any weight works. Roboto ships 400 and 700 ONLY: ask for 600
+ * and the browser renders 700.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:wght@400;700&family=Roboto+Mono:wght@100..700&display=swap");
+
+:root {
+  /* ---- Primary palette: the only colours usable on their own ------------ */
+  --lb-indigo-500: #5b66fb;
+  --lb-teal-500: #10b9d0;
+  --lb-red-500: #ff6445;
+  --lb-white: #ffffff;
+  --lb-slate-800: #222326;
+  --lb-slate-600: #4d5865;
+
+  /* ---- Extended palettes: support only, never used on their own --------- */
+  --lb-indigo-100: #f6f7ff;
+  --lb-indigo-200: #dde1ff;
+  --lb-indigo-300: #aeb6ff;
+  --lb-indigo-400: #7c85fc;
+  --lb-indigo-600: #414cb2;
+  --lb-indigo-700: #273168;
+  --lb-indigo-800: #191e41;
+
+  --lb-teal-100: #e7f8fb;
+  --lb-teal-200: #c3f1f5;
+  --lb-teal-300: #9feaed;
+  --lb-teal-400: #58d2df;
+  --lb-teal-600: #008f9a;
+  --lb-teal-700: #146066;
+  --lb-teal-800: #043b3d;
+
+  --lb-red-100: #fef4f4;
+  --lb-red-200: #fee0df;
+  --lb-red-300: #f7b9b7;
+  --lb-red-400: #fb8f7e;
+  --lb-red-600: #d75241;
+  --lb-red-700: #ae403d;
+  --lb-red-800: #540d0d;
+
+  --lb-yellow-100: #fef1e0;
+  --lb-yellow-200: #fde3c1;
+  --lb-yellow-300: #fbd08c;
+  --lb-yellow-400: #f9bc56;
+  --lb-yellow-500: #f4ab0b;
+  --lb-yellow-600: #da881a;
+  --lb-yellow-700: #bf6528;
+  --lb-yellow-800: #7f3b0d;
+
+  --lb-green-100: #e7f9f9;
+  --lb-green-200: #b0f0d7;
+  --lb-green-300: #79e7b4;
+  --lb-green-400: #41de92;
+  --lb-green-500: #0ad570;
+  --lb-green-600: #079f5a;
+  --lb-green-700: #036945;
+  --lb-green-800: #00332f;
+
+  --lb-purple-100: #f5f0fd;
+  --lb-purple-200: #dccaf9;
+  --lb-purple-300: #c3a4f4;
+  --lb-purple-400: #a97def;
+  --lb-purple-500: #8a3cfd;
+  --lb-purple-600: #5f32a0;
+  --lb-purple-700: #482a72;
+  --lb-purple-800: #2d1e3f;
+
+  --lb-slate-100: #f3f5fa;
+  --lb-slate-200: #dde3ef;
+  --lb-slate-300: #bac3d3;
+  --lb-slate-400: #8898a8;
+  --lb-slate-500: #617284;
+  --lb-slate-700: #373e46;
+
+  /* ---- Roles ------------------------------------------------------------
+   * Names for what a colour is doing, so markup says "muted text" rather than
+   * "slate 600". Always an alias onto a palette colour above, never a new one. */
+  --lb-text: var(--lb-slate-800);
+  --lb-text-muted: var(--lb-slate-600);
+  --lb-eyebrow-color: var(--lb-slate-500);
+  --lb-text-dim: var(--lb-slate-400);
+  --lb-surface: var(--lb-white);
+  --lb-surface-sunken: var(--lb-slate-100);
+  --lb-rule: var(--lb-slate-200);
+  --lb-accent: var(--lb-indigo-500);
+
+  /* The five grounds a section is ever built on. Taken off linearb.io, where
+     these are the only backgrounds in use. */
+  --lb-bg-sunken: var(--lb-slate-100);   /* #F3F5FA */
+  --lb-bg-teal: var(--lb-teal-200);      /* #C3F1F5 */
+  --lb-bg-indigo: var(--lb-indigo-200);  /* #DDE1FF */
+  --lb-bg-dark: var(--lb-slate-800);     /* #222326 */
+
+  /* ---- Type -------------------------------------------------------------
+   * Two faces: Outfit SemiBold for display, Roboto Regular for body. The only
+   * permitted substitute for either is Helvetica Neue. */
+  --lb-font-display: "Outfit", "Helvetica Neue", system-ui, sans-serif;
+  --lb-font-body: "Roboto", "Helvetica Neue", system-ui, sans-serif;
+  /* Figures in a table, code, a timestamp. Not for headings or copy. */
+  --lb-font-mono: "Roboto Mono", ui-monospace, Menlo, monospace;
+
+  --lb-weight-display: 600;
+  --lb-weight-body: 400;
+
+  /* Tracking, and it is the opposite of the usual instinct: display sits at
+   * zero and body is the one that tightens. A negative letter-spacing on a
+   * heading is the single most common way this brand gets broken. */
+  --lb-tracking-display: 0;
+  --lb-tracking-body: -0.01em;
+
+  /* ---- Spacing -----------------------------------------------------------
+   *   card     between elements inside a card
+   *   stack    eyebrow to heading, heading to lede
+   *   block    the lede to whatever the section actually shows
+   *   section  between one section and the next
+   */
+  --lb-space-card: 20px;
+  /* Heading straight into the copy under it is a closer pairing than
+     eyebrow-to-heading or copy-to-CTA, which both use --lb-space-stack. */
+  --lb-space-tight: 20px;
+  --lb-space-stack: 32px;
+  --lb-space-block: 64px;
+  --lb-space-section: 128px;
+
+  /* ---- Shape ------------------------------------------------------------ */
+  --lb-radius-card: 24px;
+  --lb-radius-inner: 16px;
+  --lb-radius-pill: 999px;
+  --lb-radius-button: 40px;
+  /* Borders are 2px. Hairline rules *inside* a card -- table rows, a toolbar --
+   * stay at 1px; at 2px they stop reading as separators and start reading as
+   * structure. */
+  --lb-border: 2px;
+
+  --lb-page: 1200px;
+  --lb-gutter: 24px;
+  /* For reference in JS; CSS cannot read a custom property in a media query. */
+  --lb-breakpoint: 1165px;
+}
+
+/* 1165px is the house breakpoint -- it is what Plasmic treats as the mobile
+   screen variant (theme.tsx, breakpoints.plasmic), so building to it means the
+   component converts into Studio without re-deciding where mobile starts. */
+@media (max-width: 1165px) {
+  :root {
+    --lb-space-section: 64px;
+    --lb-space-block: 40px;
+    --lb-page: 588px;
+  }
+}
+
+/* ---- Page ---------------------------------------------------------------
+ * LinearB pages are light. This commits to that in either OS theme rather
+ * than inverting into a dark mode nobody designed, so `background` is set
+ * explicitly and `color-scheme` is pinned. */
+body {
+  margin: 0;
+  background: var(--lb-surface);
+  color: var(--lb-text);
+  font-family: var(--lb-font-body);
+  font-weight: var(--lb-weight-body);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: var(--lb-tracking-body);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Layout ------------------------------------------------------------- */
+
+/* A band of the page. Full section gap on each side by default -- 128px
+   desktop, 64px below 1165px -- so a boundary where the background actually
+   changes gets the full gap on both sides of it. */
+.lb-section,
+.lb-section-sunken,
+.lb-section-teal,
+.lb-section-indigo,
+.lb-section-dark {
+  padding-block: var(--lb-space-section);
+}
+
+/* Two plain sections share the same page background, so the edge between
+   them halves on both sides instead of stacking two full gaps. */
+.lb-section + .lb-section {
+  padding-top: calc(var(--lb-space-section) / 2);
+}
+.lb-section:has(+ .lb-section) {
+  padding-bottom: calc(var(--lb-space-section) / 2);
+}
+
+.lb-section-sunken { background: var(--lb-bg-sunken); }
+.lb-section-teal   { background: var(--lb-bg-teal); }
+.lb-section-indigo { background: var(--lb-bg-indigo); }
+
+/* Slate 800 band. Roles flip; the palette does not -- headings go White and
+   copy goes Slate 300. */
+.lb-section-dark {
+  background: var(--lb-bg-dark);
+  --lb-text: var(--lb-white);
+  --lb-text-muted: var(--lb-slate-300);
+  --lb-eyebrow-color: var(--lb-slate-300);
+  --lb-text-dim: var(--lb-slate-400);
+  --lb-surface: var(--lb-slate-700);
+  --lb-rule: var(--lb-slate-700);
+  --lb-accent: var(--lb-indigo-400);
+  color: var(--lb-white);
+}
+
+.lb-wrap {
+  max-width: var(--lb-page);
+  margin-inline: auto;
+  padding-inline: var(--lb-gutter);
+}
+
+/* Vertical rhythm. 32px is the default -- eyebrow to heading, copy to a CTA.
+   A heading straight into the body copy under it is 20px instead; the rules
+   for both live at the end of this file, not here -- every `.lb-h*` class
+   sets its own `margin: 0` at equal specificity, so whichever is later in
+   the cascade wins, and that block has to out-rank all of them. */
+.lb-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+/* The 64px step: the copy above, and what the section actually shows below. */
+.lb-block { margin-top: var(--lb-space-block); }
+
+/* A label and a figure on one line, with the figure flush right. */
+.lb-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Cards in a row, 20px apart, filling the width they are given. */
+.lb-grid {
+  width: 100%;
+  display: grid;
+  gap: var(--lb-space-card);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* ---- Type --------------------------------------------------------------
+ * The sizes linearb.io actually sets, which stop at 64px. The brand typesheet
+ * goes up to 128px; that is not where the site is going, so it is not here.
+ *
+ * Each class tops out at the desktop size and clamps down on small screens --
+ * the live site does not do this yet, and headings are oversized on a phone as
+ * a result. */
+
+.lb-h1, .lb-h2, .lb-h3, .lb-h4, .lb-h5 {
+  font-family: var(--lb-font-display);
+  font-weight: var(--lb-weight-display);
+  letter-spacing: var(--lb-tracking-display);
+  color: var(--lb-text);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.lb-h1 { font-size: clamp(40px, 5.2vw, 64px); line-height: 1.125; }  /* page title */
+.lb-h2 { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.167; }  /* section head */
+.lb-h3 { font-size: clamp(26px, 3vw, 32px);   line-height: 1.25; }
+.lb-h4 { font-size: clamp(22px, 2.2vw, 24px); line-height: 1.333; }  /* card head */
+.lb-h5 { font-size: 18px; line-height: 26px; }
+
+/* The small label above a heading. Uppercase here is the one place the brand
+   allows it -- it is a label, not emphasis. Note it is also the one place the
+   "display sits at zero" tracking rule does not apply: an eyebrow is tracked
+   open, which is what stops it reading as very short body copy. */
+.lb-eyebrow {
+  margin: 0;
+  font-family: var(--lb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  /* 700, not 600: Roboto ships only 400 and 700, so a 600 here renders as 700
+     anyway -- saying so keeps the kit and the site identical. */
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--lb-eyebrow-color);
+}
+
+/* Sub-copy under a heading: 20px, down to 18px on a phone. */
+.lb-lede {
+  margin: 0;
+  max-width: 60ch;
+  font-size: clamp(18px, 1.7vw, 20px);
+  line-height: 1.4;
+  letter-spacing: var(--lb-tracking-body);
+  color: var(--lb-text-muted);
+}
+
+/* Body copy is 18px at every width -- it does not shrink on a phone. */
+.lb-body  { margin: 0; font-size: 18px; line-height: 26px; letter-spacing: var(--lb-tracking-body); }
+.lb-small { margin: 0; font-size: 16px; line-height: 24px; letter-spacing: var(--lb-tracking-body); color: var(--lb-text-muted); }
+.lb-tiny  { margin: 0; font-size: 14px; line-height: 22px; letter-spacing: var(--lb-tracking-body); color: var(--lb-text-muted); }
+.lb-mono   { font-family: var(--lb-font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; overflow-wrap: break-word; }
+.lb-figure { font-family: var(--lb-font-display); font-weight: var(--lb-weight-display); font-variant-numeric: tabular-nums; letter-spacing: var(--lb-tracking-display); }
+
+/* ---- Components --------------------------------------------------------- */
+
+.lb-card {
+  padding: 28px;
+  border: var(--lb-border) solid var(--lb-rule);
+  border-radius: var(--lb-radius-card);
+  background: var(--lb-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lb-space-card);
+}
+
+.lb-card-inner {
+  padding: 16px 18px;
+  border: var(--lb-border) solid var(--lb-rule);
+  border-radius: var(--lb-radius-inner);
+  background: var(--lb-surface);
+}
+
+/* Primary call to action: Slate 800, white label, 40px radius. Every main CTA
+   on linearb.io is this button -- it is not an accent colour. */
+.lb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: var(--lb-border) solid var(--lb-slate-800);
+  border-radius: var(--lb-radius-button);
+  background: var(--lb-slate-800);
+  color: var(--lb-white);
+  font-family: var(--lb-font-display);
+  font-weight: var(--lb-weight-display);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: var(--lb-tracking-display);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.lb-btn-secondary {
+  background: transparent;
+  color: var(--lb-slate-800);
+}
+
+/* On a dark band the pair inverts. */
+.lb-section-dark .lb-btn {
+  background: var(--lb-white);
+  border-color: var(--lb-white);
+  color: var(--lb-slate-800);
+}
+
+.lb-section-dark .lb-btn-secondary {
+  background: transparent;
+  color: var(--lb-white);
+}
+
+/* White outline, white label, regardless of band -- for a colour or photo
+   background where the role flip above doesn't apply. Same .lb-btn base, so
+   the hover fade below covers it automatically. */
+.lb-btn-outline-white {
+  background: transparent;
+  border-color: var(--lb-white);
+  color: var(--lb-white);
+}
+
+/* Hover: every variant, either band, fade to the accent. */
+.lb-btn:hover,
+.lb-section-dark .lb-btn:hover {
+  background: var(--lb-accent);
+  border-color: var(--lb-accent);
+  color: var(--lb-white);
+}
+
+.lb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid var(--lb-rule);
+  border-radius: var(--lb-radius-pill);
+  background: var(--lb-surface);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--lb-text);
+}
+
+.lb-rule {
+  border: 0;
+  border-top: 1px solid var(--lb-rule);
+  margin: 0;
+}
+
+/* A gap left for content that comes from the source of truth -- a customer
+   logo, a testimonial. Visible while the page is a draft, so an empty slot
+   cannot be mistaken for a finished one. */
+.lb-slot {
+  min-height: 56px;
+  border: var(--lb-border) dashed var(--lb-slate-300);
+  border-radius: var(--lb-radius-inner);
+  display: grid;
+  place-items: center;
+}
+
+.lb-slot::after {
+  content: attr(data-slot) " — filled in Studio";
+  font-size: 14px;
+  color: var(--lb-text-dim);
+}
+
+/* The logo is only ever White or Slate 800. Inline the SVG and set `color` --
+   never recolour, outline, stack or re-typeset it. Minimum 60px wide for the
+   full wordmark, 16px for the icon alone. */
+.lb-logo {
+  display: block;
+  width: 140px;
+  height: auto;
+  color: var(--lb-slate-800);
+}
+
+.lb-section-dark .lb-logo { color: var(--lb-white); }
+
+/* Figures in a readout: good news green, bad news red, neutral slate. */
+.lb-up     { color: var(--lb-red-600); }
+.lb-down   { color: var(--lb-green-600); }
+.lb-strong { color: var(--lb-green-600); }
+.lb-watch  { color: var(--lb-red-600); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Stack spacing, relocated here so it wins the cascade tie against every
+   `.lb-h*` class's own `margin: 0` -- same specificity, later wins. */
+.lb-stack > * { margin: 0; }
+.lb-stack > * + * { margin-top: var(--lb-space-stack); }
+
+.lb-stack > .lb-h1 + .lb-lede, .lb-stack > .lb-h1 + .lb-body,
+.lb-stack > .lb-h2 + .lb-lede, .lb-stack > .lb-h2 + .lb-body,
+.lb-stack > .lb-h3 + .lb-lede, .lb-stack > .lb-h3 + .lb-body,
+.lb-stack > .lb-h4 + .lb-lede, .lb-stack > .lb-h4 + .lb-body,
+.lb-stack > .lb-h5 + .lb-lede, .lb-stack > .lb-h5 + .lb-body {
+  margin-top: var(--lb-space-tight);
+}
+
+/* Relocated so `.lb-block` wins the cascade tie against a text class's own
+   `margin: 0` -- same fix as the stack rhythm above, needed so the block
+   step still applies when it's put directly on a heading or paragraph
+   instead of on a wrapping div. */
+.lb-block { margin-top: var(--lb-space-block); }
