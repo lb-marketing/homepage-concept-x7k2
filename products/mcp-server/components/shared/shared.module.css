@@ -1,0 +1,14 @@
+/* Tool logos are drawn as a mask in the tool's colour (--i is the file, --c the colour). */
+.ic{display:inline-block;flex:0 0 auto;width:16px;height:16px;background:var(--c,currentColor);-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+/* full-colour marks (Slack) are drawn as an image instead */
+.ic.full{background:var(--i) center/contain no-repeat;-webkit-mask:none;mask:none}
+
+/* overlapping logos, each in a white circle */
+.stack{display:inline-flex;align-items:center}
+.stack .ic{width:26px;height:26px;border-radius:50%;background:var(--lb-white);-webkit-mask:none;mask:none;position:relative;display:grid;place-items:center;box-shadow:0 0 0 2px var(--lb-slate-200)}
+.stack .ic+.ic{margin-left:-6px}
+.stack .ic::after{content:"";width:58%;height:58%;background:var(--c);-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.stack .ic.full::after{background:var(--i) center/contain no-repeat;-webkit-mask:none;mask:none}
+
+/* the mode tag: Ask, Automate or Build, in the mode's colour */
+.mode{display:inline-block;font:400 12.5px/1 var(--lb-font-body);letter-spacing:0;color:var(--m-ink);background:var(--m-soft);border-radius:var(--lb-radius-pill);padding:6px 10px;white-space:nowrap}

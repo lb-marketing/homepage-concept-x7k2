@@ -1,0 +1,107 @@
+/* Built for the dark band (Slate 800). Responds to its own width: the intro sits beside the map from 900px,
+   the map switches to its narrow layout below 440px, and the caption splits into two columns from 760px. */
+.root{container-type:inline-size;font-family:var(--lb-font-body);letter-spacing:var(--lb-tracking-body);color:var(--lb-slate-300)}
+.layout{display:grid;gap:28px}
+@container (min-width:900px){
+  .withIntro{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);column-gap:clamp(24px,4vw,56px);align-items:center}
+  .withIntro>.cap{grid-column:1/-1}
+}
+.intro{min-width:0}
+
+/* ---- the map ---- */
+.mapBox{container-type:inline-size;min-width:0}
+.map{position:relative;aspect-ratio:1.2;border-radius:var(--lb-radius-card);
+  background:radial-gradient(closest-side at 56% 50%,var(--lb-slate-700),transparent),radial-gradient(var(--lb-slate-700) 1px,transparent 1.4px) 0 0/20px 20px}
+.svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.narrow{display:none}
+.ln{fill:none;stroke:var(--lb-slate-600);stroke-width:1.3;vector-effect:non-scaling-stroke;transition:opacity .3s}
+.ln.lnMore{stroke-dasharray:3 5}
+.ln.lnArea{stroke:var(--lb-slate-500);stroke-dasharray:2 4}
+.ln.lnLb{stroke:var(--lb-teal-700);stroke-width:3}
+.ln.hot{stroke:var(--lb-teal-500);stroke-width:2.2;filter:drop-shadow(0 0 4px var(--lb-teal-500))}
+.ln.lnLb.hot{stroke-width:3.5}
+.ln.lnArea.hot{stroke:var(--lb-slate-300)}
+.ln.cool{opacity:.3}
+.pulse{fill:none;stroke:var(--lb-teal-300);stroke-width:4;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-dasharray:12 100;stroke-dashoffset:12;opacity:0;filter:drop-shadow(0 0 5px var(--lb-teal-500))}
+.go{animation:pulse .9s ease-in-out both}
+@keyframes pulse{0%{stroke-dashoffset:12;opacity:1}90%{opacity:1}100%{stroke-dashoffset:-100;opacity:0}}
+
+/* nodes: placed by percentage, sized as a share of the map's width, so they line up with the lines at any width */
+.hub,.lb,.area,.tool{position:absolute;left:var(--wx);top:var(--wy);transform:translate(-50%,-50%)}
+.hub,.lb{border-radius:50%;background:var(--lb-white);display:grid;place-items:center}
+.hub{width:16cqw;height:16cqw;box-shadow:0 0 0 8px var(--lb-slate-700),0 0 48px var(--lb-indigo-500)}
+.hub>span{position:relative;width:56%;height:50%}
+.hub>span>i{position:absolute;width:41%;height:46%}
+.hub>span>i:nth-child(1){left:29%;top:0}.hub>span>i:nth-child(2){left:0;bottom:0}.hub>span>i:nth-child(3){right:0;bottom:0}
+.hub em,.lb em{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);font:var(--lb-weight-display) 13px/1 var(--lb-font-display);font-style:normal;letter-spacing:0;color:var(--lb-white);white-space:nowrap}
+.lb{width:12.5cqw;height:12.5cqw;box-shadow:0 0 0 6px var(--lb-teal-800),0 0 32px var(--lb-teal-700)}
+.lb>i{width:44%;height:44%}
+
+.area{isolation:isolate;border:var(--lb-border) solid var(--lb-slate-600);background:var(--lb-slate-700);color:var(--lb-white);border-radius:var(--lb-radius-pill);padding:6px 11px;font:400 12.5px/1 var(--lb-font-body);letter-spacing:0;white-space:nowrap;cursor:pointer}
+/* the chosen colour sits on a layer that fades in, so only opacity animates */
+.area::before{content:"";position:absolute;inset:calc(var(--lb-border) * -1);z-index:-1;border-radius:inherit;background:var(--lb-indigo-500);opacity:0;transition:opacity .2s}
+.area:hover::before,.area[aria-pressed=true]::before{opacity:1}
+
+.tool{width:7.5cqw;height:7.5cqw;border:0;border-radius:50%;background:var(--lb-white);display:grid;place-items:center;padding:0;cursor:pointer;box-shadow:0 4px 14px var(--lb-slate-800);transition:opacity .3s}
+.tool>i{width:50%;height:50%}
+.tool::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 3px var(--lb-teal-500),0 0 0 9px var(--lb-teal-800);opacity:0;transition:opacity .2s;pointer-events:none}
+.tool:hover::after,.tool[aria-pressed=true]::after,.tool.lit::after{opacity:1}
+.tool.lit::after{box-shadow:0 0 0 3px var(--lb-teal-500)}
+.faded{opacity:.4}
+.tool.more{background:var(--lb-slate-700);border:var(--lb-border) dashed var(--lb-slate-400);box-shadow:none;color:var(--lb-white)}
+.tool.more em{position:absolute;top:calc(100% + 7px);left:50%;transform:translateX(-50%);font:400 12px/1 var(--lb-font-body);font-style:normal;color:var(--lb-slate-300);white-space:nowrap}
+.plus{font:var(--lb-weight-display) 22px/1 var(--lb-font-display);display:inline-grid;place-items:center}
+
+/* narrow: a taller map, bigger nodes, LinearB's areas in a column */
+@container (max-width:439px){
+  .map{aspect-ratio:.82}
+  .wide{display:none}.narrow{display:block}
+  .hub,.lb,.area,.tool{left:var(--nx);top:var(--ny)}
+  .hub{width:22cqw;height:22cqw}
+  .lb{width:17cqw;height:17cqw}
+  .tool{width:10.5cqw;height:10.5cqw}
+  .area{font-size:11.5px;padding:8px 10px}
+  .tool.more em{display:none}
+}
+
+/* ---- the caption: every version in one grid cell, only the chosen one visible ---- */
+.cap{display:grid;background:var(--lb-slate-700);border:var(--lb-border) solid var(--lb-slate-600);border-radius:var(--lb-radius-card);padding:18px 20px}
+.state{grid-area:1/1;display:grid;gap:12px;align-content:start;visibility:hidden}
+.state.on{visibility:visible}
+.state.on>*{animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(5px)}}
+.capH{display:flex;align-items:center;gap:10px;color:var(--lb-white);font:var(--lb-weight-display) 16px/1.2 var(--lb-font-display);letter-spacing:0}
+.capH .mark{width:18px;height:18px;background:var(--lb-white)}
+.brings{display:grid;grid-template-columns:1fr;gap:12px}
+.brings>div{background:var(--lb-slate-800);border-radius:var(--lb-radius-inner);padding:12px;display:grid;gap:8px;align-content:start}
+.brings p{margin:0;display:flex;align-items:center;gap:7px;font-size:13px;color:var(--lb-slate-300)}
+.dot{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--lb-white);display:grid;place-items:center;color:var(--lb-slate-800)}
+.dot>i{width:60%;height:60%}
+.dot .plus{font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tags span{background:var(--lb-slate-700);border:1px solid var(--lb-slate-600);border-radius:var(--lb-radius-pill);padding:4px 9px;font-size:12.5px;line-height:1.3;color:var(--lb-white)}
+.codes{display:flex;flex-wrap:wrap;gap:6px}
+.codes code{font:400 12px/1 var(--lb-font-mono);letter-spacing:0;color:var(--lb-indigo-300);background:var(--lb-indigo-700);border-radius:6px;padding:5px 7px}
+.logos{display:flex;flex-wrap:wrap;gap:8px}
+.logos .dot{width:30px;height:30px}
+.logos .dot>i{width:54%;height:54%}
+.lbl{margin:2px 0 -4px;font:700 13px/16px var(--lb-font-body);letter-spacing:0;color:var(--lb-slate-300)}
+.builds{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.builds li{position:relative;padding-left:22px;font-size:15px;line-height:1.45;color:var(--lb-white)}
+.builds li::before{content:"";position:absolute;left:2px;top:.45em;width:10px;height:10px;border-radius:3px;background:var(--lb-teal-500)}
+@container (min-width:560px){.brings{grid-template-columns:1fr 1fr}}
+@container (min-width:760px){
+  .cap{padding:22px 24px}
+  .state{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:28px}
+  .state>.capH{grid-column:1/-1}
+  .state>.brings{grid-row:2/4}
+  .state>.areaBrings{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+  .state>.lbl{grid-column:2;grid-row:2;margin:0}
+  .state>.builds{grid-column:2;grid-row:3;align-content:start}
+}
+@container (max-width:759px){.areaBrings{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  .ln,.tool,.tool::after,.area::before{transition:none}
+  .state.on>*{animation:none}
+}

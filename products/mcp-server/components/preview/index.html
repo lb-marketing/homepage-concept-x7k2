@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MCP server components</title>
+<link rel="stylesheet" href="linearb-brand.css">
+<link rel="stylesheet" href="preview.css">
+<style>
+/* preview chrome only */
+.pv-bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:8px;padding:10px 24px;background:var(--lb-white);border-bottom:2px solid var(--lb-rule);font-size:14px}
+.pv-bar b{font-family:var(--lb-font-display);font-weight:600;margin-right:auto}
+.pv-bar span{color:var(--lb-text-muted)}
+.pv-bar button{border:2px solid var(--lb-rule);background:var(--lb-white);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.pv-bar button[aria-pressed=true]{border-color:var(--lb-slate-800)}
+.pv-wrap{margin:0 auto;padding:0 0 64px}
+.pv-sec{padding:40px 0}
+.pv-dark{background:var(--lb-bg-dark);box-shadow:0 0 0 100vmax var(--lb-bg-dark);clip-path:inset(0 -100vmax)}
+.pv-intro h2{margin:0 0 16px;font:600 clamp(30px,3.3vw,42px)/1.15 var(--lb-font-display);color:var(--lb-white)}
+.pv-intro p{margin:0;font-size:18px;line-height:1.5;color:var(--lb-slate-300)}
+.pv-h{margin:0 0 20px;font:600 14px/1 var(--lb-font-mono);color:var(--lb-text-dim)}
+</style>
+<div id="root"></div>
+<script src="preview.js"></script>
+</html>
