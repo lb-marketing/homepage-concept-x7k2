@@ -7,3 +7,6 @@
 # AI assistant page: built for sharing, re-made by its build scripts
 /products/ai-assistant/*.zip
 /products/ai-assistant/LinearB-AI-assistant-page.html
+
+# zips built for sharing (handoffs, handovers)
+/_exports/

@@ -2096,6 +2096,9 @@ body{overflow-x:clip}
 .seats::before{background:linear-gradient(135deg,#e5f7f9 0%,#ecefff 100%)}
 .voices::before{background:linear-gradient(135deg,#ecefff 0%,#e5f7f9 100%)}
 .voices .secure{background:#fff}
+/* the three quote cards share rows, so logos, titles, quotes and captions line up across them */
+.quotes .quote{display:grid;grid-row:span 4;grid-template-rows:subgrid;gap:24px;align-content:start}
+.quotes .quote figcaption{align-self:end}
 /* the logos under the hero visual end flush; give them room before the tinted band below */
 .proof-below{padding-bottom:clamp(32px,4vw,56px)}
 .foot{padding-inline:max(clamp(16px,4vw,40px),calc((100% - 1240px)/2 + clamp(16px,4vw,40px)))}

@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "label": "Hero headline",
+    "options": [
+      "Find where delivery slows, / *and what AI changes*",
+      "Every DORA metric, / *with AI in the picture*",
+      "See how work moves / *from commit to production*",
+      "Measure delivery / *from DORA to AI*",
+      "See how teams ship, / *PR by PR*",
+      "Every DORA metric, / *down to the PR*",
+      "Know where you stand / *against 8.1 million+ PRs*",
+      "Prove what AI changes / *in how you ship*",
+      "Is AI helping your teams / *ship faster?*",
+      "Measure delivery. / *Then act on it.*"
+    ],
+    "default": 3
+  },
+  "sub": {
+    "label": "Hero subheading",
+    "options": [
+      "LinearB tracks all four DORA metrics and the leading indicators behind them, benchmarks every team against 8.1 million+ pull requests, and follows AI-assisted work through the same pipeline as everything else.",
+      "Get full visibility into how your teams deliver, with all four DORA metrics, in-app benchmarks from 8.1 million+ pull requests, and AI adoption tracked against cycle time and change failure rate.",
+      "LinearB connects your git, CI/CD, incident and AI tools, so you can see how work moves from first commit to production and whether AI speeds it up.",
+      "LinearB takes you from any DORA metric to the pull requests behind it, benchmarks every team against 8.1 million+ pull requests, and compares AI-assisted work with the rest.",
+      "All four DORA metrics, benchmarks from 8.1 million+ pull requests and AI adoption across 50+ tools, in one view of how your teams ship.",
+      "LinearB tracks adoption across 50+ AI tools and measures pull requests with and without AI on the same cycle time and DORA metrics as the rest of your work.",
+      "You likely know where delivery slows. LinearB shows the evidence, from every DORA metric to the pull requests behind it and how AI-assisted work compares."
+    ],
+    "default": 2
+  },
+  "dora": {
+    "label": "DORA heading",
+    "options": [
+      "Track all four DORA metrics, down to the pull requests behind them",
+      "Find the bottleneck behind every DORA metric",
+      "Your DORA metrics program starts here"
+    ],
+    "default": 1
+  },
+  "ai": {
+    "label": "AI heading",
+    "options": [
+      "See what AI changes on the delivery metrics you already trust",
+      "Prove whether AI is delivering faster",
+      "See which AI tools your teams use, and what AI changes in delivery"
+    ],
+    "default": 0
+  },
+  "dash": {
+    "label": "Dashboards heading",
+    "options": [
+      "Start from dashboards built for the questions leadership asks",
+      "Answer the questions leadership asks with dashboards LinearB built for them",
+      "Open a dashboard for each question your leadership asks"
+    ],
+    "default": 0
+  },
+  "bench": {
+    "label": "Benchmarks heading",
+    "options": [
+      "See where you stand against 8.1 million+ pull requests",
+      "Know what good looks like for every metric"
+    ],
+    "default": 0
+  },
+  "builder": {
+    "label": "Custom metrics band heading",
+    "options": [
+      "Track the metrics your teams define",
+      "Measure what your teams care about, in their own terms"
+    ],
+    "default": 0
+  },
+  "act": {
+    "label": "Act heading",
+    "options": [
+      "Turn what the metrics show into goals and automations",
+      "Act on every metric, from a question to an automation",
+      "Unblock your team"
+    ],
+    "default": 0
+  },
+  "proof": {
+    "label": "Customer evidence heading",
+    "options": [
+      "How engineering leaders are proving AI impact",
+      "How engineering leaders measure delivery and AI with LinearB"
+    ],
+    "default": 0
+  },
+  "close": {
+    "label": "Closing heading",
+    "options": [
+      "Chart your course to elite status with data-backed goals",
+      "Find where delivery slows, and what AI changes",
+      "Stop guessing whether AI is working. Start knowing."
+    ],
+    "default": 1
+  }
+}

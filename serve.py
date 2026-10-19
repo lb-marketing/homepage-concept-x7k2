@@ -78,6 +78,32 @@ def set_section_default(page, slot, option):
     return True
 
 
+def merge_defaults(path, posted):
+    """The panel only chooses defaults; the option lists belong to the file on disk.
+
+    A tab opened before someone edited variants.json still holds the old lists, so saving what it
+    posts would drop the new options. Instead, keep the file's lists and move each default to the
+    option the panel chose, matched by its text. A chosen text the file doesn't have is added, so
+    a choice is never lost."""
+    try:
+        with open(path, encoding='utf-8') as f:
+            current = json.load(f)
+    except (OSError, ValueError):
+        return posted
+    if not valid(current):
+        return posted
+    for vid, v in posted.items():
+        chosen = v['options'][v['default']]
+        if vid not in current:
+            current[vid] = v
+            continue
+        options = current[vid]['options']
+        if chosen not in options:
+            options.append(chosen)
+        current[vid]['default'] = options.index(chosen)
+    return current
+
+
 def valid(data):
     return isinstance(data, dict) and all(
         isinstance(v, dict)
@@ -169,6 +195,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self.end_headers()
         if not valid(data):
             return self.send_error(400, 'Unexpected variants shape')
+        data = merge_defaults(variants, data)
         tmp = variants + '.tmp'
         with open(tmp, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
