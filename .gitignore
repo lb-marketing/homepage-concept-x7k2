@@ -2,7 +2,6 @@
 .claude/
 /concept.html
 /factory-options.js
-/apex-options.js
 
 # AI assistant page: built for sharing, re-made by its build scripts
 /products/ai-assistant/*.zip
