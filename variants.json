@@ -2,6 +2,7 @@
   "hero": {
     "label": "Hero headline",
     "options": [
+      "Drive [productivity|velocity|quality|reporting] / with engineering context",
       "Drive [productivity|predictability|quality|reporting] / with engineering context",
       "Engineering context layer / to drive productivity",
       "The context layer for / engineering productivity",
@@ -15,6 +16,7 @@
   "sub": {
     "label": "Hero subheading",
     "options": [
+      "LinearB accelerates every step of the SDLC, with guardrails and scale built in, *from an agent merging a change to a quarterly AI ROI report.*",
       "LinearB accelerates every step of the enterprise SDLC, with guardrails and scale built in, *from an agent merging a low-risk change to a quarterly report for leadership.*",
       "Speed up every step of your SDLC with the guardrails and scale an enterprise needs, *from an agent shipping a fix to the quarterly report for leadership.*",
       "Engineering context for every step of your SDLC, with enterprise guardrails and scale, *from an agent writing and merging a change to the quarterly report your leadership reads.*",

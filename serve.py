@@ -35,11 +35,12 @@ def render(tag, text):
     """Same markup variants.js renders: ' / ' marks a line break, *text* is emphasis, [a|b] rotates."""
     def rot(m):
         words = [w.strip() for w in m.group(1).split('|')]
-        hide = ' aria-hidden="true"'
-        return '<span class="rot">' + ''.join(f'<span{hide if i else ""}>{w}</span>' for i, w in enumerate(words)) + '</span>'
+        # only the first word is page text; the others draw from data-w in CSS, so search engines read one headline
+        return '<span class="rot">' + ''.join(('<span data-w="%s" aria-hidden="true"></span>' % w) if i else ('<span>%s</span>' % w) for i, w in enumerate(words)) + '</span>'
     lines = [re.sub(r'\[([^\]]+)\]', rot, re.sub(r'\*(.+?)\*', r'<em>\1</em>', html.escape(l.strip(), quote=False))) for l in text.split(' / ') if l.strip()]
     if tag == 'h1':
-        return ''.join(f'<span class="ln">{l}</span>' for l in lines)
+        # the space keeps the words apart for search engines and screen readers, as variants.js does
+        return ' '.join(f'<span class="ln">{l}</span>' for l in lines)
     return '<br>'.join(lines)
 
 

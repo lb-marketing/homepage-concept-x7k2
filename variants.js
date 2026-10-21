@@ -73,8 +73,9 @@ const css = `
 let data = {}, picks = store.get(PICKS, {}), canSave = true, items = [];
 
 /* ---------- headline text ---------- */
-// [a|b|c] is a word the page rotates through; every word sits in one grid cell, so the widest sets the width
-const rot = (m, words) => '<span class="rot">' + words.split('|').map((w, i) => `<span${i ? ' aria-hidden="true"' : ''}>${w.trim()}</span>`).join('') + '</span>';
+// [a|b|c] is a word the page rotates through; every word sits in one grid cell, so the widest sets the width.
+// Only the first is page text: the others draw from data-w in CSS, so search engines read one clean headline
+const rot = (m, words) => '<span class="rot">' + words.split('|').map((w, i) => i ? `<span data-w="${w.trim()}" aria-hidden="true"></span>` : `<span>${w.trim()}</span>`).join('') + '</span>';
 function renderText(el, text){
   const lines = text.split(' / ').map(l => l.trim()).filter(Boolean).map(l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>').replace(/\[([^\]]+)\]/g, rot));
   el.innerHTML = el.tagName === 'H1'

@@ -22,6 +22,8 @@ Then open http://localhost:8123/brand.html or http://localhost:8123/products/.
 
 `serve.py` serves the folder and also saves choices from the variants panel. A plain static server shows the pages but can't save.
 
+**Homepage handover:** `python3 build-handover.py` writes `_exports/LinearB-homepage-handover.zip` for the web team: the chosen page with no nav, footer, variants panel or unused versions, plus `HANDOVER-HOMEPAGE.md` as its README. Re-run it after `brand.html` changes.
+
 ## The variants panel
 
 `variants.js` adds a review panel to every page for comparing versions:
@@ -63,7 +65,7 @@ Locking in a choice writes it into the page file, so it's the default with or wi
 | Connection map | Dark band diagram: your AI tool at the centre, LinearB as the biggest source with its areas around it, and every other tool connected too. Choosing a tool lights LinearB and that tool flowing into the AI tool, and the caption shows what each brings and what you can build with both. A dashed "any MCP server" node marks the tools as a sample. The caption runs full width under the copy and the map on wide screens | `.map` in `products/mcp-server` | MCP server | Tools, areas and captions |
 | Trust notes | Three white cards with a brand icon, heading and line, above the security bar | `.trust` in `products/mcp-server` | MCP server | Notes |
 | Picker and panel | Buttons or cards that switch one panel. The panel holds its tallest state so switching never moves the page: either `reserve()`, or all panels stacked in one grid cell (`.dwin`) | `reserve()` and `.dsh` in `products/engineering-metrics` | AI assistant (hero tiles), engineering metrics (hero, DORA, AI tools, dashboards), MCP server (hero recipes) | Data |
-| Explore, Measure, Act | Three sections with a picker beside one window: Explore is the AI assistant chat, Measure a dashboard, Act a pull request timeline with effort and label pills. Each window holds its tallest state | `#ask`, `#measure`, `#act` in `brand.html` | Homepage | Prompts, dashboards and pull requests |
+| Explore, Measure, Act | LinearB's approach. Each heading leads with its step in that step's colour (indigo, teal, coral), with a linked three-step trail under it. Three sections with a picker beside one window: Explore is the AI assistant chat, Measure a dashboard, Act a pull request timeline with effort and label pills. Each window holds its tallest state | `#ask`, `#measure`, `#act` in `brand.html` | Homepage | Prompts, dashboards and pull requests |
 | APEX view | Four pillar cards in one window, each with the question it answers, a metric and chart, and the LinearB products behind it. Charts and product lines line up across a row | `#apex-overview` in `brand.html` | Homepage | Data |
 | Customer evidence | Gartner card, three customer quotes with headshots and outline story buttons, and a dark security bar in the Gartner card's teal | `brand.html` `#voices` | Homepage, engineering metrics (MCP server uses only its security bar) | Heading; which quotes |
 | Latest resources | Three recent posts, or a featured guide | `brand.html` `#latest` | Homepage | Posts |
