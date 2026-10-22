@@ -522,7 +522,7 @@ html,body{overflow-x:clip}
 .topics li.own{background:none;box-shadow:inset 0 0 0 2px var(--indigo);color:var(--indigo-6);font-weight:500}
 .resp{display:grid;gap:12px}
 .resp .seg{justify-self:start;flex-wrap:wrap}
-.form{padding:22px;height:420px;display:flex;flex-direction:column;gap:14px}
+.form{padding:22px;height:380px;display:flex;flex-direction:column;gap:14px}
 .form-h{display:flex;justify-content:space-between;font-size:12.5px;color:var(--dim)}
 .form-h b{color:var(--ink);font-weight:500}
 .prog{height:4px;background:var(--pane);border-radius:4px;overflow:hidden}.prog i{display:block;height:100%;background:var(--indigo)}
@@ -532,15 +532,15 @@ html,body{overflow-x:clip}
 .scale span{border:2px solid var(--rule);border-radius:10px;padding:8px 4px;text-align:center;font-size:11.5px;line-height:1.25;color:var(--slate)}
 .scale span b{display:block;font:600 16px/1.2 var(--sans);color:var(--ink)}
 .scale span.on{border-color:var(--indigo);background:var(--lav-2)}
-.opts{display:grid;gap:6px}
+.opts{flex:1;display:grid;gap:6px;align-content:space-evenly}
 .opts span{border:2px solid var(--rule);border-radius:10px;padding:9px 12px;font-size:14px;color:var(--ink)}
 .opts span.on{border-color:var(--indigo);background:var(--lav-2)}
-.why{display:grid;gap:6px;font-size:13.5px;color:var(--ink)}
-.why div{border:2px solid var(--rule);border-radius:10px;padding:10px 12px;min-height:58px;font-size:13.5px;color:var(--slate);line-height:1.45}
+.why{flex:1;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--ink)}
+.why div{flex:1;border:2px solid var(--rule);border-radius:10px;padding:10px 12px;min-height:58px;font-size:13.5px;color:var(--slate);line-height:1.45}
 .form-f{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}
 .form-f span:last-child{background:var(--ink);color:#fff;border-radius:999px;padding:8px 16px;font:600 13px/1 var(--display)}
 @media (max-width:980px){.tq{grid-template-columns:1fr}}
-@media (max-width:560px){.form{height:470px;padding:16px}.scale span{font-size:10px}}
+@media (max-width:560px){.form{height:440px;padding:16px}.scale span{font-size:10px}}
 
 /* Slack: text beside a Slack window, on the dark band */
 .night .tq .lede{color:var(--night-dim)}
@@ -733,11 +733,9 @@ html,body{overflow-x:clip}
           <div>
             <div class="hm" id="hm" role="group" aria-label="Scores by team and topic"></div>
             <div class="hm-key" aria-hidden="true">
-              <span><i style="background:var(--coral-soft)"></i>Below 3</span>
-              <span><i style="background:var(--pane)"></i>3 to 3.4</span>
-              <span><i style="background:var(--lav)"></i>3.5 to 3.9</span>
-              <span><i style="background:var(--good-soft)"></i>4 and above</span>
-              <span>N/A · fewer than 3 responses</span>
+              <span><i style="background:var(--coral-soft)"></i>Weaker</span>
+              <span><i style="background:var(--good-soft)"></i>Stronger</span>
+              <span>Colours compare scores within the survey · N/A means fewer than 3 responses</span>
             </div>
           </div>
           <div class="dr" id="dr" aria-live="polite"></div>
@@ -776,14 +774,13 @@ html,body{overflow-x:clip}
     <div class="tq">
       <div>
         <h2 data-variant="topics">Ask questions only an engineer can answer</h2>
-        <p class="lede">AI only pays off if your developers trust it. Ask them with topics written for engineers, and see the reason behind every low score.</p>
-        <ul class="topics" aria-label="Standard topics">
+        <p class="lede">AI only pays off if your developers trust it. Ask them with topics written for engineers, and read the comments behind the scores.</p>
+        <ul class="topics" aria-label="Some of the standard topics">
           <li>AI-assisted development</li>
 <li>Productivity and workflow</li>
 <li>Code quality and maintainability</li>
 <li>Developer experience</li>
 <li>Satisfaction and well-being</li>
-<li class="more">+ 5 more</li>
 <li class="own">+ Write your own topic</li>
         </ul>
         <p class="tq-more"><a class="link" href="https://linearb.io/blog/surveys-enhancements">See what’s new in LinearB Surveys <i>→</i></a></p>
@@ -807,8 +804,7 @@ html,body{overflow-x:clip}
           <h2 data-variant="slack">Reach every developer in Slack, without another login</h2>
           <p class="lede">LinearB sends each person a direct message with their own link, so answering takes a click instead of a password.</p>
           <ul class="ticks">
-            <li><span><b>Send it to anyone.</b> The whole engineering organization, chosen teams or named people.</span></li>
-            <li><span><b>Save and finish later.</b> Developers can save their progress and pick up a longer survey where they left off.</span></li>
+            <li><span><b>Send it to everyone, or just the teams you choose.</b> Survey all employees, or selected teams and groups.</span></li>
             <li><span><b>Nudge only the people who haven’t finished.</b> Send a reminder from the survey menu, once a day at most.</span></li>
           </ul>
         </div>
@@ -823,7 +819,7 @@ html,body{overflow-x:clip}
 <span>Mon 9:02</span></div>
                   <p>Hi Priya, your engineering leadership wants to hear how work is going for you.</p>
                   <div class="att"><b>Q4 developer survey</b>
-<span>12 questions · your answers are anonymous</span>
+<span>Your personal survey link</span>
 <span class="sbtn go">Start survey</span></div>
                 </div>
               </div>
@@ -832,8 +828,8 @@ html,body{overflow-x:clip}
                 <div>
                   <div class="msg-h"><b>LinearB</b>
 <span>Wed 9:00</span></div>
-                  <p>Reminder: the Q4 developer survey is still open. Pick up where you left off.</p>
-                  <span class="sbtn">Continue survey</span>
+                  <p>Reminder: the Q4 developer survey is still open.</p>
+                  <span class="sbtn">Open survey</span>
                 </div>
               </div>
             </div>
@@ -871,8 +867,8 @@ html,body{overflow-x:clip}
     <div class="trust">
       <div><svg class="dpi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"><path d="M2.2 4.6C1.5 5.3 .9 6.1 .6 7c1 2.6 3.5 4.5 6.4 4.5 1 0 1.9-.2 2.7-.6"/><path d="M5 2.9c.6-.2 1.3-.4 2-.4 2.9 0 5.4 1.9 6.4 4.5-.4 1-1 1.9-1.8 2.6"/><path d="M8.4 8.4A2 2 0 0 1 5.6 5.6"/><path d="M1 1l12 12"/></g></svg><h3>Anonymous by design</h3>
 <p>LinearB hides any score with fewer than 3 responses and any comment with fewer than 5, so a small team can still answer openly.</p></div>
-      <div><svg class="dpi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><desc>User Multiple Group Streamline Icon: https://streamlinehq.com</desc><g><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M5 6.5c1.38071 0 2.5 -1.11929 2.5 -2.5S6.38071 1.5 5 1.5 2.5 2.61929 2.5 4 3.61929 6.5 5 6.5Z" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M0.5 13.5h9v-0.5421c-0.00796 -0.7622 -0.20898 -1.51 -0.58427 -2.1734 -0.3753 -0.6635 -0.91263 -1.221 -1.5618 -1.62049 -0.64918 -0.3995 -1.38902 -0.62793 -2.15041 -0.66398C5.13564 8.49682 5.06778 8.49514 5 8.495c-0.06778 0.00014 -0.13564 0.00182 -0.20352 0.00503 -0.76139 0.03605 -1.50123 0.26448 -2.15041 0.66398 -0.64917 0.39949 -1.1865 0.95699 -1.5618 1.62049C0.708977 11.4479 0.507961 12.1957 0.5 12.9579V13.5Z" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M9 6.5c1.3807 0 2.5 -1.11929 2.5 -2.5S10.3807 1.5 9 1.5" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M11.5 13.5001h2v-0.5422c-0.008 -0.7622 -0.209 -1.51 -0.5843 -2.1734 -0.3753 -0.6635 -0.9126 -1.22098 -1.5618 -1.62047 -0.4196 -0.25825 -0.8772 -0.44501 -1.3539 -0.55453" stroke-width="1"></path></g></svg><h3>Teams, never individuals</h3>
-<p>Results roll up by team and topic. Nothing in LinearB Surveys ranks or scores a single developer.</p></div>
+      <div><svg class="dpi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><desc>User Multiple Group Streamline Icon: https://streamlinehq.com</desc><g><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M5 6.5c1.38071 0 2.5 -1.11929 2.5 -2.5S6.38071 1.5 5 1.5 2.5 2.61929 2.5 4 3.61929 6.5 5 6.5Z" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M0.5 13.5h9v-0.5421c-0.00796 -0.7622 -0.20898 -1.51 -0.58427 -2.1734 -0.3753 -0.6635 -0.91263 -1.221 -1.5618 -1.62049 -0.64918 -0.3995 -1.38902 -0.62793 -2.15041 -0.66398C5.13564 8.49682 5.06778 8.49514 5 8.495c-0.06778 0.00014 -0.13564 0.00182 -0.20352 0.00503 -0.76139 0.03605 -1.50123 0.26448 -2.15041 0.66398 -0.64917 0.39949 -1.1865 0.95699 -1.5618 1.62049C0.708977 11.4479 0.507961 12.1957 0.5 12.9579V13.5Z" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M9 6.5c1.3807 0 2.5 -1.11929 2.5 -2.5S10.3807 1.5 9 1.5" stroke-width="1"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M11.5 13.5001h2v-0.5422c-0.008 -0.7622 -0.209 -1.51 -0.5843 -2.1734 -0.3753 -0.6635 -0.9126 -1.22098 -1.5618 -1.62047 -0.4196 -0.25825 -0.8772 -0.44501 -1.3539 -0.55453" stroke-width="1"></path></g></svg><h3>Results by team, not by person</h3>
+<p>Results roll up by team and topic, and small groups show N/A, so no one can be picked out.</p></div>
       <div><svg class="dpi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
   <desc>
     User Setting Gear Streamline Icon: https://streamlinehq.com
@@ -918,7 +914,7 @@ html,body{overflow-x:clip}
 <div class="nb">
           <ul class="rules"><li>Additional review for large PRs</li>
 <li>Estimated time to review on every PR</li>
-<li>AI code review on every PR</li></ul></div>
+<li>AI code review</li></ul></div>
         </div>
         <div class="note end">
           <b>What the pulse showed</b>
@@ -962,13 +958,13 @@ html,body{overflow-x:clip}
       <details><summary>We already run an engagement survey. Why another one?</summary>
 <p>Company engagement surveys cover everyone from sales to legal, use questions you didn’t write, and report by department weeks later. LinearB Surveys asks questions only engineers can answer, scores them by delivery team, in the same platform as the delivery metrics for those teams.</p></details>
       <details><summary>Are responses anonymous?</summary>
-<p>Yes. LinearB hides scores for any team, topic or question with fewer than 3 responses, and hides comments, open-text answers and multiple-choice selections with fewer than 5. Results are never shown for an individual.</p></details>
+<p>Yes. LinearB hides scores for any team, topic or question with fewer than 3 responses, and hides comments, open-text answers and multiple-choice selections with fewer than 5.</p></details>
       <details><summary>Who can see the results?</summary>
 <p>Primary Admins and Super Users. They create, launch and end surveys and view results. Team managers and other users don’t see survey results.</p></details>
       <details><summary>How do developers receive the survey?</summary>
 <p>Through a Slack direct message with a personal link, so they can answer without logging in to LinearB. Organizations without Slack can contact LinearB support about enabling Surveys. <a class="link" href="https://linearb.helpdocs.io/article/lbmfjcznpl-surveys-in-linear-b">Read the Surveys docs <i>→</i></a></p></details>
       <details><summary>Can I write my own questions?</summary>
-<p>Yes. Add your own topics and questions alongside the standard ones, as 1 to 5 ratings, multiple choice or open text. Ratings feed the scores; multiple-choice and open-text answers show as their own results.</p></details>
+<p>Yes. Add your own topics and questions alongside the standard ones, as 1 to 5 ratings, multiple choice or open text. Ratings feed the scores. Multiple-choice answers show as their own results, and open-text answers come out in the CSV export.</p></details>
       <details><summary>How often should we run a survey?</summary>
 <p>We recommend an organization-wide survey each quarter, with pulse surveys for single teams in between. Duplicate a survey to run it again, so each round compares like with like.</p></details>
     </div>
@@ -1101,12 +1097,10 @@ function drawForm(k){
     : `<div class="scale">${LABELS.map((l, i) => `<span class="${i === f.on ? 'on' : ''}"><b>${i + 1}</b>${l}</span>`).join('')}</div>
        <div class="why">${f.why}<div>${f.ans}</div></div>`;
   form.innerHTML = `
-    <div class="form-h"><b><i class="pav c2" aria-hidden="true">PS</i>Q4 developer survey</b><span>Question ${f.n} of 12 · sample</span></div>
-    <div class="prog"><i style="width:${Math.round(f.n / 12 * 100)}%"></i></div>
+    <div class="form-h"><b><i class="pav c2" aria-hidden="true">PS</i>Q4 developer survey</b><span>Sample</span></div>
     <span class="tag">${f.topic}</span>
     <h3>${f.q}</h3>
-    ${input}
-    <div class="form-f"><span>Save and finish later</span><span>Next</span></div>`;
+    ${input}`;
 }
 document.querySelectorAll('#tq-seg button').forEach(b => b.onclick = () => {
   document.querySelectorAll('#tq-seg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
