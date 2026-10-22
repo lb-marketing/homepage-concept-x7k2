@@ -22,6 +22,8 @@ Then open http://localhost:8123/brand.html or http://localhost:8123/products/.
 
 `serve.py` serves the folder and also saves choices from the variants panel. A plain static server shows the pages but can't save.
 
+**Homepage handover:** `python3 build-handover.py` writes `_exports/LinearB-homepage-handover.zip` for the web team: the chosen page with no nav, footer, variants panel or unused versions, plus `HANDOVER-HOMEPAGE.md` as its README. Re-run it after `brand.html` changes.
+
 ## The variants panel
 
 `variants.js` adds a review panel to every page for comparing versions:
@@ -47,7 +49,9 @@ Locking in a choice writes it into the page file, so it's the default with or wi
 | Block | What it's for | Canonical version | Used on | Changes per page |
 | :-- | :-- | :-- | :-- | :-- |
 | Nav | Logo, main links, demo button | `header .nav` in any page | All | Current page link |
-| Hero | Two-line headline, subheading, two CTAs | `section.hero` | All | Headline and subheading (variants) |
+| Hero | Two-line headline, subheading and CTAs. The homepage leads with one large purple Book a demo button; product pages keep two CTAs | `section.hero` | All | Headline and subheading (variants) |
+| Large button | The one call to action under a display headline: 17px text, 56px tall. Every other button stays the standard size | `.hero .ctas .btn.solid` in `brand.html` | Homepage (hero, plain close) | Nothing |
+| Context layer hero | Homepage hero visual: tools on the left flow through Normalize, Enrich and Augment into a People card (an Ask AI prompt) and an Agents card (a Claude Code session acting on cost, velocity and quality) | `.tn-ha` in `brand.html` | Homepage | Stories and card copy |
 | Hero demo stage | Interactive demo in white cards on a Teal 200 panel | `.stage-wrap > .aqua` in `products/ai-assistant` | AI assistant, engineering metrics, MCP server | The demo inside |
 | Logo strip | Scrolling customer logos | **Two versions, see open decisions** | All | Nothing |
 | Section heading | `h2` with an optional lede paragraph below it, no eyebrow label above | `.sect h2` + `.lede` | All | Copy |
@@ -63,13 +67,15 @@ Locking in a choice writes it into the page file, so it's the default with or wi
 | Picker and panel | Buttons or cards that switch one panel. The panel holds its tallest state so switching never moves the page: either `reserve()`, or all panels stacked in one grid cell (`.dwin`) | `reserve()` and `.dsh` in `products/engineering-metrics` | AI assistant (hero tiles), engineering metrics (hero, DORA, AI tools, dashboards), MCP server (hero recipes) | Data |
 | Survey results | Hero demo: team × topic heatmap (with N/A cells below the 3-response threshold) beside a fixed-height drill-down of the chosen cell: questions, a 1 to 5 answer spread and comments, or a note when comments are hidden below 5 | `.sv`, `.hm` and `.dr` in `products/developer-surveys` | Developer surveys | Teams, topics, questions |
 | Heatmap lens | A static team × topic heatmap with a two-way toggle: "Read a row" highlights one team across every topic, "Read a column" one topic across every team, dimming the rest, with a fixed-height caption beside it | `.lens` and `.lhm` in `products/developer-surveys` | Developer surveys | Teams, topics, captions |
-| Story steps | Three act cards in a row that follow one finding through: what the team said, the change made, and a before-and-after pulse chart | `.story` and `.pch` in `products/developer-surveys` | Developer surveys | Steps |
-| Respondent form | What a developer sees for one question: progress, topic tag, 1 to 5 scale or multiple choice, and the written prompt, switched by a `.seg` picker in a fixed-height card | `.form` in `products/developer-surveys` | Developer surveys | Questions |
+| Annotated timeline | One wide card that follows a single finding over time: three notes (what the team said, what changed, what the pulse showed) above a score line with a dashed marker for the change | `.arc`, `.note` and `.plot` in `products/developer-surveys` | Developer surveys | Notes and scores |
+| Respondent form | What a developer sees for one question: topic tag, 1 to 5 scale or multiple choice, and the optional comment, switched by a `.seg` picker in a fixed-height card | `.form` in `products/developer-surveys` | Developer surveys | Questions |
 | Slack message | A Slack DM window with LinearB messages, an attachment card and buttons, plus a footer status row | `.slack` in `products/developer-surveys` | Developer surveys (dark band) | Messages |
-| Customer evidence | Gartner card, three customer quotes, security bar | `brand.html` `#voices` | Homepage, engineering metrics (MCP server uses only its security bar) | Heading; which quotes |
+| Explore, Measure, Act | LinearB's approach. Each heading leads with its step in that step's colour (indigo, teal, coral), with a linked three-step trail under it. Three sections with a picker beside one window: Explore is the AI assistant chat, Measure a dashboard, Act a pull request timeline with effort and label pills. Each window holds its tallest state | `#ask`, `#measure`, `#act` in `brand.html` | Homepage | Prompts, dashboards and pull requests |
+| APEX view | Four pillar cards in one window, each with the question it answers, a metric and chart, and the LinearB products behind it. Charts and product lines line up across a row | `#apex-overview` in `brand.html` | Homepage | Data |
+| Customer evidence | Gartner card, three customer quotes with headshots and outline story buttons, and a dark security bar in the Gartner card's teal | `brand.html` `#voices` | Homepage, engineering metrics (MCP server uses only its security bar) | Heading; which quotes |
 | Latest resources | Three recent posts, or a featured guide | `brand.html` `#latest` | Homepage | Posts |
 | FAQ | Question list that opens one answer at a time | `section.faq` | AI assistant, engineering metrics, MCP server | Questions |
-| Closing CTA, homepage | Last heading and the two CTAs, on a dark centred panel with the live count of developer workflows automated | `brand.html` `.close` | Homepage only | Heading (variants) |
+| Closing CTA, homepage | A two-line heading, its second line in aqua, over one large Book a demo button on a dark centred panel. Other versions in the variants panel: the live workflow count, tools sending events into the button, and a Claude Code session that offers the CTAs | `brand.html` `.close` | Homepage only | Heading |
 | Closing CTA, product pages | Last heading left and the two CTAs right, on an aqua panel | `#start .close` in `products/ai-assistant` | All product pages | Heading (variants) |
 | Footer | Page name and draft note | `footer.foot` | All | Page name |
 

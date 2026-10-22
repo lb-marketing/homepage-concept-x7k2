@@ -3,7 +3,8 @@
 
    Two kinds of thing can have versions, and each one with two or more shows up in the panel:
    - Headline text: an element with data-variant="<id>", its options listed in variants.json.
-     In an option, " / " marks a line break.
+     In an option, " / " marks a line break, *text* is emphasis and [a|b|c] is a word the
+     page rotates through (the page's own script runs the rotation).
    - Whole sections: sibling elements sharing data-slot="<slot>", each named with
      data-option="<name>". The default one carries data-default; the others carry hidden.
      A version's script can listen for the "variant:show" event to start once it is visible.
@@ -72,8 +73,11 @@ const css = `
 let data = {}, picks = store.get(PICKS, {}), canSave = true, items = [];
 
 /* ---------- headline text ---------- */
+// [a|b|c] is a word the page rotates through; every word sits in one grid cell, so the widest sets the width.
+// Only the first is page text: the others draw from data-w in CSS, so search engines read one clean headline
+const rot = (m, words) => '<span class="rot">' + words.split('|').map((w, i) => i ? `<span data-w="${w.trim()}" aria-hidden="true"></span>` : `<span>${w.trim()}</span>`).join('') + '</span>';
 function renderText(el, text){
-  const lines = text.split(' / ').map(l => l.trim()).filter(Boolean).map(l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>'));
+  const lines = text.split(' / ').map(l => l.trim()).filter(Boolean).map(l => esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>').replace(/\[([^\]]+)\]/g, rot));
   el.innerHTML = el.tagName === 'H1'
     ? lines.map(l => `<span class="ln">${l}</span>`).join(' ')  // the space keeps the words apart for search engines and screen readers
     : lines.join('<br>');
@@ -85,7 +89,7 @@ function textItem(el){
     name: v.label || id,
     count: () => v.options.length,
     def: () => v.default,
-    label: i => v.options[i].replace(/ \/ /g, ' ').replace(/\*/g, ''),
+    label: i => v.options[i].replace(/ \/ /g, ' ').replace(/\*/g, '').replace(/\[([^|\]]+)[^\]]*\]/g, '$1'),
     show: i => renderText(el, v.options[i]),
     lock: async i => {
       const prev = v.default; v.default = i;
