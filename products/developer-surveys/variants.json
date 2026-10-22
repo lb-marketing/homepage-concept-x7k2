@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "label": "Hero headline",
+    "options": [
+      "Developer surveys / *on what AI changed*",
+      "Developer surveys / *built for engineering*",
+      "Developer surveys, / *team by team*",
+      "Put your developers’ words / *next to your delivery data*",
+      "Ask your developers / *what AI changed*",
+      "Find out how AI landed, / *team by team*",
+      "Hear from every team / *before it shows in the metrics*"
+    ],
+    "default": 0
+  },
+  "sub": {
+    "label": "Hero subheading",
+    "options": [
+      "AI changed how your teams build software. Your delivery metrics show what they shipped, and LinearB Surveys shows whether the people who shipped it are holding up and bought in, team by team.",
+      "AI changed what your developers do all day. LinearB Surveys asks them how it’s going, then shows you team by team what to spread and what to fix.",
+      "Ask questions only engineers can answer and see every team scored against every topic, down to the comments behind each score.",
+      "Your delivery metrics show what your teams shipped. LinearB Surveys shows how the people who shipped it are holding up, team by team."
+    ],
+    "default": 0
+  },
+  "topics": { "label": "Topics heading", "options": ["Ask questions only an engineer can answer", "Ask what your company survey can’t", "Questions written for people who build software"], "default": 0 },
+  "slack": { "label": "Slack heading", "options": ["Reach every developer in Slack, without another login", "Get more answers by asking where developers already work"], "default": 0 },
+  "read": { "label": "Results heading", "options": ["See whether a problem belongs to one team or every team", "Find what to spread and what to fix"], "default": 0 },
+  "trust": { "label": "Trust heading", "options": ["Built so developers can tell you the truth", "Anonymous enough for honest answers"], "default": 1 },
+  "act": { "label": "Act heading", "options": ["Act on what the survey surfaces", "Turn answers into changes"], "default": 0 },
+  "metrics": { "label": "Cross-link heading", "options": ["See what your teams shipped beside what they said", "Read survey results next to delivery metrics"], "default": 0 },
+  "close": { "label": "Closing heading", "options": ["Ask your developers how the last year of AI landed", "Start with the topic you’re least sure about"], "default": 0 }
+}
